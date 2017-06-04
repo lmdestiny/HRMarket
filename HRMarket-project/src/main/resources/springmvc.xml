@@ -4,7 +4,7 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 	<mvc:annotation-driven />
-	<!-- <mvc:redirect-view-controller redirect-url="/toPageIndex" path="/" /> -->
+	<mvc:redirect-view-controller redirect-url="/toPageIndex" path="/" />
 	<mvc:resources location="/js/" mapping="/js/**"></mvc:resources>
 	<mvc:resources location="/styles/" mapping="/styles/**"></mvc:resources>
 	<bean id="viewResolver"
