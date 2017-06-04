@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<app-config>
+	<dba-config type="com.imti.ldlsc.common.config.DbaConfig">
+		<dba>oracle</dba>
+		<dba-driver>com.mysql.jdbc.Driver</dba-driver>
+		<dba-url>jdbc:mysql://localhost:3306/ldlsc</dba-url>
+		<dba-username>root</dba-username>
+		<dba-password>tiger</dba-password>
+		<dba-initnum>3</dba-initnum>
+		<dba-maxnum>5</dba-maxnum>
+		<dba-maxidle>2</dba-maxidle>
+		<dba-maxwait>2000</dba-maxwait>
+	</dba-config>
+	<dba-config type="com.imti.ldlsc.common.codetable.ComputergradeOperation" />
+	<dba-config type="com.imti.ldlsc.common.codetable.Deformity" />
+	<!-- <dba-config type="com.imti.ldlsc.common.codetable.DwlxOperation" /> -->
+	<dba-config type="com.imti.ldlsc.common.codetable.EducationallevelOperation" />
+	<dba-config type="com.imti.ldlsc.common.codetable.EmploytypeOperation" />
+	<dba-config type="com.imti.ldlsc.common.codetable.HealthstateOperation" />
+	<dba-config type="com.imti.ldlsc.common.codetable.IndustryOperation" />
+	<dba-config type="com.imti.ldlsc.common.codetable.LanguageOperation" />
+	<dba-config type="com.imti.ldlsc.common.codetable.MarriageOperation" />
+	<dba-config type="com.imti.ldlsc.common.codetable.NationOperation" />
+	<dba-config type="com.imti.ldlsc.common.codetable.OrgtypeOperation" />
+	<dba-config type="com.imti.ldlsc.common.codetable.PersonneltypeOperation" />
+	<dba-config type="com.imti.ldlsc.common.codetable.LanguageOperation" />
+	<dba-config type="com.imti.ldlsc.common.codetable.PersonneltypeOperation" />
+	<dba-config type="com.imti.ldlsc.common.codetable.PoliticsaspectOperation" />
+	<dba-config type="com.imti.ldlsc.common.codetable.ProficiencyOperation" />
+	<dba-config type="com.imti.ldlsc.common.codetable.QualificationOperation" />
+	<dba-config type="com.imti.ldlsc.common.codetable.RegioncodeOperation" />
+	<dba-config type="com.imti.ldlsc.common.codetable.RegtypeOperation" />
+	<dba-config type="com.imti.ldlsc.common.codetable.RprtypeOperation" />
+	<dba-config type="com.imti.ldlsc.common.codetable.SexOperation" />
+	<dba-config type="com.imti.ldlsc.common.codetable.SpecialtyOperation" />
+	<dba-config type="com.imti.ldlsc.common.codetable.ZjdgwlbOperation" />
+</app-config>
