@@ -17,4 +17,9 @@ public final class TestController{
 		return HealthstateOperation.getOption(cd_id);
 	}
 	
+	@RequestMapping("/n")
+	public String second() {
+		return  "index";
+	}
+	
 }
