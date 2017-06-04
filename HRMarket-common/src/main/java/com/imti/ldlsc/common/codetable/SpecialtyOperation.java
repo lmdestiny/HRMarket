@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Set;
 
 import com.imti.ldlsc.common.config.IAppConfig;
-import com.imti.ldlsc.hrm.common.util.DBCommon;
+import com.imti.ldlsc.common.util.DBCommon;
 
 public class SpecialtyOperation implements IAppConfig{
 	private static HashMap<String,String> map = new HashMap<>();

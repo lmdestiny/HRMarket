@@ -1,6 +1,6 @@
 package com.imti.ldlsc.common.config;
 
-import com.imti.ldlsc.hrm.common.util.ReadXML;
+import com.imti.ldlsc.common.util.ReadXML;
 
 public class DbaConfig implements IAppConfig{
 	private static String DBA;

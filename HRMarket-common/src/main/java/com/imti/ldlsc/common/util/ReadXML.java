@@ -1,4 +1,4 @@
-package com.imti.ldlsc.hrm.common.util;
+package com.imti.ldlsc.common.util;
 
 import java.io.IOException;
 

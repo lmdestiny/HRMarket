@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.Set;
 
 import com.imti.ldlsc.common.config.IAppConfig;
-import com.imti.ldlsc.hrm.common.util.DBCommon;
+import com.imti.ldlsc.common.util.DBCommon;
 
 public class SexOperation implements IAppConfig{
 	private static HashMap<String,String> map = new HashMap<>();

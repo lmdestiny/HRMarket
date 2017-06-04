@@ -1,4 +1,4 @@
-package com.imti.ldlsc.hrm.common;
+package com.imti.ldlsc.common;
 
 import java.io.File;
 

@@ -5,7 +5,7 @@
 		<dba-driver>com.mysql.jdbc.Driver</dba-driver>
 		<dba-url>jdbc:mysql://localhost:3306/ldlsc</dba-url>
 		<dba-username>root</dba-username>
-		<dba-password>tiger</dba-password>
+		<dba-password>li220</dba-password>
 		<dba-initnum>3</dba-initnum>
 		<dba-maxnum>5</dba-maxnum>
 		<dba-maxidle>2</dba-maxidle>
