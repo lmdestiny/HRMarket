@@ -1,5 +1,80 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.hrm.dao.BipMapper" >
-
+	<select id="findBip" resultType="com.hrm.vo.Bip" parameterType="Map">
+		SELECT
+			bip.bip_id as bipId,
+			  `bip_citizenid` as  bipCitizenid,
+			  `bip_sex` as bipSex,
+			  `bip_age` as bipAge,
+			  `bip_name`  as bipName,
+			  `bip_birthday` as bipBirthday,
+			  `bip_minzu` as bipMinzu,
+			  `bip_zzmm`  as bipZzmm,
+			  `bip_hyzk` as bipHyzk,
+			  `bip_hjxz` as  bipHjxz,
+			  `bip_rylb`  as  bipRylb,
+			  `bip_jkzk` as  bipJkzk,
+			  `bip_cjqk`  as bipCjqk,
+			  `bip_eyesightleft` as bipEyesightleft,
+			  `bip_eyesightright` as bipEyesightright,
+			  `bip_long` as bipLong,
+			  `bip_weight`  as bipWeight,
+			  `bip_hkszd`  as  bipHkszd,
+			  `bip_whcd`  as bipWhcd,
+			  `bip_subject`  as bipSubject,
+			  `bip_graduateschool`  as bipGraduateschool,
+			  `bip_bysj`  as bipBysj,
+			  `bip_educationallevel2`  as bipEducationallevel2,
+			  `bip_con_telephone`  as bipConTelephone,
+			  `bip_con_mobile`  as bipConMobile,
+			  `bip_con_email`   as bipConEmail,
+			  `bip_con_postcode`  as  bipConPostcode,
+			  `bip_con_contact`  as bipConContact,
+			  `bip_con_contacttel`  as bipConContacttel,
+			  `bip_res_address`   as  bipResAddress,
+			  `bip_t_lowersecurity`  as bipTLowersecurity,
+			  `bip_t_criminal`  as bipTCriminal,
+			  `bip_t_destitute`  as bipTDestitute,
+			  `bip_t_peasant`  as bipTPeasant,
+			  `bip_t_veteran`  as  bipTVeteran,
+			  `bip_t_othercities`   as bipTOthercities,
+			  `bip_t_czjyyhz`  as bipTCzjyyhz,
+			  `bip_t_rhfl`   as bipTRhfl,
+			  `bip_t_newgraduate` as bipTNewgraduate,
+			  `bip_pc_dj`  as bipPcDj,
+			  `bip_pc_slcd`  as bipPcSlcd,
+			  `bip_resume`   as bipResume,
+			  `bip_qtsm`  as bipQtsm		
+		FROM
+			bip
+		LEFT JOIN ZJ_GRQZDJB ON bip.bip_id = ZJ_GRQZDJB.bip_id
+		<where>
+		<if test="bip.bipName != ''.toString()">
+		bip.bip_name =#{bip.bipName}
+		</if>
+		<if test="bip.bipSex != ''.toString()">
+		AND bip.bip_sex =#{bip.bipSex}
+		</if>
+		<if test="bip.bipCitizenid != ''.toString()">
+		AND bip.bip_citizenid = #{bip.bipCitizenid}
+		</if>
+		<if test="bip.bipHyzk !=''.toString()">
+		AND bip.bip_hyzk =#{bip.bipHyzk}
+		</if>
+		<if test="bip.bipJkzk !=''.toString()">
+		AND bip.bip_jkzk=#{bip.bipJkzk}
+		</if>
+		<if test="bip.bipZzmm != ''.toString()">
+		AND bip.bip_zzmm =#{bip.bipZzmm}
+		</if>
+		<if test="bip.bipRylb !=''.toString()">
+		AND bip.bip_rylb=#{bip.bipRylb}
+		</if>
+		<if test="bip.bipHjxz != ''.toString()">
+		AND bip.bip_hjxz=#{bip.bipHjxz}
+		</if>
+		
+		</where>
+	</select>
 </mapper>

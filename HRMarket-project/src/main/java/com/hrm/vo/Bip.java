@@ -1,5 +1,12 @@
 package com.hrm.vo;
 
+import java.util.List;
+
+/**
+ * 个人基本信息表
+ * @author wangbin
+ *
+ */
 public class Bip {
     private String bipId;
 
@@ -86,7 +93,7 @@ public class Bip {
     private String bipResume;
 
     private String bipQtsm;
-
+    private List<ZjGrqzdjb> ZjGrqzdjbs;
     public String getBipId() {
         return bipId;
     }
@@ -430,4 +437,41 @@ public class Bip {
     public void setBipQtsm(String bipQtsm) {
         this.bipQtsm = bipQtsm == null ? null : bipQtsm.trim();
     }
+
+	@Override
+	public String toString(){
+		return "Bip [bipId=" + bipId + ", bipCitizenid=" + bipCitizenid
+				+ ", bipSex=" + bipSex + ", bipAge=" + bipAge + ", bipName="
+				+ bipName + ", bipBirthday=" + bipBirthday + ", bipMinzu="
+				+ bipMinzu + ", bipZzmm=" + bipZzmm + ", bipHyzk=" + bipHyzk
+				+ ", bipHjxz=" + bipHjxz + ", bipRylb=" + bipRylb + ", bipJkzk="
+				+ bipJkzk + ", bipCjqk=" + bipCjqk + ", bipEyesightleft="
+				+ bipEyesightleft + ", bipEyesightright=" + bipEyesightright
+				+ ", bipLong=" + bipLong + ", bipWeight=" + bipWeight
+				+ ", bipHkszd=" + bipHkszd + ", bipWhcd=" + bipWhcd
+				+ ", bipSubject=" + bipSubject + ", bipGraduateschool="
+				+ bipGraduateschool + ", bipBysj=" + bipBysj
+				+ ", bipEducationallevel2=" + bipEducationallevel2
+				+ ", bipConTelephone=" + bipConTelephone + ", bipConMobile="
+				+ bipConMobile + ", bipConEmail=" + bipConEmail
+				+ ", bipConPostcode=" + bipConPostcode + ", bipConContact="
+				+ bipConContact + ", bipConContacttel=" + bipConContacttel
+				+ ", bipResAddress=" + bipResAddress + ", bipTLowersecurity="
+				+ bipTLowersecurity + ", bipTCriminal=" + bipTCriminal
+				+ ", bipTDestitute=" + bipTDestitute + ", bipTPeasant="
+				+ bipTPeasant + ", bipTVeteran=" + bipTVeteran
+				+ ", bipTOthercities=" + bipTOthercities + ", bipTCzjyyhz="
+				+ bipTCzjyyhz + ", bipTRhfl=" + bipTRhfl + ", bipTNewgraduate="
+				+ bipTNewgraduate + ", bipPcDj=" + bipPcDj + ", bipPcSlcd="
+				+ bipPcSlcd + ", bipResume=" + bipResume + ", bipQtsm="
+				+ bipQtsm + "]";
+	}
+
+	public List<ZjGrqzdjb> getZjGrqzdjbs(){
+		return ZjGrqzdjbs;
+	}
+
+	public void setZjGrqzdjbs(List<ZjGrqzdjb> zjGrqzdjbs){
+		ZjGrqzdjbs = zjGrqzdjbs;
+	}
 }
