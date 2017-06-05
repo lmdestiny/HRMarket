@@ -68,7 +68,7 @@ A:hover {
                     </tr>              	                                      
 		           <tr>
                       <td><img src="<%=request.getContextPath()%>/styles/images/left/z_2_d.jpg" width="18" height="14"></td>
-                      <td><a href="<%=request.getContextPath() %>/service/zj/grqz/qzdj_1.jsp"  target="rightFrame">求职登记</a></td>
+                      <td><a href="<%=request.getContextPath() %>/jobregist/toJobRegistPage"  target="rightFrame">求职登记</a></td>
                     </tr>	
 		           <tr>
                       <td><img src="<%=request.getContextPath()%>/styles/images/left/z_2_d.jpg" width="18" height="14"></td>
