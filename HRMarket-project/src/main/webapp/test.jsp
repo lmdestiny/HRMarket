@@ -8,7 +8,7 @@
 <script type="text/javascript">
 $(function(){
 	alert("asdasdasd");
-	$("#edu").load("${pageContext.request.contextPath}/edu?cd_id=30");
+	$("#edu").load("${pageContext.request.contextPath}/edu?cd_id=11");
 });
 </script>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
