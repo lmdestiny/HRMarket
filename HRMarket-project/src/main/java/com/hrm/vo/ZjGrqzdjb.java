@@ -1,5 +1,6 @@
 package com.hrm.vo;
 
+
 public class ZjGrqzdjb {
     private String qzbh;
 
@@ -26,6 +27,7 @@ public class ZjGrqzdjb {
     private String djsj;
 
     private String gdsj;
+    
 
     public String getQzbh() {
         return qzbh;

@@ -1,4 +1,3 @@
-
 <%@ page contentType="text/html; charset=UTF-8" %>
 <html>
 <head>
@@ -45,7 +44,7 @@
          }
         form1.qd.disabled=true;
         form1.qx.disabled=true;
-        form1.action="<%=request.getContextPath()%>/ldlsc_qzgd_Servlet";
+        form1.action="<%=request.getContextPath()%>/jobSupervise/find";
         form1.submit();
     }
     function fanhui(){

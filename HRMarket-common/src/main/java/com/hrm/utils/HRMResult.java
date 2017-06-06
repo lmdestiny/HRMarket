@@ -83,7 +83,7 @@ public class HRMResult {
     }
 
     /**
-     * 将json结果集转化为TaotaoResult对象
+     * 将json结果集转化为HRMResult对象
      * 
      * @param jsonData json数据
      * @param clazz HRMResult中的object类型

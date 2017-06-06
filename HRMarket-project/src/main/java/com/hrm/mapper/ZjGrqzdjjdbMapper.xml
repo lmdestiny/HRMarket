@@ -1,5 +1,29 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.hrm.dao.ZjGrqzdjjdbMapper" >
- 
+ 	<select id="getAllBy" parameterType="String" resultType="com.hrm.vo.ZjGrqzdjjdb">
+ 		select grdjjdbh, qzbh,dojyy,dojsj,jidyy,jidsj,gdsj
+ 		from ZJ_GRQZDJJDB where qzbh = #{qzbh}
+ 	</select>
+ 	<select id="getByQzbh"  parameterType="String" resultType="com.hrm.vo.ZjGrqzdjjdb">
+ 		select grdjjdbh, qzbh,dojyy,dojsj,jidyy,jidsj,gdsj
+ 		from ZJ_GRQZDJJDB where qzbh = #{qzbh}
+ 	</select>
+ 	
+ 	<update id="update" >
+ 		update Zj_Grqzdjjdb set 
+ 		<if test='str == "1"'>
+ 			DOJYY = #{reason},DOJSJ = #{updatetime}
+ 		</if>
+ 		 <if test='str != "1"'>
+ 			JIDYY = #{reason},JIDSJ = #{updatetime}
+ 		</if>
+ 		where qzbh = #{qzbh}
+ 	</update>
+ 	
+ 	<update id="upDateGuidang" parameterType="map">
+ 		update Zj_Grqzdjjdb set 
+ 			gdsj =#{gdsj}
+ 		where qzbh  = #{qzbh}
+ 	</update>
 </mapper>

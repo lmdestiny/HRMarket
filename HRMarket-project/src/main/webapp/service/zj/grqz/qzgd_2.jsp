@@ -32,10 +32,9 @@
 			return;
 		}
 		if(window.confirm("您确定要归档吗？")){
-			   form1.action="<%=request.getContextPath()%>/ldlsc_qzgd_gd";
+			   form1.action="<%=request.getContextPath()%>/jobSupervise/change";
 		       form1.button2.disabled = true;
 			   form1.button22.disabled = true; 
-			  
 			   form1.submit();
 		}
     
@@ -43,7 +42,7 @@
      function fanhui(){
         form1.button2.disabled = true;
 	    form1.button22.disabled = true; 
-        form1.action="<%=request.getContextPath()%>/service/zj/grqz/qzgd_1.jsp";
+        form1.action="<%=request.getContextPath()%>/jobSupervise/find";
         form1.submit();
     }
 </script>
@@ -87,16 +86,16 @@
           <TD width="14%">联系电话</TD>
           <TD width="23%">登记日期</TD>
         </TR>
-        <c:forEach var="b" varStatus="a" items="${list}">
+        <c:forEach var="b" varStatus="a" items="${bips}">
      <TR class="line4" align="center" > 
           <TD width="6%">${a.count}</TD>
-          <TD width="6%"><INPUT TYPE="checkbox" class="radio" name="pkdata" onclick="" value="${b.qzbh}">${b.qzbh}</TD>
-          <TD width="11%">${b.bip_name}</TD>
-           <TD width="6%">${b.bip_sex}</TD>
-          <TD width="6%">${b.bip_age}</TD>
-          <TD width="13%" >${b.bip_res_address}</TD>
-          <TD width="14%">${b.bip_con_contacttel}</TD>
-          <TD width="23%">${b.djsj}</TD>  
+          <TD width="6%"><INPUT TYPE="checkbox" class="radio" name="pkdata" onclick="" value="${b.zjGrqzdjbs[0].qzbh}">${b.zjGrqzdjbs[0].qzbh}</TD>
+          <TD width="11%">${b.bipName}</TD>
+           <TD width="6%">${b.bipSex}</TD>
+          <TD width="6%">${b.bipAge}</TD>
+          <TD width="13%" >${b.bipResAddress}</TD>
+          <TD width="14%">${b.bipConContacttel}</TD>
+          <TD width="23%">${b.zjGrqzdjbs[0].djsj}</TD>  
         </TR> 
        	</c:forEach>
         <TR> 

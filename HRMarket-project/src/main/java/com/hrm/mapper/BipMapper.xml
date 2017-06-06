@@ -1,8 +1,54 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.hrm.dao.BipMapper" >
-	<select id="findBip" resultType="com.hrm.vo.Bip" parameterType="Map">
-		SELECT
+
+<sql id="bsql" >
+			  `bip_id` as bipId,
+			  `bip_citizenid` as  bipCitizenid,
+			  `bip_sex` as bipSex,
+			  `bip_age` as bipAge,
+			  `bip_name`  as bipName,
+			  `bip_birthday` as bipBirthday,
+			  `bip_minzu` as bipMinzu,
+			  `bip_zzmm`  as bipZzmm,
+			  `bip_hyzk` as bipHyzk,
+			  `bip_hjxz` as  bipHjxz,
+			  `bip_rylb`  as  bipRylb,
+			  `bip_jkzk` as  bipJkzk,
+			  `bip_cjqk`  as bipCjqk,
+			  `bip_eyesightleft` as bipEyesightleft,
+			  `bip_eyesightright` as bipEyesightright,
+			  `bip_long` as bipLong,
+			  `bip_weight`  as bipWeight,
+			  `bip_hkszd`  as  bipHkszd,
+			  `bip_whcd`  as bipWhcd,
+			  `bip_subject`  as bipSubject,
+			  `bip_graduateschool`  as bipGraduateschool,
+			  `bip_bysj`  as bipBysj,
+			  `bip_educationallevel2`  as bipEducationallevel2,
+			  `bip_con_telephone`  as bipConTelephone,
+			  `bip_con_mobile`  as bipConMobile,
+			  `bip_con_email`   as bipConEmail,
+			  `bip_con_postcode`  as  bipConPostcode,
+			  `bip_con_contact`  as bipConContact,
+			  `bip_con_contacttel`  as bipConContacttel,
+			  `bip_res_address`   as  bipResAddress,
+			  `bip_t_lowersecurity`  as bipTLowersecurity,
+			  `bip_t_criminal`  as bipTCriminal,
+			  `bip_t_destitute`  as bipTDestitute,
+			  `bip_t_peasant`  as bipTPeasant,
+			  `bip_t_veteran`  as  bipTVeteran,
+			  `bip_t_othercities`   as bipTOthercities,
+			  `bip_t_czjyyhz`  as bipTCzjyyhz,
+			  `bip_t_rhfl`   as bipTRhfl,
+			  `bip_t_newgraduate` as bipTNewgraduate,
+			  `bip_pc_dj`  as bipPcDj,
+			  `bip_pc_slcd`  as bipPcSlcd,
+			  `bip_resume`   as bipResume,
+			  `bip_qtsm`  as bipQtsm
+</sql>
+<sql id="bsql2">
+
 			bip.bip_id as bipId,
 			  `bip_citizenid` as  bipCitizenid,
 			  `bip_sex` as bipSex,
@@ -45,7 +91,69 @@
 			  `bip_pc_dj`  as bipPcDj,
 			  `bip_pc_slcd`  as bipPcSlcd,
 			  `bip_resume`   as bipResume,
-			  `bip_qtsm`  as bipQtsm		
+			  `bip_qtsm`  as bipQtsm,
+			  ZJ_GRQZDJB.qzbh as qzbh,
+			  ZJ_GRQZDJB.dwxx as dwxx,	
+			  ZJ_GRQZDJB.DJSJ as djsj,
+			  ZJ_GRQZDJB.GDSJ as gdsj,
+			  ZJ_GRQZDJB.sfdj as sfdj
+</sql>
+<resultMap type="com.hrm.vo.Bip" id="bipMap">
+	<id property="bipId" column="bipId" />
+	<result property="bipCitizenid" column="bipCitizenid"/>
+	<result property="bipSex" column="bipSex"/>
+	<result property="bipName" column="bipName"/>
+	<result property="bipAge" column="bipAge"/>
+	<result property="bipConMobile" column="bipConMobile"/>
+	<result property="bipResAddress" column="bipResAddress"/>
+	<result property="bipBirthday" column="bipBirthday"/>
+	<result property="bipMinzu" column="bipMinzu"/>
+	<result property="bipZzmm" column="bipZzmm"/>
+	<result property="bipHyzk" column="bipHyzk"/>
+	<result property="bipHjxz" column="bipHjxz"/>
+	<result property="bipRylb" column="bipRylb"/>
+	<result property="bipJkzk" column="bipJkzk"/>
+	<result property="bipCjqk" column="bipCjqk"/>
+	<result property="bipEyesightleft" column="bipEyesightleft"/>
+	<result property="bipEyesightright" column="bipEyesightright"/>
+	<result property="bipLong" column="bipLong"/>
+	<result property="bipWeight" column="bipWeight"/>
+	<result property="bipHkszd" column="bipHkszd"/>
+	<result property="bipWhcd" column="bipWhcd"/>
+	<result property="bipSubject" column="bipSubject"/>
+	<result property="bipGraduateschool" column="bipGraduateschool"/>
+	<result property="bipBysj" column="bipBysj"/>
+	<result property="bipEducationallevel2" column="bipEducationallevel2"/>
+	<result property="bipConTelephone" column="bipConTelephone"/>
+	<result property="bipConEmail" column="bipConEmail"/>
+	<result property="bipConPostcode" column="bipConPostcode"/>
+	<result property="bipConContact" column="bipConContact"/>	
+	<result property="bipConContacttel" column="bipConContacttel"/>	
+	<result property="bipTLowersecurity" column="bipTLowersecurity"/>	
+	<result property="bipTCriminal" column="bipTCriminal"/>	
+	<result property="bipTDestitute" column="bipTDestitute"/>	
+	<result property="bipTPeasant" column="bipTPeasant"/>	
+	<result property="bipTVeteran" column="bipTVeteran"/>	
+	<result property="bipTOthercities" column="bipTOthercities"/>	
+	<result property="bipTCzjyyhz" column="bipTCzjyyhz"/>	
+	<result property="bipTRhfl" column="bipTRhfl"/>	
+	<result property="bipTNewgraduate" column="bipTNewgraduate"/>	
+	<result property="bipPcDj" column="bipPcDj"/>	
+	<result property="bipPcSlcd" column="bipPcSlcd"/>	
+	<result property="bipResume" column="bipResume"/>	
+	<result property="bipQtsm" column="bipQtsm"/>	
+	
+	<collection property="ZjGrqzdjbs" ofType="com.hrm.vo.ZjGrqzdjb">
+		<id property="qzbh" column="qzbh"/>
+		<result property="dwxx" column="dwxx"/>
+		<result property="djsj" column="djsj"/>
+		<result property="gdsj" column="gdsj"/>
+		<result property="sfdj" column="sfdj"/>
+	</collection>
+</resultMap>
+<select id="findBip" resultMap="bipMap" parameterType="Map">
+	SELECT
+	<include refid="bsql2"></include>
 		FROM
 			bip
 		LEFT JOIN ZJ_GRQZDJB ON bip.bip_id = ZJ_GRQZDJB.bip_id
@@ -74,7 +182,58 @@
 		<if test="bip.bipHjxz != ''.toString()">
 		AND bip.bip_hjxz=#{bip.bipHjxz}
 		</if>
-		
+		<!-- 单位性质-求职岗位 -->
+		<if  test="qzgw !=''.toString()">
+			AND ZJ_GRQZDJB.dwxx =#{qzgw}
+		</if>
 		</where>
-	</select>
+
+</select>
+
+<select id="findBipByCitizenid" parameterType="String" resultType="com.hrm.vo.Bip">
+	select <include refid="bsql"/> from bip where bip_citizenid =#{bipCitizenid}
+</select>
+<select id="findBipByBipName" parameterType="String" resultType="com.hrm.vo.Bip">
+select <include refid="bsql"/> from bip where bip_name = #{bipName}
+</select>
+
+<select id="findState" parameterType="String" resultMap="bipMap">
+
+SELECT
+	<include refid="bsql2"></include>
+		FROM
+			bip
+		LEFT JOIN ZJ_GRQZDJB ON bip.bip_id = ZJ_GRQZDJB.bip_id
+		where bip.bip_id = #{bipId}
+</select>
+
+<select id="findBipInfoByBipCitizenid" resultMap="bipMap" parameterType="String">
+	SELECT
+	<include refid="bsql2"></include>
+		FROM
+			bip
+		LEFT JOIN ZJ_GRQZDJB ON bip.bip_id = ZJ_GRQZDJB.bip_id
+
+		where bip_citizenid = #{bipCitizenid}
+
+</select>
+
+<select id="findBipByArray" resultMap="bipMap">
+	SELECT
+	<include refid="bsql2"></include>
+		FROM
+			bip
+		LEFT JOIN ZJ_GRQZDJB ON bip.bip_id = ZJ_GRQZDJB.bip_id
+		<where>
+		<if test="bipName != ''.toString()">
+		bip.bip_name =#{bipName}
+		</if>
+		<if test="bipCitizenid != ''.toString()">
+		AND bip.bip_citizenid = #{bipCitizenid}
+		</if>
+		<if test="sfdj !=''.toString()">
+		AND  ZJ_GRQZDJB.sfdj =#{sfdj}
+		</if>
+		</where>
+</select>
 </mapper>

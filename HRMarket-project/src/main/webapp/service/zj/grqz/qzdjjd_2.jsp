@@ -1,5 +1,6 @@
 <%@ page contentType="text/html; charset=UTF-8" %>
 <%@ include file="/common/import.jsp" %>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core"  prefix="c"%>
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 
 <html>
@@ -24,7 +25,7 @@
 	}
 	
 	function toBack(){
-		window.location.href="<%=request.getContextPath()%>/service/zj/grqz/qzdjjd_1.jsp";
+		window.location.href="<%=request.getContextPath()%>/jobStopStart/tojobstartPage";
 	}
 	
 	function dosubmit(){
@@ -43,7 +44,7 @@
 	
 </head>
 <body>
-<form method="post" action="<%=request.getContextPath()%>/service/zj/grqz/grdj_dj.do?flag=DjJd" name="form1">
+<form method="post" action="<%=request.getContextPath()%>/jobStopStart/save" name="form1">
 
 <table width="100%" border="0" cellspacing="0" cellpadding="0">
   <tr>
@@ -87,15 +88,24 @@
             </TR>  
             <TR align="center" class="line4"> 
               <TD width="10%"><input type="checkbox" name="cb" value="1" onclick="either(this,form1.cb)"></TD>
-              <TD width="6%"><a href="javascript:void(null)" style="cursor:hand" onclick="window.open('<%=request.getContextPath()%>/','详细信息','left=100 top=100 width=820,height=469 scrollbars')" >${user.bip_name}</TD>
-              <TD width="6%">${user.sex}</TD>
-              <TD width="16%">${user.bip_birthday}</TD>
-              <TD width="20%">${user.bip_res_address}</TD>
-              <TD width="10%">${user.bip_con_mobile}</TD>
-              <TD width="13%">${user.djsj}</TD>
+              <TD width="6%"><a href="javascript:void(null)" style="cursor:hand" onclick="window.open('<%=request.getContextPath()%>/jobStopStart/detailInfo/${bip.bipCitizenid}','详细信息','left=100 top=100 width=820,height=469 scrollbars')" >${bip.bipName}</TD>
+              <c:if test="${bip.bipSex ==1 }" >
+              <TD width="6%">男</TD>
+              </c:if>
+              <c:if test="${bip.bipSex ==2 }" >
+              <TD width="6%">女</TD>
+              </c:if>
+              <TD width="16%">${bip.bipBirthday}</TD>
+              <TD width="20%">${bip.bipResAddress}</TD>
+              <TD width="10%">${bip.bipConMobile}</TD>
+              <TD width="13%">${bip.zjGrqzdjbs[0].djsj}</TD>
+              <TD width="6%">${b}</TD>
          
-              <TD width="6%">${user.s}</TD>
             </TR>
+            
+            <input type="hidden" name="bipId" value="${bip.bipId}">
+			<input type ="hidden" name="sfdj" value="${b}"/>
+			<input type="hidden" name="bipCitizenid" value="${bip.bipCitizenid}"/>
           </TBODY>
       </TABLE>
  <div id="data" style="display:none" align="center">

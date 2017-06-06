@@ -32,7 +32,7 @@
         <td><img src="<%=request.getContextPath()%>/styles/css/bb_d.gif"></td>
       </tr>
     </table></td>
-    <td  valign="bottom">查询结果&nbsp;&nbsp;&nbsp;提示：[共有xx条记录，点击姓名可查看详细信息，点击推荐可对该人员进行推荐]</td>
+    <td  valign="bottom">查询结果&nbsp;&nbsp;&nbsp;提示：[共有${count}条记录，点击姓名可查看详细信息，点击推荐可对该人员进行推荐]</td>
   </tr>
 </table>
 <table width="98%" align="center" border=1 cellpadding=0 cellspacing=0 bordercolor="#FFFFFF" class=tablebody>
@@ -49,13 +49,15 @@
   <c:forEach var="b" varStatus="a" items="${list}">
   <tr align="center" class=line2>
     <td>${a.count}</td>
-    <td>${b.bip_name}<a href="javascript:void(null)" style="cursor:hand" onclick="window.open('<%=request.getContextPath()%>/service/zj/grqzgl/xxIndex.jsp?grbh=','','left=100 top=100 width=820,height=469 scrollbars')" ></a></td>
-    <td>${b.bip_sex}</td>
-    <td>${b.bip_age}</td>
-    <td>${b.bip_con_contacttel}</td>
-    <td>${b.djsj}</td>
+    <td>${b.bipName}<a href="javascript:void(null)" style="cursor:hand" onclick="window.open('<%=request.getContextPath()%>/service/zj/grqzgl/xxIndex.jsp?grbh=','','left=100 top=100 width=820,height=469 scrollbars')" ></a></td>
+    <td>${b.bipSex}</td>
+    <td>${b.bipAge}</td>
+    <td>${b.bipConMobile }</td>
+    <td>${b.zjGrqzdjbs[0].djsj }</td>
     <td>无</td>
-    <td>${b.gdsj}</td>
+    <td>${b.zjGrqzdjbs[0].gdsj }</td>
+    <td></td>
+    <td></td>
   </tr>
   </c:forEach>
 </table>

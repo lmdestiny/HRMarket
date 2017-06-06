@@ -4,26 +4,26 @@
 <head>
 <script>
 	function AS(){
-		var sfzhm=form1.sfzhm.value;
-		var name=form1.xm.value;
-		var xb=form1.xb.value;
+		var bipCitizenid=form1.bipCitizenid.value;
+		var name=form1.bipName.value;
+		var bipSex=form1.bipSex.value;
 		var age1=form1.nl1.value;
 		var age2=form1.nl2.value;
 		var xl1=form1.xl1.value;
 		var xl2=form1.xl2.value;
-		var hyzk=form1.hyzk.value;
-		var jkzk=form1.jkzk.value;
+		var bipHyzk=form1.bipHyzk.value;
+		var bipJkzk=form1.bipJkzk.value;
 		var djrq1=form1.djrq1.value;
 		var djrq2=form1.djrq2.value;
-		var zzmm =form1.zzmm.value;
+		var bipZzmm =form1.bipZzmm.value;
 		var qzgw =form1.qzgw.value;
-		var rylb=form1.rylb.value;
-		var hjxz=form1.hjxz.value;
+		var bipRylb=form1.bipRylb.value;
+		var bipHjxz=form1.bipHjxz.value;
 		var cxfw =form1.cxfw.value;
 		var flag=false;
-		if(sfzhm!=""||name!=""||xb!=""||age1!=""||age2!=""||xl1!=""||xl2!=""
-		||hyzk!=""||jkzk!=""||djrq1!=""||djrq2!=""||zzmm!=""||qzgw!=""||rylb!=""||hjxz!=""||cxfw!=""){
-		form1.action="<%=request.getContextPath()%>/Ldlsc_Servlet";
+		if(bipCitizenid!=""||name!=""||bipSex!=""||age1!=""||age2!=""||xl1!=""||xl2!=""
+		||bipHyzk!=""||bipJkzk!=""||djrq1!=""||djrq2!=""||bipZzmm!=""||qzgw!=""||bipRylb!=""||bipHjxz!=""||cxfw!=""){
+		form1.action="${pageContext.request.contextPath}/personalSearch/search";
         form1.submit();
 		}else{
 		alert("至少有一个条件不能为空");
@@ -36,7 +36,7 @@
 </head>
 <body>
 
-<form  method="post" name="form1">
+<form  method="post" name="form1" action="${pageContext.request.contextPath}/personalSearch/search">
 <table width="100%" border="0" cellspacing="0" cellpadding="0">
   <tr>
     <td><table width="98%"  border="0" align="center" cellpadding="0" cellspacing="0">
@@ -73,13 +73,13 @@
 			border="0" cellPadding="0" cellSpacing="1" bordercolor="#FFFFFF" class="tablebody">
         <tr class="line2"> 
 			<td width="85" align="right" class="line2">身份证号码</td>
-			<td colspan="3" align="center" class="line2"><input type="text" name="sfzhm" style="WIDTH: 100%" maxlength="18" ></td>
+			<td colspan="3" align="center" class="line2"><input type="text" name="bipCitizenid" style="WIDTH: 100%" maxlength="18" ></td>
         </tr>
         <tr class="line1">
         	<td align="right" >姓　　名</td>
-			<td align="center" ><input type="text" name="xm"  style="WIDTH: 100%" ></td>
+			<td align="center" ><input type="text" name="bipName"  style="WIDTH: 100%" ></td>
 			<td width="55" align="right" >性　　别</td>
-			<td align="center" ><select name="xb"  style="WIDTH: 100%">
+			<td align="center" ><select name="bipSex"  style="WIDTH: 100%">
 				<%=SexOperation.getOption()%>
 			  </select></td>
         </tr>
@@ -91,24 +91,24 @@
         </tr>
         <tr class="line1">
 			<td align="right">学　　历</td>
-			<td align="center" ><select  name="xl2" style="WIDTH: 100%">
+			<td align="center" ><select  name="xl1" style="WIDTH: 100%">
 			<%=EducationallevelOperation.getOption()%>
 	
 			</select></td>
 			<td align="center" >到</td>
-			<td align="center" ><select  name="xl1" style="WIDTH: 100%">
+			<td align="center" ><select  name="xl2" style="WIDTH: 100%">
 			<%=EducationallevelOperation.getOption()%>
 		
 			</select></td>     
         </tr>
         <tr class="line2">
         	<td align="right" class="line2">婚姻状况</td>
-			<td align="center" class="line2"><select  name="hyzk" style="WIDTH: 100%">
+			<td align="center" class="line2"><select  name="bipHyzk" style="WIDTH: 100%">
 			<%=MarriageOperation.getOption()%>
 				
 			</select></td>   
 			<td align="right" class="line2">健康状况</td>
-			<td align="center" class="line2"><select  name="jkzk" style="WIDTH: 100%">
+			<td align="center" class="line2"><select  name="bipJkzk" style="WIDTH: 100%">
 			<%=HealthstateOperation.getOption()%>
 				
 			</select></td>
@@ -121,7 +121,7 @@
         </tr>
         <tr class="line2"> 
 			<td align="right" class="line2">政治面貌</td>
-			<td align="center" class="line2"><select  name="zzmm" style="WIDTH: 100%">
+			<td align="center" class="line2"><select  name="bipZzmm" style="WIDTH: 100%">
 			<%=PoliticsaspectOperation.getOption()%>
 			
 			</select></td>
@@ -132,12 +132,12 @@
         </tr>
         <tr class="line1">
         	<td align="right">人员类别</td>
-			<td align="center" ><select  name="rylb" style="WIDTH: 100%">
+			<td align="center" ><select  name="bipRylb" style="WIDTH: 100%">
 			<%=PersonneltypeOperation.getOption()%>
 		
 			</select></td>
 			<td align="right" >户籍性质</td>
-			<td align="center" ><select  name="hjxz" style="WIDTH: 100%">
+			<td align="center" ><select  name="bipHjxz" style="WIDTH: 100%">
 			<%=RprtypeOperation.getOption()%>
 	
 			</select></td>

@@ -72,11 +72,11 @@ A:hover {
                     </tr>	
 		           <tr>
                       <td><img src="<%=request.getContextPath()%>/styles/images/left/z_2_d.jpg" width="18" height="14"></td>
-                      <td><a href="<%=request.getContextPath() %>/service/zj/grqz/qzdjjd_1.jsp"  target="rightFrame">求职冻结解冻</a></td>
-                    </tr>	
+                      <td><a href="<%=request.getContextPath() %>/jobStopStart/tojobstartPage"  target="rightFrame">求职冻结解冻</a></td>
+                    </tr>
 		           <tr>
                       <td><img src="<%=request.getContextPath()%>/styles/images/left/z_2_d.jpg" width="18" height="14"></td>
-                      <td><a href="<%=request.getContextPath() %>/service/zj/grqz/qzgd_1.jsp"  target="rightFrame">求职归档</a></td>
+                      <td><a href="<%=request.getContextPath() %>/jobSupervise/toJobSupervisePage"  target="rightFrame">求职归档</a></td>
                     </tr>	
 		           <tr>
                       <td><img src="<%=request.getContextPath()%>/styles/images/left/z_2_d.jpg" width="18" height="14"></td>
@@ -100,7 +100,7 @@ A:hover {
                     </tr> 
                     <tr>
                       <td><img src="<%=request.getContextPath()%>/styles/images/left/z_2_d.jpg" width="18" height="14"></td>
-                      <td><a href="<%=request.getContextPath() %>/service/zj/grqz/xxcx_1.jsp"  target="rightFrame">个人查询</a></td>
+                      <td><a href="<%=request.getContextPath() %>/personalSearch/topersonalSearchPage"  target="rightFrame">个人查询</a></td>
                     </tr> 
 
                 </table></td>

@@ -1,5 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.hrm.dao.ZjGrqzdjbMapper" >
- 
+ 	<update id="update" >
+ 		update Zj_Grqzdjb set SFDJ = #{str} where bip_id =#{bipId}
+ 	</update>
+ 	
+ 	<update id="upDateGuidang" parameterType="map">
+ 		update Zj_Grqzdjb set 
+ 			gdsj =#{gdsj}
+ 		where qzbh  = #{qzbh}
+ 	</update>
 </mapper>
