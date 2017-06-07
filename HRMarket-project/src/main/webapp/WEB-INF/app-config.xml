@@ -3,8 +3,8 @@
 	<dba-config type="com.imti.ldlsc.common.config.DbaConfig">
 		<dba>oracle</dba>
 		<dba-driver>com.mysql.jdbc.Driver</dba-driver>
-		<dba-url>jdbc:mysql://localhost:3306/ldlsc</dba-url>
-		<dba-username>root</dba-username>
+		<dba-url>jdbc:mysql://localhost:5353/ldlsc</dba-url>
+		<dba-username>yx</dba-username>
 		<dba-password>8523918</dba-password>
 		<dba-initnum>3</dba-initnum>
 		<dba-maxnum>5</dba-maxnum>
