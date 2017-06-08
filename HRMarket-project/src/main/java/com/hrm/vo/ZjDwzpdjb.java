@@ -5,22 +5,55 @@ public class ZjDwzpdjb {
     private String zpbh;
     //单位编号
     private String dwbh;
-    //单位联系人
+    //单位联系人/经办人
     private String dwlxr;
     //联系人身份证号码；
     private String lxrsfzhm;
-    //联系人手机
+    //联系人/经办人手机
     private String lxrsj;
-    //
+    //是否冻结
     private String sfdj;
-    
+    //登记有效期
     private Integer djyxq;
-
+    //登记时间
     private String djsj;
-
+    //归档时间
     private String gdsj;
 
-    public String getZpbh() {
+    
+    public ZjDwzpdjb() {
+		super();
+	}
+
+    
+	public ZjDwzpdjb(String dwlxr, String lxrsfzhm, String lxrsj, String sfdj, Integer djyxq, String djsj,
+			String gdsj) {
+		super();
+		this.dwlxr = dwlxr;
+		this.lxrsfzhm = lxrsfzhm;
+		this.lxrsj = lxrsj;
+		this.sfdj = sfdj;
+		this.djyxq = djyxq;
+		this.djsj = djsj;
+		this.gdsj = gdsj;
+	}
+
+
+	public ZjDwzpdjb(String dwbh, String dwlxr, String lxrsfzhm, String lxrsj, String sfdj, Integer djyxq, String djsj,
+			String gdsj) {
+		super();
+		this.dwbh = dwbh;
+		this.dwlxr = dwlxr;
+		this.lxrsfzhm = lxrsfzhm;
+		this.lxrsj = lxrsj;
+		this.sfdj = sfdj;
+		this.djyxq = djyxq;
+		this.djsj = djsj;
+		this.gdsj = gdsj;
+	}
+
+
+	public String getZpbh() {
         return zpbh;
     }
 
@@ -91,4 +124,12 @@ public class ZjDwzpdjb {
     public void setGdsj(String gdsj) {
         this.gdsj = gdsj == null ? null : gdsj.trim();
     }
+
+
+	@Override
+	public String toString() {
+		return "ZjDwzpdjb [zpbh=" + zpbh + ", dwbh=" + dwbh + ", dwlxr=" + dwlxr + ", lxrsfzhm=" + lxrsfzhm + ", lxrsj="
+				+ lxrsj + ", sfdj=" + sfdj + ", djyxq=" + djyxq + ", djsj=" + djsj + ", gdsj=" + gdsj + "]";
+	}
+    
 }

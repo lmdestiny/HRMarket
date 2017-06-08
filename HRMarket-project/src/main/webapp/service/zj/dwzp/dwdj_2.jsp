@@ -239,8 +239,7 @@ $(function(){
 								
 		form1.bc.disabled=true;
 		form1.fh.disabled=true;
-		form1.action="<%=request.getContextPath()%>
-	/service/zj/dwzp/dwdj_3.jsp";
+		form1.action="<%=request.getContextPath()%>	/service/zj/dwzp/dwdj_3.jsp";
 		form1.submit();
 	}
 	function copyValue() {

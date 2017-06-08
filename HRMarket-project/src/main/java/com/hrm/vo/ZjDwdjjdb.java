@@ -1,18 +1,23 @@
 package com.hrm.vo;
-
+/**
+ * 单位冻结解冻表
+ * @author qst
+ *
+ */
 public class ZjDwdjjdb {
+	//单位冻结解冻编号
     private String dwdjjdbh;
-
+    //招聘编号
     private String zpbh;
-
+	//冻结原因
     private String djyy;
-
+	//冻结时间
     private String djsj;
-
+	//解冻原因
     private String jdyy;
-
+	//解冻时间
     private String jdsj;
-
+	//归档时间
     private String gdsj;
 
     public String getDwdjjdbh() {
