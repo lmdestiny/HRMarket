@@ -6,7 +6,6 @@ import org.springframework.stereotype.Component;
 
 import com.hrm.vo.Bio;
 
-@Component
 public interface BioService {
 	
 	public void save(Bio bio);

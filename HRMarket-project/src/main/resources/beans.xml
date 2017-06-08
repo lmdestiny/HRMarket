@@ -12,11 +12,10 @@
 		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.1.xsd">
 	
 	<!-- mybatis自动扫描路径 -->
-	<mybatis-spring:scan base-package="com.hrm.mapper"/>	
+	<mybatis-spring:scan base-package="com.hrm.dao"/>	
 	<context:component-scan base-package="
 		com.hrm.service.impl,
 		com.hrm.controller,
-		com.hrm.dao
 	"/>
 	<context:property-placeholder location="classpath:*.properties" order="2"/>
 	<aop:aspectj-autoproxy />

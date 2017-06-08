@@ -33,11 +33,10 @@ public class Bio {
     
     
     
-	public Bio(String bioId, String bioNo, String bioName, String bioShortname, String bioOrgtype, String cdgRegtype,
+	public Bio(String bioNo, String bioName, String bioShortname, String bioOrgtype, String cdgRegtype,
 			String bioIndustry, String bioRgaRegioncode, String bioBuaPostcode, String bioConFax, String bioConMail,
 			String bioBuaAddress) {
 		super();
-		this.bio_id = bioId;
 		this.bio_no = bioNo;
 		this.bio_name = bioName;
 		this.bio_shortname = bioShortname;

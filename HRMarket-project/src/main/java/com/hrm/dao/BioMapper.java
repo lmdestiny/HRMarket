@@ -5,7 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Repository;
 
 import com.hrm.vo.Bio;
-@Repository
+
 public interface BioMapper {
 	public void insert(Bio bio);
 	public void update(Bio bio);
