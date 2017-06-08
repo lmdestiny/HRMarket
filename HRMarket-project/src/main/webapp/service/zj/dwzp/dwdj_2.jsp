@@ -351,7 +351,7 @@
 								<input id="bc" type="button"
 								class="BUTTONs3" value="保 存"> &nbsp;&nbsp; 
 								<INPUT name="fh" type="button"		
-								onclick="window.location.href='<%=request.getContextPath()%>/service/zj/dwzp/dwdj_1_querybase.jsp';"
+								onclick="window.location.href='<%=request.getContextPath()%>/service/zj/dwzp/home';"
 								class="BUTTONs3" value="返 回"></TD>
 						</TR>
 					</TABLE>
