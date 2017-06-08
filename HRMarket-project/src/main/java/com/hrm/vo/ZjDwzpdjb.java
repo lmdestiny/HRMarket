@@ -1,18 +1,19 @@
 package com.hrm.vo;
 
 public class ZjDwzpdjb {
+	//招聘编号；
     private String zpbh;
-
+    //单位编号
     private String dwbh;
-
+    //单位联系人
     private String dwlxr;
-
+    //联系人身份证号码；
     private String lxrsfzhm;
-
+    //联系人手机
     private String lxrsj;
-
+    //
     private String sfdj;
-
+    
     private Integer djyxq;
 
     private String djsj;
