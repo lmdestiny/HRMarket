@@ -5,7 +5,7 @@ import java.util.List;
 import com.hrm.vo.ZjDwzpgzb;
 
 public interface ZjDwzpgzbService {
-	public void insert(ZjDwzpgzb dwzpgzb);
+	public void save(ZjDwzpgzb dwzpgzb);
 	public void update(ZjDwzpgzb dwzpgzb);
 	public void delete(String zpgzbh);
 	//查询全部

@@ -17,7 +17,7 @@ public class ZjDwzpgzbServiceImpl implements ZjDwzpgzbService {
 	private ZjDwzpgzbMapper ZjDwzpgzbdao;
 	private GenerateID generateid=new GenerateID();
 	@Override
-	public void insert(ZjDwzpgzb dwzpgzb) {
+	public void save(ZjDwzpgzb dwzpgzb) {
 		// TODO 自动生成的方法存根
 		dwzpgzb.setZpgzbh(generateid.getGenerateId());
 		ZjDwzpgzbdao.inset(dwzpgzb);
