@@ -2,4 +2,22 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.hrm.dao.BioMapper" >
   
+  <insert id="insert" parameterType="com.hrm.vo.Bio">
+  	insert into bio values(#{bioId},#{bioNo},#{bioName},#{bioShortname},#{bioOrgtype},#{cdgRegtype},#{bioIndustry},#{bioRgaRegioncode},#{bioBuaPostcode},#{bioConFax},#{bioConMail},#{bioBuaAddress})
+  </insert>
+  <update id="update" parameterType="com.hrm.vo.Bio">
+  	update bio set bio_no=#{bioNo},bio_name=#{bioName},bio_shortname=#{bioShortname},bio_orgtype=#{bioOrgtype},cdg_regtype=#{cdgRegtype},bio_industry=#{bioIndustry},bio_rga_regioncode=#{bioRgaRegioncode},bio_bua_postcode=#{bioBuaPostcode},bio_con_fax=#{bioConFax},bio_con_mail=#{bioConMail},bio_bua_address=#{bioBuaAddress} where bio_id=#{bioId}
+  </update>
+  <delete id="delete" parameterType="String">
+  	delete from bio where bio_id=#{bioId}
+  </delete>
+  <select id="getAll"  resultType="com.hrm.vo.Bio">
+  	select * from bio order by bio_id
+  </select>
+  <select id="getOnebyId" parameterType="String" resultType="com.hrm.vo.Bio">
+  	select * from bio where bio_id=#{id}
+  </select>
+  <select id="getOnebyNo" parameterType="String" resultType="com.hrm.vo.Bio">
+  	select * from bio where bio_no=#{no}
+  </select>
 </mapper>

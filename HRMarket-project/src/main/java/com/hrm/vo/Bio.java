@@ -1,123 +1,164 @@
 package com.hrm.vo;
 
 public class Bio {
-    private String bioId;
+	//单位编号dwbh
+    private String bio_id;
+    //单位法人码dwfrm
+    private String bio_no;
+    //单位全称dwqc
+    private String bio_name;
+    //单位简称dwjc
+    private String bio_shortname;
+    //单位性质dwxz
+    private String bio_orgtype;
+    //单位经济类型dwjjlx
+    private String cdg_regtype;
+    //单位行业dwhy
+    private String bio_industry;
+    //注册省市街zcssj
+    private String bio_rga_regioncode;
+    //邮政编码yzbm
+    private String bio_bua_Postcode;
+    //传真机号czjh
+    private String bio_con_fax;
+    //email
+    private String bio_con_mail;
+    //经营地址jydz
+    private String bio_bua_address;
 
-    private String bioNo;
+    
+    public Bio() {
+		super();
+	}
+    
+    
+    
+	public Bio(String bioId, String bioNo, String bioName, String bioShortname, String bioOrgtype, String cdgRegtype,
+			String bioIndustry, String bioRgaRegioncode, String bioBuaPostcode, String bioConFax, String bioConMail,
+			String bioBuaAddress) {
+		super();
+		this.bio_id = bioId;
+		this.bio_no = bioNo;
+		this.bio_name = bioName;
+		this.bio_shortname = bioShortname;
+		this.bio_orgtype = bioOrgtype;
+		this.cdg_regtype = cdgRegtype;
+		this.bio_industry = bioIndustry;
+		this.bio_rga_regioncode = bioRgaRegioncode;
+		this.bio_bua_Postcode = bioBuaPostcode;
+		this.bio_con_fax = bioConFax;
+		this.bio_con_mail = bioConMail;
+		this.bio_bua_address = bioBuaAddress;
+	}
 
-    private String bioName;
 
-    private String bioShortname;
 
-    private String bioOrgtype;
-
-    private String cdgRegtype;
-
-    private String bioIndustry;
-
-    private String bioRgaRegioncode;
-
-    private String bioBuaPostcode;
-
-    private String bioConFax;
-
-    private String bioConMail;
-
-    private String bioBuaAddress;
-
-    public String getBioId() {
-        return bioId;
+	public String getBioId() {
+        return bio_id;
     }
 
     public void setBioId(String bioId) {
-        this.bioId = bioId == null ? null : bioId.trim();
+        this.bio_id = bioId == null ? null : bioId.trim();
     }
 
     public String getBioNo() {
-        return bioNo;
+        return bio_no;
     }
 
     public void setBioNo(String bioNo) {
-        this.bioNo = bioNo == null ? null : bioNo.trim();
+        this.bio_no = bioNo == null ? null : bioNo.trim();
     }
 
     public String getBioName() {
-        return bioName;
+        return bio_name;
     }
 
     public void setBioName(String bioName) {
-        this.bioName = bioName == null ? null : bioName.trim();
+        this.bio_name = bioName == null ? null : bioName.trim();
     }
 
     public String getBioShortname() {
-        return bioShortname;
+        return bio_shortname;
     }
 
     public void setBioShortname(String bioShortname) {
-        this.bioShortname = bioShortname == null ? null : bioShortname.trim();
+        this.bio_shortname = bioShortname == null ? null : bioShortname.trim();
     }
 
     public String getBioOrgtype() {
-        return bioOrgtype;
+        return bio_orgtype;
     }
 
     public void setBioOrgtype(String bioOrgtype) {
-        this.bioOrgtype = bioOrgtype == null ? null : bioOrgtype.trim();
+        this.bio_orgtype = bioOrgtype == null ? null : bioOrgtype.trim();
     }
 
     public String getCdgRegtype() {
-        return cdgRegtype;
+        return cdg_regtype;
     }
 
     public void setCdgRegtype(String cdgRegtype) {
-        this.cdgRegtype = cdgRegtype == null ? null : cdgRegtype.trim();
+        this.cdg_regtype = cdgRegtype == null ? null : cdgRegtype.trim();
     }
 
     public String getBioIndustry() {
-        return bioIndustry;
+        return bio_industry;
     }
 
     public void setBioIndustry(String bioIndustry) {
-        this.bioIndustry = bioIndustry == null ? null : bioIndustry.trim();
+        this.bio_industry = bioIndustry == null ? null : bioIndustry.trim();
     }
 
     public String getBioRgaRegioncode() {
-        return bioRgaRegioncode;
+        return bio_rga_regioncode;
     }
 
     public void setBioRgaRegioncode(String bioRgaRegioncode) {
-        this.bioRgaRegioncode = bioRgaRegioncode == null ? null : bioRgaRegioncode.trim();
+        this.bio_rga_regioncode = bioRgaRegioncode == null ? null : bioRgaRegioncode.trim();
     }
 
     public String getBioBuaPostcode() {
-        return bioBuaPostcode;
+        return bio_bua_Postcode;
     }
 
     public void setBioBuaPostcode(String bioBuaPostcode) {
-        this.bioBuaPostcode = bioBuaPostcode == null ? null : bioBuaPostcode.trim();
+        this.bio_bua_Postcode = bioBuaPostcode == null ? null : bioBuaPostcode.trim();
     }
 
     public String getBioConFax() {
-        return bioConFax;
+        return bio_con_fax;
     }
 
     public void setBioConFax(String bioConFax) {
-        this.bioConFax = bioConFax == null ? null : bioConFax.trim();
+        this.bio_con_fax = bioConFax == null ? null : bioConFax.trim();
     }
 
     public String getBioConMail() {
-        return bioConMail;
+        return bio_con_mail;
     }
 
     public void setBioConMail(String bioConMail) {
-        this.bioConMail = bioConMail == null ? null : bioConMail.trim();
+        this.bio_con_mail = bioConMail == null ? null : bioConMail.trim();
     }
 
     public String getBioBuaAddress() {
-        return bioBuaAddress;
+        return bio_bua_address;
     }
 
     public void setBioBuaAddress(String bioBuaAddress) {
-        this.bioBuaAddress = bioBuaAddress == null ? null : bioBuaAddress.trim();
+        this.bio_bua_address = bioBuaAddress == null ? null : bioBuaAddress.trim();
     }
+
+
+
+	@Override
+	public String toString() {
+		return "Bio [bioId=" + bio_id + ", bioNo=" + bio_no + ", bioName=" + bio_name + ", bioShortname=" + bio_shortname
+				+ ", bioOrgtype=" + bio_orgtype + ", cdgRegtype=" + cdg_regtype + ", bioIndustry=" + bio_industry
+				+ ", bioRgaRegioncode=" + bio_rga_regioncode + ", bioBuaPostcode=" + bio_bua_Postcode + ", bioConFax="
+				+ bio_con_fax + ", bioConMail=" + bio_con_mail + ", bioBuaAddress=" + bio_bua_address + "]";
+	}
+    
+    
+    
 }

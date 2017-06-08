@@ -15,7 +15,8 @@
 	<mybatis-spring:scan base-package="com.hrm.mapper"/>	
 	<context:component-scan base-package="
 		com.hrm.service.impl,
-		com.hrm.controller
+		com.hrm.controller,
+		com.hrm.dao
 	"/>
 	<context:property-placeholder location="classpath:*.properties" order="2"/>
 	<aop:aspectj-autoproxy />
