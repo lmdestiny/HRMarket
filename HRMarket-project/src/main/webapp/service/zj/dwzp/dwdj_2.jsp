@@ -217,7 +217,11 @@
 	function doInsert(){							
 		form1.bc.disabled=true;
 		form1.fh.disabled=true;
+<<<<<<< HEAD
 		form1.action="<%=request.getContextPath()%>/service/zj/dwzp/dwdj_3.jsp";
+=======
+		form1.action="<%=request.getContextPath()%>	/service/zj/dwzp/dwdj_3.jsp";
+>>>>>>> refs/remotes/origin/QuestCh
 		form1.submit();
 	}
 	function copyValue() {

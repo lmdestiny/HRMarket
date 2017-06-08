@@ -1,5 +1,35 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.hrm.dao.ZjDwzpgzbMapper" >
- 
+ 	<insert id="insert" parameterType="com.hrm.vo.ZjDwzpgzb">
+ 		insert into zj_dwzpgzb values(#{zpgzbh},#{zpbh},#{zpgz},#{zpgzbm},#{gwlb},
+ 			#{zrs},#{zprsn},#{zprsnv},
+			#{xbbx},#{hjxz},#{kssj},#{jssj},#{zxnl},#{zdnl},#{whcd},#{ygxs},
+			#{zzyx},#{zgyx},#{hyzk},#{jkzk},#{rylb},#{sfbys},#{zpdq},#{jyyz},
+			#{slcd},#{jsjdj},#{jsjslcd},#{gwms},#{gzdd},#{cgrsn},#{cgrsnv},
+			#{djyxq},#{djsj},#{gdsj}
+ 	</insert>
+ 	<update id="update" parameterType="com.hrm.vo.ZjDwzpgzb">
+ 		update zj_dwzpgzb set zpbh=#{zpbh},zpgz=#{zpgz},zpgzbm#{zpgzbm},
+ 			gwlb=#{gwlb},zrs=#{zrs},zprsn=#{zprsn},zprsnv=#{zprsnv},
+			xbbx=#{xbbx},hjxz=#{hjxz},kssj=#{kssj},jssj=#{jssj},zxnl=#{zxnl},
+			zdnl=#{zdnl},whcd=#{whcd},ygxs=#{ygxs},
+			zzyx=#{zzyx},zgyx=#{zgyx},hyzk=#{hyzk},jkzk=#{jkzk},rylb=#{rylb},
+			sfbys=#{sfbys},zpdq=#{zpdq},jyyz=#{jyyz},
+			slcd=#{slcd},jsjdj=#{jsjdj},jsjslcd=#{jsjslcd},gwms=#{gwms},
+			gzdd=#{gzdd},cgrsn=#{cgrsn},cgrsnv=#{cgrsnv},
+			djyxq=#{djyxq},djsj=#{djsj},gdsj=#{gdsj}  where zpgzbh=#{zpgzbh}
+ 	</update>
+ 	<delete id="delete" parameterType="String">
+ 		delete from zj_dwzpgzb where zpgzbh=#{zpgzbh}
+ 	</delete>
+ 	<select id="getAll" resultType="com.hrm.vo.ZjDwzpgzb">
+ 		select * from zj_dwzpgzb order by zpgzbh
+ 	</select>
+ 	<select id="getOne" parameterType="String" resultType="com.hrm.vo.ZjDwzpgzb">
+ 		select * from zj_dwzpgzb where zpgzbh=#{zpgzbh}
+ 	</select>
+ 	<select id="getbyZPBH" parameterType="String" resultType="com.hrm.vo.ZjDwzpgzb">
+ 		select * from zj_dwzpgzb where zpbh=#{zpbh}
+ 	</select>
 </mapper>
