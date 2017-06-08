@@ -18,23 +18,20 @@ public class ZjDwzpgzbServiceImpl implements ZjDwzpgzbService {
 	private GenerateID generateid=new GenerateID();
 	@Override
 	public void save(ZjDwzpgzb dwzpgzb) {
-		// TODO 自动生成的方法存根
 		dwzpgzb.setZpgzbh(generateid.getGenerateId());
-		ZjDwzpgzbdao.inset(dwzpgzb);
+		ZjDwzpgzbdao.insert(dwzpgzb);
 		
 
 	}
 
 	@Override
 	public void update(ZjDwzpgzb dwzpgzb) {
-		// TODO 自动生成的方法存根
 		ZjDwzpgzbdao.update(dwzpgzb);
 	}
 	
 	//根据 招聘工种编号(zpgzbh) 删除
 	@Override
 	public void delete(String zpgzbh) {
-		// TODO 自动生成的方法存根
 		ZjDwzpgzbdao.delete(zpgzbh);
 	}
 

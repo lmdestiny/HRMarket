@@ -5,7 +5,7 @@ import java.util.List;
 import com.hrm.vo.ZjDwzpgzb;
 
 public interface ZjDwzpgzbMapper {
-	public void inset(ZjDwzpgzb dwzpgzb);
+	public void insert(ZjDwzpgzb dwzpgzb);
 	
 	public void update(ZjDwzpgzb dwzpgzb);
 	//根据 招聘工种编号(zpgzbh) 删除
