@@ -3,13 +3,17 @@
 <mapper namespace="com.hrm.dao.BioMapper" >
   
   <insert id="insert" parameterType="com.hrm.vo.Bio">
-  	insert into bio values(#{bioId},#{bioNo},#{bioName},#{bioShortname},#{bioOrgtype},#{cdgRegtype},#{bioIndustry},#{bioRgaRegioncode},#{bioBuaPostcode},#{bioConFax},#{bioConMail},#{bioBuaAddress})
+  	insert into bio values(#{bio_id},#{bio_no},#{bio_name},#{bio_shortname},#{bio_orgtype},#{cdg_regtype},
+  	#{bio_industry},#{bio_rga_regioncode},#{bio_bua_postcode},
+  	#{bio_con_fax},#{bio_con_mail},#{bio_bua_address})
   </insert>
   <update id="update" parameterType="com.hrm.vo.Bio">
-  	update bio set bio_no=#{bioNo},bio_name=#{bioName},bio_shortname=#{bioShortname},bio_orgtype=#{bioOrgtype},cdg_regtype=#{cdgRegtype},bio_industry=#{bioIndustry},bio_rga_regioncode=#{bioRgaRegioncode},bio_bua_postcode=#{bioBuaPostcode},bio_con_fax=#{bioConFax},bio_con_mail=#{bioConMail},bio_bua_address=#{bioBuaAddress} where bio_id=#{bioId}
+  	update bio set bio_no=#{bio_no},bio_name=#{bio_name},bio_shortname=#{bio_shortname},bio_orgtype=#{bio_orgtype},cdg_regtype=#{cdg_regtype},
+  	bio_industry=#{bio_industry},bio_rga_regioncode=#{bio_rga_regioncode},bio_bua_postcode=#{bio_bua_postcode},
+  	bio_con_fax=#{bio_con_fax},bio_con_mail=#{bio_con_mail},bio_bua_address=#{bio_bua_address} where bio_id=#{bio_id}
   </update>
   <delete id="delete" parameterType="String">
-  	delete from bio where bio_id=#{bioId}
+  	delete from bio where bio_id=#{bio_id}
   </delete>
   <select id="getAll"  resultType="com.hrm.vo.Bio">
   	select * from bio order by bio_id

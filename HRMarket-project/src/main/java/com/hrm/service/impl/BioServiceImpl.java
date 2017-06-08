@@ -22,7 +22,7 @@ public class BioServiceImpl implements BioService {
 	@Transactional
 	public void save(Bio bio) {
 		// TODO 自动生成的方法存根
-		bio.setBioId(generateid.getGenerateId());
+		bio.setBio_id(generateid.getGenerateId());
 		bioDao.insert(bio);
 	}
 
