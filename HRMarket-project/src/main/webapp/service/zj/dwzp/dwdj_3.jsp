@@ -247,7 +247,7 @@
 	<form method="post" name="form1" action="dwdjInfo.do">
 		<input type="hidden" name="dwdj" value="dwdj3" /> <input
 			type="hidden" name="dwbh" id="dwbh"
-			value=<%=request.getSession().getAttribute("dwbh")%>>
+			value="${bio.bio_id }">
 		<table width="100%" border="0" cellspacing="0" cellpadding="0">
 			<tr>
 				<td>
@@ -283,7 +283,7 @@
 									</tr>
 								</table>
 							</td>
-							<td valign="bottom">招聘信息[公司名称法人码]</td>
+							<td valign="bottom">公司名称:${bio.bio_name }   法人码:${bio.bio_no }</td>
 						</tr>
 					</table>
 					<table width="98%" border="0" cellpadding="0" cellspacing="1">
@@ -467,9 +467,12 @@
 							<td>b</td>
 						</tr>
 						<TR align="center">
-							<TD class="line2"><input name="bc" id="bc" type="button"
-								class="BUTTONs3" value="保 存"> &nbsp;&nbsp; <INPUT
-								name="fh" type="submit" class="BUTTONs3" value="返 回"></TD>
+							<TD class="line2">
+							<input name="bc" id="bc" type="button" class="BUTTONs3" value="保 存"> &nbsp;&nbsp; 
+								<INPUT name="fh" type="button"		
+								onclick="window.location.href='<%=request.getContextPath()%>/service/zj/dwzp/dwdj_2';"
+								class="BUTTONs3" value="返 回">
+							</TD>
 						</TR>
 					</TABLE>
 				</td>

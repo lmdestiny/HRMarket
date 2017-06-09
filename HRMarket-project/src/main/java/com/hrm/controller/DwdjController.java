@@ -1,12 +1,15 @@
 package com.hrm.controller;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.hrm.service.BioService;
 import com.hrm.utils.JsonUtils;
@@ -33,6 +36,7 @@ import com.imti.ldlsc.common.codetable.ZjdgwlbOperation;
  *
  */
 @Controller
+@SessionAttributes("bio")
 @RequestMapping("/service/zj/dwzp")
 public class DwdjController {
 	
@@ -91,27 +95,31 @@ public class DwdjController {
 	
 	
 	//单位（用户）已存在是否显示该单位，做回显
-	@GetMapping(value="dwdjInfo.do",produces="text/plain;charset=UTF-8")
+	@GetMapping(value="/dwdjInfo.do",produces="text/plain;charset=UTF-8")
 	@ResponseBody
 	public String showInfo(String code,String frm,String textd){
+		//回显bio
 		if("blur".equals(code)){
 			if(frm!=null){
 				return utils.objectToJson(bioService.getbyNo(frm));
 			}else{
 				return null;
 			}
+			//回显区
 		}else if("dwszj".equals(code)){
 			if(textd!=null){
 				return  RegioncodeOperation.getOption(textd);
 			}else{
 				return null;
 			}
+			//回显市
 		}else if("dwszq".equals(code)){
 			if(textd!=null){
 				return  RegioncodeOperation.getSelectedRegion(textd.substring(0, 6)+"000000","city");
 			}else{
 				return null;
 			}
+			//回显省
 		}else if("dwszs".equals(code)){
 			if(textd!=null){
 				return  RegioncodeOperation.getSelectedRegion(textd.substring(0, 2)+"0000000000","province");
@@ -124,26 +132,38 @@ public class DwdjController {
 	}
 	
 	//单位信息录入
-	@PostMapping("dwdjInfo.do")
-	public String saveInfo(String dwfrm,String dwqc,String dwjc,String dwxz,String dwjjlx,
-			String dwhy,String yzbm,String czjh,String email,String dwszj,String lxdz,Model model){
+	@PostMapping("/dwdjInfo.do")
+	public ModelAndView saveInfo(String dwfrm,String dwqc,String dwjc,String dwxz,String dwjjlx,
+			String dwhy,String yzbm,String czjh,String email,String dwszj,String lxdz){
 		Bio bio=bioService.getbyNo(dwfrm);
+		String id="";
 		if(bio==null){
 			bio=new Bio(dwfrm, dwqc, dwjc, dwxz, dwjjlx, dwhy, dwszj, yzbm, czjh, email, lxdz);
-			bioService.save(bio);
+			id=bioService.save(bio);
+			bio.setBio_id(id);
 		}else{
-			String id=bio.getBio_id();
+			id=bio.getBio_id();
 			bio=new Bio(dwfrm, dwqc, dwjc, dwxz, dwjjlx, dwhy, dwszj, yzbm, czjh, email, lxdz);
 			bio.setBio_id(id);
 			bioService.update(bio);
 		}
-		model.addAttribute("bio", bio);
-		return "/service/zj/dwzp/dwdj_3";
+		ModelAndView modelAndView=new ModelAndView("/service/zj/dwzp/dwdj_3");
+		modelAndView.addObject("bio", bio);
+		return modelAndView;
 	}
 	
 	//新增单位基本信息返回功能
 	@RequestMapping("/home")
 	public String home(){
 		return "frames/right";
+	}
+	
+	//新增工种信息返回功能
+	@RequestMapping("/dwdj_2")
+	public ModelAndView back(@ModelAttribute Bio bio){
+		bio=new Bio();
+		ModelAndView modelAndView=new ModelAndView("/service/zj/dwzp/dwdj_2");
+		modelAndView.addObject("bio", bio);
+		return modelAndView;
 	}
 }

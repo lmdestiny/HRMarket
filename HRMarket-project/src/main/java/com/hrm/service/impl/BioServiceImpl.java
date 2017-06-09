@@ -20,10 +20,12 @@ public class BioServiceImpl implements BioService {
 	
 	@Override
 	@Transactional
-	public void save(Bio bio) {
+	public String save(Bio bio) {
 		// TODO 自动生成的方法存根
-		bio.setBio_id(generateid.getGenerateId());
+		String id=generateid.getGenerateId();
+		bio.setBio_id(id);
 		bioDao.insert(bio);
+		return id;
 	}
 
 	@Override

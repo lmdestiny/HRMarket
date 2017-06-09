@@ -8,7 +8,7 @@ import com.hrm.vo.Bio;
 
 public interface BioService {
 	
-	public void save(Bio bio);
+	public String save(Bio bio);
 	public void update(Bio bio);
 	public void delete(String id);
 	public List<Bio> getAll();
