@@ -18,5 +18,5 @@ public interface ZjDwzpdjbMapper {
 	//根据 招聘编号 查找
 	public ZjDwzpdjb getOne(String zpbh);
 	//根据 单位编号 查找所有招聘信息
-	public List<ZjDwzpdjb> getbyDWBH(String dwbh);
+	public ZjDwzpdjb getOnebyDWBH(String dwbh);
 }

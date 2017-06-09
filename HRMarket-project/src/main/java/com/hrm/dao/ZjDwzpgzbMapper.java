@@ -16,4 +16,6 @@ public interface ZjDwzpgzbMapper {
 	public ZjDwzpgzb getOne(String zpgzbh);
 	//根据 招聘编号(zpbh) 查询所有招聘工种 
 	public List<ZjDwzpgzb> getbyZPBH(String zpbh);
+	//根据 招聘工种 和 招聘编号（登记表主键）查询该工种信息
+	public ZjDwzpgzb getbyBHandGZ(String zpbh,String zpgz);
 }

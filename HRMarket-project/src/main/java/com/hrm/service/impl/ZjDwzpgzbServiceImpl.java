@@ -4,9 +4,13 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import com.hrm.dao.ZjDwzpdjbMapper;
 import com.hrm.dao.ZjDwzpgzbMapper;
+import com.hrm.service.ZjDwzpdjbService;
 import com.hrm.service.ZjDwzpgzbService;
+import com.hrm.vo.ZjDwzpdjb;
 import com.hrm.vo.ZjDwzpgzb;
 import com.imti.ldlsc.common.util.GenerateID;
 
@@ -15,11 +19,31 @@ public class ZjDwzpgzbServiceImpl implements ZjDwzpgzbService {
 	
 	@Autowired
 	private ZjDwzpgzbMapper ZjDwzpgzbdao;
+	@Autowired
+	private ZjDwzpdjbService zjDwzpdjbService;
 	private GenerateID generateid=new GenerateID();
+	
 	@Override
-	public void save(ZjDwzpgzb dwzpgzb) {
-		dwzpgzb.setZpgzbh(generateid.getGenerateId());
-		ZjDwzpgzbdao.insert(dwzpgzb);
+	@Transactional
+	public boolean save(ZjDwzpgzb dwzpgzb,ZjDwzpdjb dwzpdjb) {
+		//首先根据登记表获得主键
+		String zpbh=zjDwzpdjbService.confrimInfo(dwzpdjb);
+		dwzpgzb.setZpbh(zpbh);
+		//验证：根据 招聘工种 和 招聘编号（登记表主键）查询该工种信息是否已存在		
+		ZjDwzpgzb gzbconfrim=ZjDwzpgzbdao.getbyBHandGZ(dwzpgzb.getZpbh(), dwzpgzb.getZpgz());
+		//如果存在，返回 false 表示插入失败
+		if(gzbconfrim!=null){
+			return false;
+		}else {
+			//如果不存在 新建 
+			//生成主键
+			dwzpgzb.setZpgzbh(generateid.getGenerateId());
+			//插入数据库
+			ZjDwzpgzbdao.insert(dwzpgzb);
+			//返回 true 插入成功
+			return true;
+		}
+		
 		
 
 	}

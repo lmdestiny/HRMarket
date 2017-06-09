@@ -1,6 +1,14 @@
 package com.hrm.controller;
 
 
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.sql.Date;
+import java.util.HashMap;
+import java.util.Map;
+
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,8 +20,13 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.hrm.service.BioService;
+import com.hrm.service.ZjDwzpdjbService;
+import com.hrm.service.ZjDwzpgzbService;
 import com.hrm.utils.JsonUtils;
+import com.hrm.utils.StaticDataConfigration;
 import com.hrm.vo.Bio;
+import com.hrm.vo.ZjDwzpdjb;
+import com.hrm.vo.ZjDwzpgzb;
 import com.imti.ldlsc.common.codetable.ComputergradeOperation;
 import com.imti.ldlsc.common.codetable.EducationallevelOperation;
 import com.imti.ldlsc.common.codetable.EmploytypeOperation;
@@ -42,12 +55,16 @@ public class DwdjController {
 	
 	@Autowired
 	private BioService bioService;
+	@Autowired
+	private ZjDwzpdjbService dwzpdjbService;
+	@Autowired
+	private ZjDwzpgzbService DwzpgzbService;
 	JsonUtils utils=new JsonUtils();
 	
 	//获取codetable信息
 	@GetMapping(value="/dwdj_1.do",produces="text/html;charset=UTF-8")
 	@ResponseBody
-	public String staticResources(String code,String province,String city){
+	public String staticResources(String code,String province,String city,String str){
 		if("dwxz".equals(code)){
 			System.out.println(OrgtypeOperation.getOption());
 			return OrgtypeOperation.getOption();
@@ -87,6 +104,12 @@ public class DwdjController {
 			return RprtypeOperation.getOption();
 		}else if("zpgz".equals(code)){
 			return SpecialtyOperation.getOption();
+		}else if("gz0".equals(code)){
+			return SpecialtyOperation.getSelectedGz(str, "gz1");
+		}else if("gz1".equals(code)){
+			return SpecialtyOperation.getSelectedGz(str, "gz2");
+		}else if("gz2".equals(code)){
+			return SpecialtyOperation.getSelectedGz(str, "gz3");
 		}else{
 			return "<option></option>";
 		}
@@ -97,7 +120,7 @@ public class DwdjController {
 	//单位（用户）已存在是否显示该单位，做回显
 	@GetMapping(value="/dwdjInfo.do",produces="text/plain;charset=UTF-8")
 	@ResponseBody
-	public String showInfo(String code,String frm,String textd){
+	public String showInfo(String code,String frm,String textd,String dwbh){
 		//回显bio
 		if("blur".equals(code)){
 			if(frm!=null){
@@ -126,6 +149,13 @@ public class DwdjController {
 			}else{
 				return null;
 			}
+		}else if("dwbh".equals(code)){
+			if(dwbh!=null){
+				ZjDwzpdjb dwzpdjb=dwzpdjbService.getOnebyDWBH(dwbh);
+				return utils.objectToJson(dwzpdjb);
+			}else{
+				return null;
+			}
 		}else{
 			return null;
 		}
@@ -150,6 +180,35 @@ public class DwdjController {
 		ModelAndView modelAndView=new ModelAndView("/service/zj/dwzp/dwdj_3");
 		modelAndView.addObject("bio", bio);
 		return modelAndView;
+	}
+	
+	//单位招聘信息录入
+	@PostMapping("/dwzpdjInfo.do")
+	public void dwzpdjinfo(String dwbh,String dwlxr,String lxrsfzhm,
+			String lxrsj,String zpgz,String zpgzbm,String gwlb,String nars,
+			String nvrs,String xbbx,String hjxz,String fbkssj,String fbjssj,
+			String zxnl,String zdnl,String whcd,String ygxs,String zdyx,
+			String zgyx,String hyzk,String jkzk,String sfyjgxbys,String rylb,
+			String zpdq,String jsjdj,String jsjslcd,String jyyz,String yzslcd,
+			String gzdd,String gwms,String fldy,HttpServletResponse response) throws IOException {
+		String zrs="";
+		if(nars!=null&&nvrs!=null){
+			Integer n=Integer.valueOf(nars)+Integer.valueOf(nvrs);
+			zrs=n.toString();
+		}
+		PrintWriter printWriter=response.getWriter();
+		if(dwbh==null){
+			printWriter.print("<script type=\"text/javascript\">alert(\"未获取到单位信息，请检查！\");window.location.href='/service/zj/dwzp/dwdj_2.jsp'</script>");
+		}
+		ZjDwzpdjb dwzpdjb=new ZjDwzpdjb(dwbh, dwlxr, lxrsfzhm, lxrsj, "0", StaticDataConfigration.getDengjiyouxiaoqi(), new Date(new java.util.Date().getTime())+"", "");
+		ZjDwzpgzb dwzpgzb=new ZjDwzpgzb(zpgz, zpgzbm, gwlb, zrs, nars, nvrs, xbbx, hjxz, fbkssj, 
+				fbjssj, zxnl, zdnl, whcd, ygxs, zdyx, zgyx, hyzk, jkzk, rylb, sfyjgxbys, zpdq, jyyz, yzslcd, jsjdj, 
+				jsjslcd, gwms, gzdd, "0", "0", StaticDataConfigration.getDengjiyouxiaoqi()+"", new Date(new java.util.Date().getTime())+"", "");	
+		if(DwzpgzbService.save(dwzpgzb, dwzpdjb)){
+			printWriter.print("<script type=\"text/javascript\">alert(\"录入成功！\");window.location.href='/service/zj/dwzp/dwdj_3.jsp'</script>");
+		}else{
+			printWriter.print("<script type=\"text/javascript\">alert(\"录入失败！工种已存在！\");window.location.href='/service/zj/dwzp/dwdj_3.jsp'</script>");
+		}
 	}
 	
 	//新增单位基本信息返回功能

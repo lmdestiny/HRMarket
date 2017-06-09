@@ -244,7 +244,7 @@
 </script>
 </head>
 <body>
-	<form method="post" name="form1" action="dwdjInfo.do">
+	<form method="post" name="form1" action="dwzpdjInfo.do">
 		<input type="hidden" name="dwdj" value="dwdj3" /> <input
 			type="hidden" name="dwbh" id="dwbh"
 			value="${bio.bio_id }">

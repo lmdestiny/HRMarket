@@ -157,10 +157,11 @@
 	<tr class ="line1"> 
 	  <td align="right" >大&nbsp;&nbsp;&nbsp;&nbsp;类</td>
 	  <td id="gwtd">
-		<select id="gw"  style="width:120px"  onchange="initGz1()">
+		<select id="gw"  style="width:120px">
 
 			<%=SpecialtyOperation.getGwmc()%>
 		</select>
+		
 		</td>
 	  <td  align="right" >中&nbsp;&nbsp;&nbsp;&nbsp;类</td>
 	  <td width="33%" id="gz1td">

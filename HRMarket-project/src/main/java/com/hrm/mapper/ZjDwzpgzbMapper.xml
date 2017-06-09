@@ -7,7 +7,7 @@
 			#{xbbx},#{hjxz},#{kssj},#{jssj},#{zxnl},#{zdnl},#{whcd},#{ygxs},
 			#{zzyx},#{zgyx},#{hyzk},#{jkzk},#{rylb},#{sfbys},#{zpdq},#{jyyz},
 			#{slcd},#{jsjdj},#{jsjslcd},#{gwms},#{gzdd},#{cgrsn},#{cgrsnv},
-			#{djyxq},#{djsj},#{gdsj}
+			#{djyxq},#{djsj},#{gdsj})
  	</insert>
  	<update id="update" parameterType="com.hrm.vo.ZjDwzpgzb">
  		update zj_dwzpgzb set zpbh=#{zpbh},zpgz=#{zpgz},zpgzbm#{zpgzbm},
@@ -31,5 +31,8 @@
  	</select>
  	<select id="getbyZPBH" parameterType="String" resultType="com.hrm.vo.ZjDwzpgzb">
  		select * from zj_dwzpgzb where zpbh=#{zpbh}
+ 	</select>
+ 	<select id="getbyBHandGZ" parameterType="String" resultType="com.hrm.vo.ZjDwzpgzb">
+ 		select * from zj_dwzpgzb where zpbh=#{0} and zpgz=#{1}
  	</select>
 </mapper>
