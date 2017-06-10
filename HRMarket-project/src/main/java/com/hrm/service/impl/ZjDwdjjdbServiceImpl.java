@@ -57,4 +57,10 @@ public class ZjDwdjjdbServiceImpl implements ZjDwdjjdbService {
 		return ZjDwdjjdbdao.getbyDWMC(dwmc);
 	}
 
+	@Override
+	public BioDj getbyZPBH(String zpbh) {
+		// TODO 自动生成的方法存根
+		return ZjDwdjjdbdao.getbyZPBH(zpbh);
+	}
+
 }

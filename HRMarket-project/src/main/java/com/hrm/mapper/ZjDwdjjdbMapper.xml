@@ -30,6 +30,13 @@
   		where bio.bio_id=zj_dwzpdjb.dwbh 
   		and bio.bio_name=#{dwmc}
   </select>
+   <select id="getbyZPBH" parameterType="String" resultType="com.hrm.vo.BioDj">
+  		select zj_dwzpdjb.sfdj zt,bio.bio_name dwmc,bio.bio_bua_address dwdz,
+  		zj_dwzpdjb.lxrsj lxdh,zj_dwzpdjb.djsj djsj,zj_dwzpdjb.zpbh zpbh
+  		from bio,zj_dwzpdjb 
+  		where bio.bio_id=zj_dwzpdjb.dwbh 
+  		and zj_dwzpdjb.zpbh=#{zpbh}
+  </select>
   <select id="getGDinfo" parameterType="com.hrm.vo.Bio" resultType="com.hrm.vo.BioDj">
   		select zj_dwzpdjb.sfdj zt,bio.bio_name dwmc,bio.bio_bua_address dwdz,
   		zj_dwzpdjb.lxrsj lxdh,zj_dwzpdjb.djsj djsj,zj_dwzpdjb.zpbh zpbh

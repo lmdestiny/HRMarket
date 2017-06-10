@@ -237,7 +237,7 @@ public class DwdjController {
 	
 	//单位冻结解冻查询提交
 	@RequestMapping("dwdj_dj.do")
-	public ModelAndView gongjie(String flag,String bio_no,String bio_name,String[] zpbhs){
+	public ModelAndView gongjie(String flag,String bio_no,String bio_name,String[] zpbhs,String djreason){
 		ModelAndView modelAndView;
 		//按法人码、单位名称查询冻结信息
 		if("selectDwById".equals(flag)){
@@ -257,9 +257,17 @@ public class DwdjController {
 			}
 		}else if("select".equals(flag)){
 			modelAndView=new ModelAndView("/service/zj/dwzp/dwdj_dj_3");
+			List<BioDj> list=new ArrayList<BioDj>();	
+			for(String s:zpbhs){
+				list.add(dwdjjdbService.getbyZPBH(s));
+			}
+			modelAndView.addObject("DwInfo",list);
+		}else if("DjJd".equals(flag)){
+			modelAndView=new ModelAndView("/service/zj/dwzp/dwdj_dj_1");
 			for(String s:zpbhs){
 				System.err.println(s);
 			}
+			System.err.println(djreason);
 		}else{
 			modelAndView=new ModelAndView("/service/zj/dwzp/dwdj_dj_1");
 		}

@@ -18,4 +18,5 @@ public interface ZjDwdjjdbMapper {
 	public List<ZjDwdjjdb> getAll();
 	public BioDj  getbyFRM(String dwfrm);
 	public List<BioDj>  getbyDWMC(String dwmc);
+	public BioDj  getbyZPBH(String zpbh);
 }

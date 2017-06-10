@@ -15,5 +15,5 @@ public interface ZjDwdjjdbService {
 	public BioDj  getbyFRM(String dwfrm);
 	//根据 单位名称获得
 	public List<BioDj>  getbyDWMC(String dwmc);
-
+	public BioDj  getbyZPBH(String zpbh);
 }
