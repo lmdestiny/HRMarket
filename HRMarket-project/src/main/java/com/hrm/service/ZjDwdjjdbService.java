@@ -7,7 +7,7 @@ import com.hrm.vo.BioDj;
 import com.hrm.vo.ZjDwdjjdb;
 
 public interface ZjDwdjjdbService {
-	public void insert(ZjDwdjjdb dwdjjdb);
+	public void insert(String zpbh,String djreason);
 	public void update(ZjDwdjjdb dwdjjdb);
 	public void delete(String dwdjjdbh);
 	public List<ZjDwdjjdb> getAll();

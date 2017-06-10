@@ -265,9 +265,8 @@ public class DwdjController {
 		}else if("DjJd".equals(flag)){
 			modelAndView=new ModelAndView("/service/zj/dwzp/dwdj_dj_1");
 			for(String s:zpbhs){
-				System.err.println(s);
+				dwdjjdbService.insert(s, djreason);
 			}
-			System.err.println(djreason);
 		}else{
 			modelAndView=new ModelAndView("/service/zj/dwzp/dwdj_dj_1");
 		}

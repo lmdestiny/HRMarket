@@ -6,6 +6,14 @@
   		insert into zj_dwdjjdb values(#{dwdjjdbh},#{zpbh},#{djyy},#{djsj},
   		#{jdyy},#{jdsj},#{gdsj})
   </insert>
+  <insert id="insertDJ" parameterType="com.hrm.vo.ZjDwdjjdb">
+  		insert into zj_dwdjjdb(dwdjjdbh,zpbh,djyy,djsj,gdsj) 
+  		values(#{dwdjjdbh},#{zpbh},#{djyy},#{djsj},#{gdsj})
+  </insert>
+  <insert id="insertJD" parameterType="com.hrm.vo.ZjDwdjjdb">
+  		insert into zj_dwdjjdb(dwdjjdbh,zpbh,jdyy,jdsj,gdsj) 
+  		values(#{dwdjjdbh},#{zpbh},#{jdyy},#{jdsj},#{gdsj})
+  </insert>
   <update id="update" parameterType="com.hrm.vo.ZjDwdjjdb">
   		update zj_dwdjjdb set  zpbh=#{zpbh},djyy=#{djyy},djsj=#{djsj},
   		jdyy=#{jdyy},jdsj=#{jdsj},gdsj=#{gdsj}  where dwdjjdbh={dwdjjdbh}
@@ -37,20 +45,25 @@
   		where bio.bio_id=zj_dwzpdjb.dwbh 
   		and zj_dwzpdjb.zpbh=#{zpbh}
   </select>
-  <select id="getGDinfo" parameterType="com.hrm.vo.Bio" resultType="com.hrm.vo.BioDj">
-  		select zj_dwzpdjb.sfdj zt,bio.bio_name dwmc,bio.bio_bua_address dwdz,
+  <select id="getGDinfo" parameterType="com.hrm.vo.ZjDwgd" resultType="com.hrm.vo.BioDj">
+  		select zj_dwzpdjb.gdsj zt,bio.bio_name dwmc,bio.bio_bua_address dwdz,
   		zj_dwzpdjb.lxrsj lxdh,zj_dwzpdjb.djsj djsj,zj_dwzpdjb.zpbh zpbh
   		from bio,zj_dwzpdjb 
   		where bio.bio_id=zj_dwzpdjb.dwbh 
-  			<if test="bio_no!=null">
-  				bio.bio_no=#{bio_no}
+  			<if test="dwfrm!=null">
+  				and bio.bio_no=#{dwfrm}
   			</if>
-  			<if test="bio_name!=null	">
-  				bio.bio_name=#{bio_name}
+  			<if test="dwmc!=null">
+  				and bio.bio_name=#{dwmc}
   			</if>
-  		
-  		
-  		
-  
+  			<if test="djsjq!=null">
+  				and ZjDwzpdjb.djsj &lt;=#{djsjq}
+  			</if>
+  			<if test="djsjz!=null">
+  				and ZjDwzpdjb.djsj &gt;=#{djsjz}
+  			</if>
+  			<if test="sfdj!=null">
+  				and ZjDwzpdjb.sfdj=#{sfdj}
+  			</if>
   </select>
 </mapper>

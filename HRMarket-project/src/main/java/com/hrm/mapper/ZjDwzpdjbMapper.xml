@@ -10,7 +10,7 @@
  		lxrsj=#{lxrsj},sfdj=#{sfdj},djyxq=#{djyxq},djsj=#{djsj},gdsj=#{gdsj} where zpbh=#{zpbh}
  	</update>
  	<update id="updateDjjd" parameterType="String">
- 		update zj_dwzpdjb set sfdj=#{0} where zpbh={1}
+ 		update zj_dwzpdjb set sfdj=#{0} where zpbh=#{1}
  	</update>
  	<delete id="delete" parameterType="String">
  		delete from zj_dwzpdjb where zpbh=#{zpbh}
