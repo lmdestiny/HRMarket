@@ -26,9 +26,13 @@ public class ZjDwdjjdbServiceImpl implements ZjDwdjjdbService {
 	@Override
 	@Transactional
 	public void insert(ZjDwdjjdb dwdjjdb) {
-		zjDwzpdjbService.updateDjjd(dwdjjdb.getZpbh());
+		boolean flag=zjDwzpdjbService.updateDjjd(dwdjjdb.getZpbh());
 		dwdjjdb.setDwdjjdbh(generateid.getGenerateId());
-		ZjDwdjjdbdao.insert(dwdjjdb);
+		if (flag) {
+			ZjDwdjjdbdao.insertDJ(dwdjjdb);
+		}else {
+			ZjDwdjjdbdao.insertJD(dwdjjdb);
+		}
 	}
 
 	@Override

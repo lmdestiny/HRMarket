@@ -18,5 +18,5 @@ public interface ZjDwzpdjbService {
 	public String confrimInfo(ZjDwzpdjb dwzpdjb);
 	
 	//
-	public void updateDjjd(String zpbh);
+	public boolean updateDjjd(String zpbh);
 }

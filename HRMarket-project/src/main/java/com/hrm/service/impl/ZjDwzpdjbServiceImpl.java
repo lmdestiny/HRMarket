@@ -70,12 +70,15 @@ public class ZjDwzpdjbServiceImpl implements ZjDwzpdjbService {
 
 	@Override
 	@Transactional
-	public void updateDjjd(String zpbh) {
+	public boolean updateDjjd(String zpbh) {
 		ZjDwzpdjb zjDwzpdjb=ZjDwzpdjbdao.getOne(zpbh);
 		if(zjDwzpdjb.getSfdj()=="0"){
 			ZjDwzpdjbdao.updateDjjd("1", zpbh);
+			//由 未冻结 变为 冻结  插入冻结表 返回true
+			return true;
 		}else {
 			ZjDwzpdjbdao.updateDjjd("0", zpbh);
+			return false;
 		}
 		
 	}
