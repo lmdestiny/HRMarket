@@ -1,7 +1,7 @@
 package com.hrm.vo;
 
 public class BioDj {
-	private String zt;
+	private String zt;//状态，归档
 	private String dwmc;
 	private String dwdz;
 	private String lxdh;

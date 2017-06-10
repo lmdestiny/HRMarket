@@ -5,9 +5,11 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.hrm.dao.ZjDwdjjdbMapper;
 import com.hrm.service.ZjDwdjjdbService;
+import com.hrm.service.ZjDwzpdjbService;
 import com.hrm.vo.BioDj;
 import com.hrm.vo.ZjDwdjjdb;
 import com.imti.ldlsc.common.util.GenerateID;
@@ -17,10 +19,14 @@ public class ZjDwdjjdbServiceImpl implements ZjDwdjjdbService {
 
 	@Autowired
 	ZjDwdjjdbMapper ZjDwdjjdbdao;
+	@Autowired
+	ZjDwzpdjbService zjDwzpdjbService;
 	private GenerateID generateid=new GenerateID();
 	
 	@Override
+	@Transactional
 	public void insert(ZjDwdjjdb dwdjjdb) {
+		zjDwzpdjbService.updateDjjd(dwdjjdb.getZpbh());
 		dwdjjdb.setDwdjjdbh(generateid.getGenerateId());
 		ZjDwdjjdbdao.insert(dwdjjdb);
 	}

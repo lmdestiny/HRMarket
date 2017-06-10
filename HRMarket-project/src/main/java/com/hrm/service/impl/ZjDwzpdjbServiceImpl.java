@@ -68,4 +68,16 @@ public class ZjDwzpdjbServiceImpl implements ZjDwzpdjbService {
 		
 	}
 
+	@Override
+	@Transactional
+	public void updateDjjd(String zpbh) {
+		ZjDwzpdjb zjDwzpdjb=ZjDwzpdjbdao.getOne(zpbh);
+		if(zjDwzpdjb.getSfdj()=="0"){
+			ZjDwzpdjbdao.updateDjjd("1", zpbh);
+		}else {
+			ZjDwzpdjbdao.updateDjjd("0", zpbh);
+		}
+		
+	}
+
 }
