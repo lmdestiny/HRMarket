@@ -18,6 +18,7 @@ import com.hrm.dao.ZjGrqzgzbMapper;
 import com.hrm.service.BipService;
 import com.hrm.utils.HRMResult;
 import com.hrm.vo.Bip;
+import com.hrm.vo.ZjGrqzdjb;
 import com.hrm.vo.ZjGrqzdjjdb;
 
 @Service
@@ -186,7 +187,7 @@ public class BipServiceImpl implements BipService{
 		}
 		
 		if(lists != null && lists.size()>0 &&lists.get(0).getZjGrqzdjbs()!=null) {
-			List<Bip> collect = lists.stream().filter((x)->x.getZjGrqzdjbs().get(0).getGdsj().equals(""))
+			List<Bip> collect = lists.stream().filter((x)->x.getZjGrqzdjbs().get(0).getGdsj()==null)
 					.collect(Collectors.toList());
 			return collect;
 		}

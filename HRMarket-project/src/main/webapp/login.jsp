@@ -6,34 +6,29 @@
 <title>：：劳动力市场：：</title>
 <link href="<%=request.getContextPath()%>/styles/css/common.css" rel="stylesheet" type="text/css">
 </head>
-<script>
-function onKeyDownEnter(){
-	if (window.event.keyCode==13)
-	{
-		confirmlogin();
-	}
-}
-
-function confirmlogin(){
-
-	if (form1.userloginname.value==""){
-		alert("用户名不能为空！");
-		form1.userloginname.focus();
-		return;
-	}
-	if (form1.userpassword.value==""){
-		alert("密码不能为空！");
-		form1.userpassword.focus();
-		return;
-	}
-	window.location.href="<%=request.getContextPath()%>/index.jsp";
-}
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery-1.11.1.min.js">
 </script>
-<logic:equal name="flag" value="pswdx">
-	<script>alert("用户名或密码错误");</script>
-</logic:equal>
+<script type="text/javascript">
+$(function(){
+	$(".denglu").click(function(){
+		$.post("${pageContext.request.contextPath}/login/login",
+				{"userloginname":$("#userloginname").val(),"userpassword":$("#userpassword").val()},
+		function(data){
+					if(data.status ==200){
+						location.href = "${pageContext.request.contextPath}/toPageIndex";
+					}else{
+						alert(data.msg);
+						$("#userloginname").val("");
+						$("#userpassword").val("");
+					}
+				});
+	});
+})
+</script>
+
+
 <body>
-<form name="form1" method="post" action="">
+<form name="form1" method="post" action="${pageContext.request.contextPath}/login/login">
 <table width="778" border="0" align="center" cellpadding="0" cellspacing="0" bgcolor="#FFFFFF">
   <tr>
     <td><table width="100%" border="0" cellspacing="0" cellpadding="0">
@@ -50,15 +45,17 @@ function confirmlogin(){
       </tr>
       <tr>
         <td height="20" align="right">用户名：</td>
-        <td><input type="text" name="userloginname" style="width:80" maxlength="20" value=""></td>
+        <td><input type="text" id = "userloginname" name="userloginname" style="width:80" maxlength="20"></td>
       </tr>
       <tr>
         <td height="20" align="right">密　码：</td>
-        <td><input type="password" name="userpassword" maxlength="15" style="width:80"></td>
+        <td><input type="password" id="userpassword" name="userpassword" maxlength="15" style="width:80"></td>
       </tr>
       <tr>
         <td height="30">&nbsp;</td>
-        <td align="right" style="padding-right:22"><a href="javascript:onclick=confirmlogin()" onkeydown="onKeyDownEnter()" name="denglu"><img src="<%=request.getContextPath()%>/styles/images/mh/bt_logon.gif" width="43" height="17" border="0"></a></td>
+        <td align="right" style="padding-right:22">
+        <a href="javascript:;" class="denglu" name="denglu">
+        <img src="<%=request.getContextPath()%>/styles/images/mh/bt_logon.gif" width="43" height="17" border="0"></a></td>
       </tr>
     </table></td>
   </tr>

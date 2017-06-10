@@ -3,7 +3,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
 <head>
-<title>：：欢迎Bill同志访问劳动力市场信息系统：：</title>
+<title>：：欢迎${login.userName}同志访问劳动力市场信息系统：：</title>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <link href="<%=request.getContextPath()%>/styles/css/common.css" rel="stylesheet" type="text/css">
 <SCRIPT type="text/javascript" language="javascript">

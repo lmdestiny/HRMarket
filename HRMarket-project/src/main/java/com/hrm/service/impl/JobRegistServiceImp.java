@@ -58,7 +58,7 @@ public class JobRegistServiceImp implements JobRegistService {
 		registModel.getBip().setBipId(IDUtils.genItemId()+"");
 		registModel.getBip().setBipBirthday(registModel.getBip().getBipCitizenid().substring(6, 14));
 		registModel.getZjGrqzdjb().setBipId(registModel.getBip().getBipId());
-		String djsj=new SimpleDateFormat("yyyyMMddHHmmss").format(new Date());
+		String djsj=new SimpleDateFormat("yyyy/MM/dd").format(new Date());
 		registModel.getZjGrqzdjb().setDjsj(djsj);
 		registModel.getZjGrqzdjb().setDjyxq("15");
 		registModel.getZjGrqzdjb().setQzbh(IDUtils.genItemId()+"");
@@ -72,6 +72,8 @@ public class JobRegistServiceImp implements JobRegistService {
 		for(ZjGrqzgzb zg:registModel.getZjGrqzgzbs()){
 			zg.setQzgzbh(IDUtils.genItemId()+"");
 			zg.setQzbh(registModel.getZjGrqzdjb().getQzbh());
+			String djsj2=new SimpleDateFormat("yyyy/MM/dd").format(new Date());
+			zg.setDjsj(djsj2);
 			gzMapper.insert(zg);
 		}
 		for(BipSkill bs:registModel.getBipSkills()){

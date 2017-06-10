@@ -9,6 +9,6 @@ public final class IndexController{
 	
 	@RequestMapping(value="/toPageIndex")
 	public String toIndex() {
-		return "/";
+		return "index";
 	}
 }
