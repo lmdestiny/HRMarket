@@ -20,7 +20,23 @@ public class ZjDwdjjdb {
 	//归档时间
     private String gdsj;
 
-    public String getDwdjjdbh() {
+    
+    
+    public ZjDwdjjdb() {
+		super();
+	}
+
+	public ZjDwdjjdb(String zpbh, String djyy, String djsj, String jdyy, String jdsj, String gdsj) {
+		super();
+		this.zpbh = zpbh;
+		this.djyy = djyy;
+		this.djsj = djsj;
+		this.jdyy = jdyy;
+		this.jdsj = jdsj;
+		this.gdsj = gdsj;
+	}
+
+	public String getDwdjjdbh() {
         return dwdjjdbh;
     }
 
@@ -75,4 +91,11 @@ public class ZjDwdjjdb {
     public void setGdsj(String gdsj) {
         this.gdsj = gdsj == null ? null : gdsj.trim();
     }
+
+	@Override
+	public String toString() {
+		return "ZjDwdjjdb [dwdjjdbh=" + dwdjjdbh + ", zpbh=" + zpbh + ", djyy=" + djyy + ", djsj=" + djsj + ", jdyy="
+				+ jdyy + ", jdsj=" + jdsj + ", gdsj=" + gdsj + "]";
+	}
+    
 }

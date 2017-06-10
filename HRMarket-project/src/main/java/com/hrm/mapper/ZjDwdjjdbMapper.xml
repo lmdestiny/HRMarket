@@ -2,4 +2,32 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.hrm.dao.ZjDwdjjdbMapper" >
   
+  <insert id="insert" parameterType="com.hrm.vo.ZjDwdjjdb">
+  		insert into zj_dwdjjdb values(#{dwdjjdbh},#{zpbh},#{djyy},#{djsj},
+  		#{jdyy},#{jdsj},#{gdsj})
+  </insert>
+  <update id="update" parameterType="com.hrm.vo.ZjDwdjjdb">
+  		update zj_dwdjjdb set  zpbh=#{zpbh},djyy=#{djyy},djsj=#{djsj},
+  		jdyy=#{jdyy},jdsj=#{jdsj},gdsj=#{gdsj}  where dwdjjdbh={dwdjjdbh}
+  </update>
+  <delete id="delete" parameterType="String">
+  		delete from zj_dwdjjdb where dwdjjdbh={dwdjjdbh}
+  </delete>
+  <select id="getAll" resultType="com.hrm.vo.ZjDwdjjdb" parameterType="String">
+  		select * from zj_dwdjjdb order by dwdjjdbh
+  </select>
+  <select id="getbyFRM"  parameterType="String" resultType="com.hrm.vo.BioDj">
+  		select zj_dwzpdjb.sfdj zt,bio.bio_name dwmc,bio.bio_bua_address dwdz,
+  		zj_dwzpdjb.lxrsj lxdh,zj_dwzpdjb.djsj djsj,zj_dwzpdjb.zpbh zpbh
+  		from bio,zj_dwzpdjb 
+  		where bio.bio_id=zj_dwzpdjb.dwbh 
+  		and bio.bio_no=#{dwfrm}
+  </select> 
+  <select id="getbyDWMC" parameterType="String" resultType="com.hrm.vo.BioDj">
+  		select zj_dwzpdjb.sfdj zt,bio.bio_name dwmc,bio.bio_bua_address dwdz,
+  		zj_dwzpdjb.lxrsj lxdh,zj_dwzpdjb.djsj djsj,zj_dwzpdjb.zpbh zpbh
+  		from bio,zj_dwzpdjb 
+  		where bio.bio_id=zj_dwzpdjb.dwbh 
+  		and bio.bio_name=#{dwmc}
+  </select>
 </mapper>

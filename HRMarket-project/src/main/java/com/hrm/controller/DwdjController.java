@@ -4,7 +4,9 @@ package com.hrm.controller;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletResponse;
@@ -20,11 +22,13 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.hrm.service.BioService;
+import com.hrm.service.ZjDwdjjdbService;
 import com.hrm.service.ZjDwzpdjbService;
 import com.hrm.service.ZjDwzpgzbService;
 import com.hrm.utils.JsonUtils;
 import com.hrm.utils.StaticDataConfigration;
 import com.hrm.vo.Bio;
+import com.hrm.vo.BioDj;
 import com.hrm.vo.ZjDwzpdjb;
 import com.hrm.vo.ZjDwzpgzb;
 import com.imti.ldlsc.common.codetable.ComputergradeOperation;
@@ -59,6 +63,8 @@ public class DwdjController {
 	private ZjDwzpdjbService dwzpdjbService;
 	@Autowired
 	private ZjDwzpgzbService DwzpgzbService;
+	@Autowired
+	private ZjDwdjjdbService dwdjjdbService;
 	JsonUtils utils=new JsonUtils();
 	
 	//获取codetable信息
@@ -159,6 +165,7 @@ public class DwdjController {
 		}else{
 			return null;
 		}
+
 	}
 	
 	//单位信息录入
@@ -226,4 +233,54 @@ public class DwdjController {
 		modelAndView.addObject("bio", bio);
 		return modelAndView;
 	}
+	
+	
+	//单位冻结解冻查询提交
+	@RequestMapping("dwdj_dj.do")
+	public ModelAndView gongjie(String flag,String bio_no,String bio_name,String[] zpbhs){
+		ModelAndView modelAndView;
+		//按法人码、单位名称查询冻结信息
+		if("selectDwById".equals(flag)){
+			if(bio_no==""){
+				if(bio_name==""){
+					modelAndView=new ModelAndView("/service/zj/dwzp/dwdj_dj_1");
+				}else{
+					modelAndView=new ModelAndView("/service/zj/dwzp/dwdj_dj_2");
+					modelAndView.addObject("DwInfo", dwdjjdbService.getbyDWMC(bio_name));
+				}
+			}else{
+				modelAndView=new ModelAndView("/service/zj/dwzp/dwdj_dj_2");
+				List<BioDj> list=new ArrayList<BioDj>();
+				list.add(dwdjjdbService.getbyFRM(bio_no));
+				System.err.println(dwdjjdbService.getbyFRM(bio_no));
+				modelAndView.addObject("DwInfo", list);
+			}
+		}else if("select".equals(flag)){
+			modelAndView=new ModelAndView("/service/zj/dwzp/dwdj_dj_3");
+			for(String s:zpbhs){
+				System.err.println(s);
+			}
+		}else{
+			modelAndView=new ModelAndView("/service/zj/dwzp/dwdj_dj_1");
+		}
+		return modelAndView;
+	}
+	
+	//单位冻结解冻查询ajax回显
+	@RequestMapping(value="dwdj_djajax.do",produces="text/html;charset=UTF-8")
+	@ResponseBody
+	public String dongjieajax(String bio_no){
+		if(bio_no!=null){
+			Bio bi=bioService.getbyNo(bio_no);
+			if(bi==null){
+				return ",w";
+			}else{
+				return bi.getBio_name()+","+bio_no;
+			}
+		}else{
+			return ",w";
+		}
+		
+	}
+	
 }

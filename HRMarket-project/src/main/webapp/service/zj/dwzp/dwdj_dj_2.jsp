@@ -1,5 +1,7 @@
 <%@ page contentType="text/html; charset=UTF-8" %>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions"  prefix="fn"%>
 <html>
 <head>
 <title>单位冻结解冻 列表页面</title>
@@ -40,12 +42,12 @@ function toBack(){
         <td width="30"><img src="<%=request.getContextPath()%>/styles/css/bb_d.gif"></td>
       </tr>
     </table></td>
-    <td  valign="bottom">查询结果&nbsp;&nbsp;&nbsp;提示：[共有2个单位符合查询条件，点击单位名称可以查看详细信息]
+    <td  valign="bottom">查询结果&nbsp;&nbsp;&nbsp;提示：[共有 ${fn:length(DwInfo)} 个单位符合查询条件，点击单位名称可以查看详细信息]
     </td>
   </tr>
 </table>
-<table width="98%" align="center" border="0" cellpadding="0" cellspacing="0" id="c1" style="display:block">
-<tr>
+
+
   <td valign="top">	
     <table width="100%" align="center" border="0" cellpadding="1" cellspacing="1" >
       <tr align="center"  >
@@ -54,18 +56,25 @@ function toBack(){
         <td class="line4">单位地址</td>
         <td class="line4">联系电话</td>
         <td class="line4">登记时间</td>
-       
       </tr>
-      <tr align="center"  >
-		<td class="line4">${DwInfo.s}</td>
-        <td class="line4">${DwInfo.bio_name}</td>
-        <td class="line4">${DwInfo.bio_bua_address}</td>
-        <td class="line4">${DwInfo.lxrsj}</td>
-        <td class="line4">${DwInfo.djsj}</td>
-</tr>     
-    </table> </td>
-</tr>
-</table>
+     
+     <c:forEach items="${DwInfo}" var="item">
+     	 <tr align="center"  >
+     	 	<input type="hidden" name="zpbhs" value="${item.zpbh}">
+     	 	<c:if test="${item.zt==0}">
+     	 		<td class="line4">未冻结</td>
+     	 	</c:if>
+     	 	<c:if test="${item.zt==1}">
+     	 		<td class="line4">冻结</td>
+     	 	</c:if>
+	        <td class="line4"><a href="<%=request.getContextPath()%>/service/zj/dwzp/dwdj_dj.do?flag=showDwById&zpbh=${item.zpbh}" >${item.dwmc}</a></td>
+	        <td class="line4">${item.dwdz}</td>
+	        <td class="line4">${item.lxdh}</td>
+	        <td class="line4">${item.djsj}</td>
+		</tr>
+     </c:forEach>
+	 </table> </td>
+
 <br>
 <TABLE width="98%" align="center" 
         border=0 cellPadding=0 cellSpacing=1 bordercolor="#9DCBEC" class="tablebody" align="center">

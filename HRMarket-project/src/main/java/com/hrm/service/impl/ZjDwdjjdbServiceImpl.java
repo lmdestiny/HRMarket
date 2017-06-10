@@ -1,0 +1,54 @@
+package com.hrm.service.impl;
+
+import java.util.List;
+import java.util.Map;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.hrm.dao.ZjDwdjjdbMapper;
+import com.hrm.service.ZjDwdjjdbService;
+import com.hrm.vo.BioDj;
+import com.hrm.vo.ZjDwdjjdb;
+import com.imti.ldlsc.common.util.GenerateID;
+
+@Service
+public class ZjDwdjjdbServiceImpl implements ZjDwdjjdbService {
+
+	@Autowired
+	ZjDwdjjdbMapper ZjDwdjjdbdao;
+	private GenerateID generateid=new GenerateID();
+	
+	@Override
+	public void insert(ZjDwdjjdb dwdjjdb) {
+		dwdjjdb.setDwdjjdbh(generateid.getGenerateId());
+		ZjDwdjjdbdao.insert(dwdjjdb);
+	}
+
+	@Override
+	public void update(ZjDwdjjdb dwdjjdb) {
+		ZjDwdjjdbdao.update(dwdjjdb);
+	}
+
+	@Override
+	public void delete(String dwdjjdbh) {
+		ZjDwdjjdbdao.delete(dwdjjdbh);
+	}
+
+	@Override
+	public List<ZjDwdjjdb> getAll() {
+		return ZjDwdjjdbdao.getAll();
+	}
+
+	@Override
+	public BioDj getbyFRM(String dwfrm) {	
+		return ZjDwdjjdbdao.getbyFRM(dwfrm);
+		
+	}
+
+	@Override
+	public List<BioDj> getbyDWMC(String dwmc) {
+		return ZjDwdjjdbdao.getbyDWMC(dwmc);
+	}
+
+}
