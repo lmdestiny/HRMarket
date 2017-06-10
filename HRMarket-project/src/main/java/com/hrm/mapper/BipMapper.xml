@@ -236,4 +236,64 @@ SELECT
 		</if>
 		</where>
 </select>
+<!-- 添加Bip -->
+<insert id="insert" parameterType="com.hrm.vo.Bip">
+	insert into bip(bip_id,bip_citizenid,bip_sex,bip_age,bip_name,bip_birthday,bip_minzu,
+	bip_zzmm,bip_hyzk,bip_hjxz,bip_rylb,bip_jkzk,bip_cjqk,bip_eyesightleft,bip_eyesightright,bip_long,
+	bip_weight,bip_hkszd,bip_whcd,bip_subject,bip_graduateschool,bip_bysj,bip_educationallevel2,bip_con_telephone,
+	bip_con_mobile,bip_con_email,bip_con_postcode,bip_con_contact,bip_con_contacttel,bip_res_address,bip_t_lowersecurity,
+	bip_t_criminal,bip_t_destitute,bip_t_peasant,bip_t_veteran,bip_t_othercities,bip_t_czjyyhz,bip_t_rhfl,
+	bip_t_newgraduate,bip_pc_dj,bip_pc_slcd,bip_resume,bip_qtsm)
+		values(#{bipId},#{bipCitizenid},#{bipSex},#{bipAge},#{bipName},#{bipBirthday},#{bipMinzu},
+	#{bipZzmm},#{bipHyzk},#{bipHjxz},#{bipRylb},#{bipJkzk},#{bipCjqk},#{bipEyesightleft},#{bipEyesightright},#{bipLong},
+	#{bipWeight},#{bipHkszd},#{bipWhcd},#{bipSubject},#{bipGraduateschool},#{bipBysj},#{bipEducationallevel2},#{bipConTelephone},
+	#{bipConMobile},#{bipConEmail},#{bipConPostcode},#{bipConContact},#{bipConContacttel},#{bipResAddress},#{bipTLowersecurity},
+	#{bipTCriminal},#{bipTDestitute},#{bipTPeasant},#{bipTVeteran},#{bipTOthercities},#{bipTCzjyyhz},#{bipTRhfl},
+	#{bipTNewgraduate},#{bipPcDj},#{bipPcSlcd},#{bipResume},#{bipQtsm})
+</insert>
+
+<update id="updateById" parameterType="com.hrm.vo.Bip">
+update bip set bip_citizenid=#{bipCitizenid},
+bip_sex=#{bipSex},bip_age=#{bipAge},
+	bip_name=#{bipName},
+	bip_birthday=#{bipBirthday},
+	bip_minzu=#{bipMinzu},
+	bip_zzmm=#{bipZzmm},
+		bip_hyzk=#{bipHyzk},
+		bip_hjxz=#{bipHjxz},
+		bip_rylb=#{bipRylb},
+		bip_jkzk=#{bipJkzk},
+			bip_cjqk=#{bipCjqk},
+			bip_eyesightleft=#{bipEyesightleft},
+			bip_eyesightright=#{bipEyesightright},
+			bip_long=#{bipLong},
+			bip_weight=#{bipWeight},
+			bip_hkszd=#{bipHkszd},
+			bip_whcd=#{bipWhcd},
+			bip_subject=#{bipSubject},
+			bip_graduateschool=#{bipGraduateschool},
+			bip_bysj=#{bipBysj},
+			bip_educationallevel2=#{bipEducationallevel2},
+			bip_con_telephone=#{bipConTelephone},
+			bip_con_mobile=#{bipConMobile},
+			bip_con_email=#{bipConEmail},
+			bip_con_postcode=#{bipConPostcode},
+			bip_con_contact=#{bipConContact},
+			bip_con_contacttel=#{bipConContacttel},
+			bip_res_address=#{bipResAddress},
+			bip_t_lowersecurity=#{bipTLowersecurity},
+			bip_t_criminal=#{bipTCriminal},
+			bip_t_destitute=#{bipTDestitute},
+			bip_t_peasant=#{bipTPeasant},
+			bip_t_veteran=#{bipTVeteran},
+			bip_t_othercities=#{bipTOthercities},
+			bip_t_czjyyhz=#{bipTCzjyyhz},
+			bip_t_rhfl=#{bipTRhfl},
+			bip_t_newgraduate=#{bipTNewgraduate},
+			bip_pc_dj=#{bipPcDj},
+			bip_pc_slcd=#{bipPcSlcd},
+			bip_resume=#{bipResume},
+			bip_qtsm=#{bipQtsm}
+					where bip_id=#{bipId} 
+</update>
 </mapper>

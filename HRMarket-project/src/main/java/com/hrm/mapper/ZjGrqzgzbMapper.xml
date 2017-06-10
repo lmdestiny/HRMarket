@@ -1,9 +1,32 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.hrm.dao.ZjGrqzgzbMapper" >
+	<resultMap type="com.hrm.vo.ZjGrqzgzb" id="result">
+	<id column="qzgzbh" property="qzgzbh"/>
+	<result column="qzbh" property="qzbh"/>
+	<result column="xh" property="xh"/>
+	<result column="gz" property="gz"/>
+	<result column="ygxs" property="ygxs"/>
+	<result column="zdyx" property="zdyx"/>
+	<result column="zgyx" property="zgyx"/>
+	<result column="djsj" property="djsj"/>
+	<result column="gdsj" property="gdsj"/>
+	</resultMap>
 	<update id="upDateGuidang" parameterType="map">
  		update ZJ_GRQZGZB set 
  			gdsj =#{gdsj}
  		where qzbh  = #{qzbh}
  	</update>
+ 	<!-- 插入工种 -->
+ 	<insert id="insert" parameterType="com.hrm.vo.ZjGrqzgzb">
+ 		insert into ZJ_GRQZGZB(qzgzbh,qzbh,xh,gz,
+ 		ygxs,zdyx,zgyx,djsj,gdsj) values(#{qzgzbh},#{qzbh},#{xh},#{gz},
+ 		#{ygxs},#{zdyx},#{zgyx},#{djsj},#{gdsj})
+ 	</insert>
+ 	<select id="getbip_Zj_grqzgzbById" parameterType="String" resultMap="result">
+ 	select * from ZJ_GRQZGZB where qzbh=#{qzbh}
+ 	</select>
+ 	<delete id="delectGzById" parameterType="String">
+ 	delete from ZJ_GRQZGZB where qzgzbh=#{code}
+ 	</delete> 
 </mapper>

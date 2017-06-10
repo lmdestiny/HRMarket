@@ -50,4 +50,10 @@ public class BipSkill {
     public void setBipSJsdj(String bipSJsdj) {
         this.bipSJsdj = bipSJsdj == null ? null : bipSJsdj.trim();
     }
+
+	@Override
+	public String toString() {
+		return "BipSkill [bipSId=" + bipSId + ", bipId=" + bipId + ", bipSYears=" + bipSYears + ", bipSZyjn=" + bipSZyjn
+				+ ", bipSJsdj=" + bipSJsdj + "]";
+	}
 }

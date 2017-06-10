@@ -1,6 +1,21 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.hrm.dao.ZjGrqzdjbMapper" >
+	<resultMap type="com.hrm.vo.ZjGrqzdjb" id="result">
+	<id column="qzbh" property="qzbh"/>
+	<result column="bip_id" property="bipId"/>
+	<result column="dwxx" property="dwxx"/>
+	<result column="dwjjlx" property="dwjjlx"/>
+	<result column="dwhy" property="dwhy"/>
+	<result column="gzdq" property="gzdq"/>
+	<result column="sfdj" property="sfdj"/>
+	<result column="sfjsdx" property="sfjsdx"/>
+	<result column="sfcjpx" property="sfcjpx"/>
+	<result column="sfjszyzd" property="sfjszyzd"/>
+	<result column="djyxq" property="djyxq"/>
+	<result column="djsj" property="djsj"/>
+	<result column="gdsj" property="gdsj"/>
+	</resultMap>
  	<update id="update" >
  		update Zj_Grqzdjb set SFDJ = #{str} where bip_id =#{bipId}
  	</update>
@@ -9,5 +24,28 @@
  		update Zj_Grqzdjb set 
  			gdsj =#{gdsj}
  		where qzbh  = #{qzbh}
+ 	</update>
+ 	<!-- 插入登记表 -->
+ 	<insert id="insert" parameterType="com.hrm.vo.ZjGrqzdjb">
+ 		insert into ZJ_GRQZDJB(qzbh,bip_id,dwxx,dwjjlx,dwhy,
+ 		gzdq,sfdj,sfjsdx,sfcjpx,sfjszyzd,djyxq,djsj,gdsj) 
+ 		values(#{qzbh},#{bipId},#{dwxx},#{dwjjlx},#{dwhy},
+ 		#{gzdq},#{sfdj},#{sfjsdx},#{sfcjpx},
+ 		#{sfjszyzd},#{djyxq},#{djsj},#{gdsj})
+ 	</insert>
+ 	<select id="getZj_grqzdjbById" parameterType="String" resultMap="result">
+ 	select * from ZJ_GRQZDJB where bip_id=#{bipId}
+ 	</select>
+ 	
+ 	<update id="update2" parameterType="com.hrm.vo.ZjGrqzdjb">
+ 		update ZJ_GRQZDJB set bip_id=#{bipId},
+ 		dwxx=#{dwxx},
+ 		dwjjlx=#{dwjjlx},
+ 		dwhy=#{dwhy},
+ 		gzdq=#{gzdq},
+ 		SFJSDX=#{sfjsdx},
+ 		SFCJPX=#{sfcjpx},
+ 		SFJSZYZD=#{sfjszyzd} 
+ 		where qzbh=#{qzbh}
  	</update>
 </mapper>

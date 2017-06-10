@@ -4,22 +4,22 @@ package com.hrm.controller;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Calendar;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.hrm.service.JobRegistService;
 import com.hrm.vo.Bip;
+import com.hrm.vo.BipForeignlanguage;
 import com.hrm.vo.BipSkill;
-import com.hrm.vo.Bip_foreignlanguage;
 import com.hrm.vo.ZjGrqzdjb;
 import com.hrm.vo.ZjGrqzgzb;
-import com.hrm.vo.pojo.ForeignList;
-import com.hrm.vo.pojo.GrqzgzbList;
-import com.hrm.vo.pojo.SkillList;
+import com.hrm.vo.model.RegistModel;
 import com.imti.ldlsc.common.codetable.ComputergradeOperation;
 import com.imti.ldlsc.common.codetable.Deformity;
 import com.imti.ldlsc.common.codetable.EducationallevelOperation;
@@ -39,11 +39,6 @@ import com.imti.ldlsc.common.codetable.RegtypeOperation;
 import com.imti.ldlsc.common.codetable.RprtypeOperation;
 import com.imti.ldlsc.common.codetable.SexOperation;
 import com.imti.ldlsc.common.codetable.SpecialtyOperation;
-/*import com.imti.ldlsc.common.dao.QzdjDaoImp;
-import com.imti.ldlsc.common.vo.Bip_skill;
-import com.imti.ldlsc.common.vo.ZJ_GRQZDJB;
-import com.imti.ldlsc.common.vo.ZJ_GRQZGZB;
-import com.imti.ldlsc.servlet.Qzdj_1Servlet;*/
 
 /**
  * 用于求职登记页面操作
@@ -54,7 +49,7 @@ import com.imti.ldlsc.servlet.Qzdj_1Servlet;*/
 @Controller
 @RequestMapping("/jobregist")
 public class JobRegistController {
-	
+	@Autowired
 	private JobRegistService jrs;
 	
 	@RequestMapping("/toJobRegistPage")
@@ -63,9 +58,8 @@ public class JobRegistController {
 	}
 	
 	@RequestMapping("/save")
-	public String save(Bip bip,SkillList bipskill,GrqzgzbList zjGrqzgzb,ForeignList forgign,ZjGrqzdjb gzdjb,String dwszj,String dwszq,String dwszs){
-		
-		//判断下一级地域是否有值 没有则取前一个
+	@Transactional
+	public String save(RegistModel registModel,Model model,String dwszj,String dwszq,String dwszs){
 		String hkszd=null;
 		if(dwszj==null){
 			if(dwszq==null){
@@ -76,10 +70,8 @@ public class JobRegistController {
 		}else{
 			hkszd=dwszj;
 		}
-		bip.setBipSex(Integer.parseInt((bip.getBipCitizenid()).charAt(16)+"")%2==0?"2":"1");
-		bip.setBipHkszd(hkszd);
-		gzdjb.setDjyxq("90");
-		jrs.save(bip, bipskill, zjGrqzgzb, forgign, gzdjb);
+		registModel.getBip().setBipHkszd(hkszd);
+		jrs.save(registModel);
 		return "service/zj/grqz/qzdj_1";
 	}
 	@RequestMapping("/qzdj_1.do")
@@ -180,9 +172,9 @@ public class JobRegistController {
 		//判断
 		else if ("panduan".equals(code)) {
 			String s=request.getParameter("s");
-			Map map=new HashMap();
+			Bip map=new Bip();
 			if(s!=null){
-				//map =jrs.getBipById(s);
+				map =jrs.findBipInfoByBipCitizenid(s);
 				if(map!=null){
 					out.print("1");
 				}else{
@@ -195,9 +187,9 @@ public class JobRegistController {
 		//修改的判断
 		else if ("panduan2".equals(code)) {
 			String s=request.getParameter("s");
-			Map map=new HashMap();
+			Bip map=new Bip();
 			if(s!=null){
-				//map =jrs.getBipById(s);
+				map=jrs.findBipInfoByBipCitizenid(s);
 				if(map!=null){
 					out.print("1");
 				}else{
@@ -210,33 +202,121 @@ public class JobRegistController {
 		out.flush();
 		out.close();
 	}
-	/*@RequestMapping("/qzdj_2.do")
-	public String toPage2(){
-		
-		return "";
-	}*/
-	@RequestMapping("/qzdj_3.do")
-	public String toPage3(String bipCitizenid,String qzbh){
-		Bip bip=(Bip) jrs.getBipById(bipCitizenid);
-		//外语
-		List<Bip_foreignlanguage> list1=jrs.getBip_flById(bipCitizenid);
-		//技能
-		List<BipSkill> list2=jrs.getbip_skillById(bipCitizenid);
-		//登记表
-		ZjGrqzdjb grqzdjb=jrs.getZj_grqzdjbById(bipCitizenid);
-		grqzdjb.setDwxx(OrgtypeOperation.getOption(grqzdjb.getDwxx()));
-		grqzdjb.setDwhy(IndustryOperation.getOption(grqzdjb.getDwhy()));	
-		grqzdjb.setDwjjlx(RegtypeOperation.getOption(grqzdjb.getDwjjlx()));
-		grqzdjb.setGzdq(RegioncodeOperation.getOption(grqzdjb.getGzdq()));
+
 	
+	@RequestMapping("/qzdj_3.do")
+	public String doPost2(String bipCitizenid,Model model){
 		
-		List<ZjGrqzgzb> list3=jrs.getbip_Zj_grqzgzbById(qzbh);
-		return "qzdj_3.jsp";
-	}
-	@RequestMapping("qzdj_4.do")
-	public String toPage3(){
+		Bip bip=jrs.findBipInfoByBipCitizenid(bipCitizenid);
+		model.addAttribute("Sex", SexOperation.getOption((Integer.parseInt((bipCitizenid).charAt(16)+"")%2==0?"2":"1")+""));
+		model.addAttribute("Age", getAge(bipCitizenid));
+		model.addAttribute("Nation", NationOperation.getOption(bip.getBipMinzu()+""));		
+		model.addAttribute("Politicsaspect", PoliticsaspectOperation.getOption(bip.getBipZzmm()+""));
+		model.addAttribute("Marriage", MarriageOperation.getOption(bip.getBipHyzk()+""));
+		model.addAttribute("Rprtype", RprtypeOperation.getOption(bip.getBipHjxz()+""));
+		model.addAttribute("Personneltype", PersonneltypeOperation.getOption(bip.getBipRylb()+""));
+		model.addAttribute("Healthstate", HealthstateOperation.getOption(bip.getBipJkzk()+""));
+		model.addAttribute("Deformity", Deformity.getOption(bip.getBipCjqk()+""));
+		model.addAttribute("Dwszs", RegioncodeOperation.getSelectedRegion(bip.getBipHkszd(),"province"));
+		
+		model.addAttribute("Dwszq", RegioncodeOperation.getSelectedRegion(bip.getBipHkszd(),"city"));
+		model.addAttribute("Dwszj", RegioncodeOperation.getSelectedRegion(bip.getBipHkszd(),"village"));
+		model.addAttribute("Educationallevel",EducationallevelOperation.getOption(bip.getBipWhcd()+""));
+		String str=bip.getBipPcDj();
+		model.addAttribute("Computergrade",ComputergradeOperation.getOption(str+""));
+		str=bip.getBipPcSlcd();
+		model.addAttribute("ComputerProficiency",ProficiencyOperation.getOption(str+""));
+		List<BipForeignlanguage> list1=jrs.getBip_flById(bip.getBipId());
+		if(list1!=null){
+			String table="";
+			for(int i=0;i<list1.size();i++){
+				table+="<div><table id='jywyTable' style='word-break:break-all;width:fixed' width='100%' align='center' border='0' cellpadding='0' cellspacing='1'>" +
+				"<tr class='line2' align='center'>" +
+						"<td width='13%' align='right'>具有外语 </td>" +
+						"<td width='15%'><input name='bip_fl_jywy' value='"+list1.get(i).getBipFlJywy()+"' type='hidden'><input name='init_jywy' size='1' value='"+LanguageOperation.getNameById(list1.get(i).getBipFlJywy())+"' readonly='readonly' style='WIDTH: 100%' type='text'></td>" +
+						"<td width='13%' align='right'>熟练程度 </td>" +
+						"<td width='15%'><input name='bip_fl_years' value='"+list1.get(i).getBipFlYears()+"' type='hidden'><input name='init_wyslcd' value='"+ProficiencyOperation.getNameById(list1.get(i).getBipFlYears())+"' size='1' readonly='readonly' style='WIDTH: 100%' type='text'></td>" +
+						"<td width='13%' align='right'>外语说明 </td>" +
+						"<td width='15%'><input name='init_wysm' value='"+list1.get(i).getBipFlWysm()+"' readonly='readonly' style='WIDTH: 100%' type='text'></td>" +
+						"<td align='center'><input name='bip_fl_id' value='"+list1.get(i).getBipFlId()+"' type='hidden'></td><td width='8%' align='center'><input name='wysc1' value='删除' class='BUTTON2'  type='button'></td>" +
+				"</tr></table></div>";
+							
+			}
+			
+			model.addAttribute("tab2", table);
+			
+		}
+		List<BipSkill> list2=jrs.getbip_skillById(bip.getBipId());
+		if(list2!=null){
+			String table="";
+			for(int i=0;i<list2.size();i++){
+				table+="<table id='jywyTable' style='word-break:break-all;width:fixed' width='100%' align='center' border='0' cellpadding='0' cellspacing='1'>" +
+				"<tr class='line2' align='center'>" +
+						"<td width='13%' align='right'>职业技能 </td>" +
+						"<td width='15%'><input name='bip_s_zyjn' value='"+list2.get(i).getBipSZyjn()+"' type='hidden'><input name='init_zyjn' size='1' value='"+SpecialtyOperation.getNameById(list2.get(i).getBipSZyjn())+"' readonly='readonly' style='WIDTH: 100%' type='text'></td>" +
+						"<td width='13%' align='right'>技术等级 </td>" +
+						"<td width='15%'><input name='bip_s_jsdj' value='"+list2.get(i).getBipSJsdj()+"' type='hidden'><input name='init_jsdj' value='"+QualificationOperation.getNameById(list2.get(i).getBipSJsdj())+"' size='1' readonly='readonly' style='WIDTH: 100%' type='text'></td>" +
+						"<td width='13%' align='right'>从事年限 </td>" +
+						"<td width='15%'><input name='bip_s_years' value='"+list2.get(i).getBipSYears()+"' readonly='readonly' style='WIDTH: 100%' type='text'></td>" +
+						"<td align='center'><input name='bip_s_id' value='"+list2.get(i).getBipSId()+"' type='hidden'></td><td width='8%' align='center'><input name='jnsc1' value='删除' class='BUTTON2'  type='button'></td>" +
+				"</tr></table>";				
 				
-		/*String xb=(Integer.parseInt((sfzhm).charAt(16)+"")%2==0?"2":"1");//性别
+			}
+			model.addAttribute("tab1", table);
+		}
+		ZjGrqzdjb Zj_grqzdjb=jrs.getZj_grqzdjbById(bip.getBipId());
+		
+		model.addAttribute("Orgtype", OrgtypeOperation.getOption(Zj_grqzdjb.getDwxx()+""));
+		model.addAttribute("Industry", IndustryOperation.getOption(Zj_grqzdjb.getDwhy()+""));	
+		model.addAttribute("Regtype", RegtypeOperation.getOption(Zj_grqzdjb.getDwjjlx()+""));	
+		model.addAttribute("Regioncode", RegioncodeOperation.getOption(Zj_grqzdjb.getGzdq()+""));	
+		
+		List<ZjGrqzgzb> list3=jrs.getbip_Zj_grqzgzbById(Zj_grqzdjb.getQzbh());
+		if(list3!=null){
+			String table="";
+			for(int i=0;i<list3.size();i++){
+				
+				table+="<table id='"+list3.get(i).getQzgzbh()+"' width='100%' border=0 cellPadding=0 cellSpacing=1 class='tablebody' style='display:block'>" +
+						"<tr class='line1' align='center'>" +
+						""+
+						"<td width='40'>工种</td>" +
+						"<td width='110'><select class='qzgz1' name='qzgz1' size='1'style='WIDTH:100%'>" +
+						"<option value='"+list3.get(i).getGz()+"' selected='selected'>"+SpecialtyOperation.getNameById(list3.get(i).getGz())+"</option>"+
+						"</select><input type='hidden' name='GZ' value='"+list3.get(i).getGz()+"'/></td>" +
+						"<td width='50'>用工形式</td>" +
+						"<td width='80'><select name='ygxs1' size='1' style='WIDTH:100%'>" +
+						EmploytypeOperation.getOption(list3.get(i).getYgxs())+
+						"</select><input type='hidden' name='YGXS' value='"+list3.get(i).getYgxs()+"'/></td>" +
+						"<td width='50' align='right'>月薪</td>" +
+						"<td width='140'>" +
+						"<div id='yx' style='display:'>" +
+						"<table><tr><td>" +
+						"<input name='ZDYX' type='text' value='"+list3.get(i).getZdyx()+"' style='width:40px' maxlength='6'>" +
+						"至" +
+						"<input name='ZGYX' type='text' value='"+list3.get(i).getZgyx()+"' style='width:40px' maxlength='6'>" +
+						"元</td></tr></table>" +
+						"</div>" +
+						"</td>" +
+						"<!---->" +
+						"<td width='40'><input type='hidden' name='qzgzbh' value='"+list3.get(i).getQzgzbh()+"'></td>" +
+						"<td width='40'><input type='button' name='gzsc1' value='删除' class='BUTTON2'></td>" +
+						"</tr>" +
+						"</table>";				
+				
+			}
+			model.addAttribute("tab3", table);
+		}
+		
+		model.addAttribute("bip", bip);
+		model.addAttribute("Zj_grqzdjb", Zj_grqzdjb);
+//request.getRequestDispatcher("qzdj_3.jsp").forward(request, response);
+		return "service/zj/grqz/qzdj_3";
+	}
+	
+	@RequestMapping("/qzdj_4.do")
+	public String toPage3(Model model,RegistModel registModel,String dwszj,String dwszq,String dwszs){
+				
+		//String xb=(Integer.parseInt((registModel.getBip().getBipCitizenid()).charAt(16)+"")%2==0?"2":"1");//性别
 		//判断下一级地域是否有值 没有则取前一个
 		String hkszd=null;
 		if(dwszj==null){
@@ -248,36 +328,25 @@ public class JobRegistController {
 		}else{
 			hkszd=dwszj;
 		}	
-		String sfdb=(request.getParameter("sfdb")!=null?"1":"0");//是否低保
+		registModel.getBip().setBipHkszd(hkszd);
+		jrs.updateAll(registModel);
+		//model.addAttribute("flag", "保存成功");
+		return "service/zj/grqz/qzdj_3";
+	}
+	
+	@RequestMapping("/delectWy.do")
+	public void delectWy(@RequestBody String code){
+		jrs.delectForeignByFlId(code);
+	}
+	@RequestMapping("/deleteSkill.do")
+	public void deleteSkill(@RequestBody String code){
+		jrs.delectSkillById(code);
 		
-		String sfllsf=(request.getParameter("sfllsf")!=null?"1":"0");//两劳释放
-		String sftk=(request.getParameter("sftk")!=null?"1":"0");//是否特困
-		String sfnzf=(request.getParameter("sfnzf")!=null?"1":"0");//农转非
-		String sffytw=(request.getParameter("sffytw")!=null?"1":"0");//是否复员退伍
-		String sfwfzr=(request.getParameter("sfwfzr")!=null?"1":"0");//外埠转入
-		String sfczjyyhz=(request.getParameter("sfczjyyhz")!=null?"1":"0");//再就业
-		String sfrhfl=(request.getParameter("sfrhfl")!=null?"1":"0");//	入户分离	
-		String sfyjgxbys=(request.getParameter("sfyjgxbys")!=null?"1":"0");	//是否应届毕业生			
-
-		//增加新的外语表(内部其实已经先删除了原先的外语表)
-		List<Bip_foreignlanguage> list2=new ArrayList<Bip_foreignlanguage>();
+	}
+	@RequestMapping("/deleteGz.do")
+	public void deleteGz(@RequestBody String code){
+		jrs.delectGzById(code);
 		
-		//技能
-		List<Bip_skill> list3=new ArrayList<Bip_skill>();
-		
-		//择业
-		
-		String sfjsdx=(request.getParameter("sfjsdx")!=null?"1":"0");
-		String sfcjpx=(request.getParameter("sfcjpx")!=null?"1":"0");
-		String sfjszyzd=(request.getParameter("sfjszyzd")!=null?"1":"0");
-		
-		ZJ_GRQZDJB zj_grqzdjb
-		
-		//工种
-		List<ZJ_GRQZGZB> list4=new ArrayList<ZJ_GRQZGZB>();		
-		//执行修改
-		dao.update(bip,list2,list3,zj_grqzdjb,list4);*/
-		return "qzdj_3.do?sfzhm=";
 	}
 	public static int getAge(String id){
 		Calendar cal1=Calendar.getInstance();

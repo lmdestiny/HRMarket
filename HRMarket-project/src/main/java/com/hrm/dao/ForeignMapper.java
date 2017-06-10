@@ -1,9 +1,12 @@
 package com.hrm.dao;
 
-import com.hrm.vo.Bip_foreignlanguage;
+import java.util.List;
+
+import com.hrm.vo.BipForeignlanguage;
 
 public interface ForeignMapper {
 
-	void insert(Bip_foreignlanguage bip_foreignlanguage);
-
+	void insert(BipForeignlanguage bip_foreignlanguage);
+	List<BipForeignlanguage> getBip_flById(String bipId);
+	void delectForeignByFlId(String code);
 }

@@ -6,6 +6,9 @@
 <jsp:include flush="true" page="/common/alert.jsp"></jsp:include>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <link href="<%=request.getContextPath()%>/styles/css/common.css" rel="stylesheet" type="text/css">
+<% int i=0; %>
+<%int j=0; %>
+<% int k=0; %>
 <script src="<%=request.getContextPath() %>/js/commonjs.js"></script>
 <script src="<%=request.getContextPath() %>/js/jquery-1.11.1.js"></script>
 <script>
@@ -18,16 +21,24 @@
 				$.get("/jobregist/qzdj_1.do",{code:"bipSex",bipCitizenid:$(this).val()},function(data){$("#bipSex").html(data);});
 				$.get("/jobregist/qzdj_1.do",{code:"bipAge",bipCitizenid:$(this).val()},function(data){$("#bipAge").val(data);});
 				$.get("/jobregist/qzdj_1.do",{code:"panduan",s:$(this).val()},function(data){
-					/* if(data==1){
-						var s=$("#bipCitizenid").val();
-						window.open('qzdj_3.do?bipCitizenid='+s+'','_self');
-					} */				
+					if(data==1){												
+						if(confirm("用户已存在，是否显示该用户")){
+							var s=($("#bipCitizenid").val())
+							window.open("qzdj_3.do?bipCitizenid="+s+"","_self")
+						}else{
+							$("#bipCitizenid").val($("#bipCitizenid_id").val())
+						}
+					}
 				})
 			}else{
 				$("#bipSex").html("");
 				$("#bipAge").val("");
 			}			
 		})
+		/* if($("input[name='flagg']").val()!=null){
+			alert("保存成功");
+			$(this).val("");
+		} */
 		$.get("/jobregist/qzdj_1.do",{code:"bipMinzu"},function(data){$("#bipMinzu").html(data);})
 		$.get("/jobregist/qzdj_1.do",{code:"bipZzmm"},function(data){$("#bipZzmm").html(data);})
 		$.get("/jobregist/qzdj_1.do",{code:"bipHyzk"},function(data){$("#bipHyzk").html(data);})
@@ -107,10 +118,10 @@
 					var jsdj_value=$("#bipSJsdj option:selected").val();
 					
 					var csnx_value=$("# bipSYears").val();
-					
-					var bipSJsdj=$("<td width='13%' align='right'>职业技能 </td ><td width='19%'><input type='hidden' name='bip_s_zyjn' value='"+zyjn_value+"'><input type='text' name='bipSJsdj' size='1' value='"+zyjn_text+"' readobipAgey='readobipAgey' style='WIDTH: 100%'></td >");			
-					var bipSJsdj=$("<td width='11%' align='right'>技术等级 </td ><td width='18%'><input type='hidden' name='bip_s_jsdj' value='"+jsdj_value+"'><input type='text' name='bipSJsdj' value='"+jsdj_text+"' size='1' readobipAgey='readobipAgey' style='WIDTH: 100%'></td >");
-					var  bipSYears=$("<td width='11%' align='right'>从事年限 </td ><td width='15%'><INPUT type='text' name='bip_s_years' value='"+csnx_value+"' readobipAgey='readobipAgey' style='WIDTH: 100%'></td >");
+					<% i++;%>
+					var bipSJsdj=$("<td width='13%' align='right'>职业技能 </td ><td width='19%'><input type='hidden' name='bipSkills[<%=i%>].bipSZyjn' value='"+zyjn_value+"'><input type='text' name='bipSZyjn' size='1' value='"+zyjn_text+"' readobipAgey='readobipAgey' style='WIDTH: 100%'></td >");			
+					var bipSJsdj=$("<td width='11%' align='right'>技术等级 </td ><td width='18%'><input type='hidden' name='bipSkills[<%=i%>].bipSJsdj' value='"+jsdj_value+"'><input type='text' name='bipSJsdj' value='"+jsdj_text+"' size='1' readobipAgey='readobipAgey' style='WIDTH: 100%'></td >");
+					var  bipSYears=$("<td width='11%' align='right'>从事年限 </td ><td width='15%'><INPUT type='text' name='bipSkills[<%=i%>].bipSYears' value='"+csnx_value+"' readobipAgey='readobipAgey' style='WIDTH: 100%'></td >");
 					var csnx=$("<td width='7%' align='center'><INPUT type='hidden' value='"+csnx_value+" style='WIDTH: 100%'></td >");
 					var jnsc=$("<td width='8%' align='center'><input name='jnsc' type='button'  value='删除' class='BUTTON2' onClick='delRows(jywyTable)'></td >");
 					var tr=$("<tr class='line2' align='center' ></tr >");
@@ -174,15 +185,16 @@
 			var init_wyslcd_value=$("#init_wyslcd option:selected").val();
 			
 			var init_wysm_value=$("#init_wysm").val();
-			
-			var init_jywy=$("<td width='13%' align='right'>具有外语 </td ><td width='19%'><input type='hidden' name='bip_fl_jywy' value='"+ijwy_value+"'><input type='text' name='init_jywy' size='1' value='"+ijwy_text+"' readobipAgey='readobipAgey' style='WIDTH: 100%'></td >");			
-			var init_wyslcd=$("<td width='11%' align='right'>熟练程度 </td ><td width='18%'><input type='hidden' name='bip_fl_years' value='"+init_wyslcd_value+"'><input type='text' name='init_wyslcd' value='"+init_wyslcd_text+"' size='1' readobipAgey='readobipAgey' style='WIDTH: 100%'></td >");
+			<% j++;%>
+			var init_jywy=$("<td width='13%' align='right'>具有外语 </td ><td width='19%'><input type='hidden' name='bipForeignlanguags[<%=j%>].bipFlJywy' value='"+ijwy_value+"'><input type='text' name='init_jywy' size='1' value='"+ijwy_text+"' readobipAgey='readobipAgey' style='WIDTH: 100%'></td >");			
+			var init_wyslcd=$("<td width='11%' align='right'>熟练程度 </td ><td width='18%'><input type='hidden' name='bipForeignlanguags[<%=j%>].bipFlWysm' value='"+init_wyslcd_value+"'><input type='text' name='init_wyslcd' value='"+init_wyslcd_text+"' size='1' readobipAgey='readobipAgey' style='WIDTH: 100%'></td >");
 			var init_wysm=$("<td width='11%' align='right'>外语说明 </td ><td width='15%'><INPUT type='text' name='init_wysm' value='"+init_wysm_value+"' readobipAgey='readobipAgey' style='WIDTH: 100%'></td >");
 			var wytj=$("<td align='center'><INPUT type='hidden' value='"+init_wysm_value+" style='WIDTH: 100%'></td >");
 			var wysc=$("<td width='8%' align='center'><input name='wysc' type='button'  value='删除' class='BUTTON2' onClick='delRows(jywyTable)'></td >");
 			var tr=$("<tr class='line2' align='center' ></tr >");
 			var tab=$("<table id='jywyTable' width='100%'  align='center' border='0' cellpadding='0' cellspacing='1'  style='word-break:break-all;width:fixed'></table>");
 			var div=$("<div></div>");
+			
 			tr.append(init_jywy);
 			tr.append(init_wyslcd);
 			tr.append(init_wysm);
@@ -269,10 +281,10 @@
 					var ygxs1_text=$("#ygxs option:selected").text();
 					var ygxs1_value=$("#ygxs option:selected").val();
 					
-									
-					var gz=$("<td width='40' align='right'>工种 </td ><td width='110'><input type='hidden' name='GZ' value='"+gz_value+"'><input type='text' size='1' value='"+gz_text+"' readobipAgey='readobipAgey' style='WIDTH: 100%'></td >");			
-					var ygxs1=$("<td width='50' align='right'>用工形式 </td ><td width='80'><input type='hidden' name='YGXS' value='"+ygxs1_value+"'><input type='text' value='"+ygxs1_text+"' size='1' readobipAgey='readobipAgey' style='WIDTH: 100%'></td >");
-					var zdyx=$("<td width='40' align='right'>月薪  </td ><td width='140'><INPUT type='text' name='ZDYX' value='"+zdyx1_value+"' readobipAgey='readobipAgey' style='WIDTH: 40px'>&nbsp;至&nbsp;<INPUT type='text' name='ZGYX' value='"+zgyx2_value+"' readobipAgey='readobipAgey' style='WIDTH: 40px'></td >");
+					<% k++;%>				
+					var gz=$("<td width='40' align='right'>工种 </td ><td width='110'><input type='hidden' name='zjGrqzgzbs[<%=k %>].gz' value='"+gz_value+"'><input type='text' size='1' value='"+gz_text+"' readobipAgey='readobipAgey' style='WIDTH: 100%'></td >");			
+					var ygxs1=$("<td width='50' align='right'>用工形式 </td ><td width='80'><input type='hidden' name='zjGrqzgzbs[<%=k %>].ygxs' value='"+ygxs1_value+"'><input type='text' value='"+ygxs1_text+"' size='1' readobipAgey='readobipAgey' style='WIDTH: 100%'></td >");
+					var zdyx=$("<td width='40' align='right'>月薪  </td ><td width='140'><INPUT type='text' name='zjGrqzgzbs[<%=k %>].zdyx' value='"+zdyx1_value+"' readobipAgey='readobipAgey' style='WIDTH: 40px'>&nbsp;至&nbsp;<INPUT type='text' name='zjGrqzgzbs[<%=k %>].zgyx' value='"+zgyx2_value+"' readobipAgey='readobipAgey' style='WIDTH: 40px'></td >");
 					var gztj=$("<td width='40' align='right'><INPUT type='hidden'style='WIDTH: 100%'></td >");
 					var gzsc=$("<td width='40' align='right'><input name='gzsc' type='button'  value='删除' class='BUTTON2'></td >");
 					var tr=$("<tr class='line2' align='center' ></tr >");
@@ -291,7 +303,8 @@
 						$(this).parent().parent().parent().remove();
 					})
 					//清空选项 
-					$("#gz").empty();					
+					$("#gz").empty();
+					$.get("/jobregist/qzdj_1.do",{code:"gz"},function(data){$("#gz").html(data);});	
 					if($("#gz").val()!=""){
 						$.get("/jobregist/qzdj_1.do",{code:"ygxs"},function(data){$("#ygxs").html(data);});		
 					}else{
@@ -379,8 +392,9 @@
 				$("#gz").focus();
 				return;
 			} */
-	
-			
+	/* 拼装地址信息 */
+			/* var str  =$("#dwszs").val()+$("#sqx").val()+$("#jzx").val();
+			$("#hkszd").val(str); */
 			$("form").submit();
 		});
 		$("#cz").click(function(){
@@ -396,6 +410,7 @@
 </head>
 <body>
 <form name="form1" action="/jobregist/save.do" method="post">
+<%-- <input type="hidden" id="flagg" name="flagg" value=" ${flagg }"> --%>
 <table width="98%"  border="0" align="center" cellpadding="0" cellspacing="0">
 	<tr>
 		<td height="20" valign="bottom">
@@ -452,32 +467,33 @@
     <td>
 	    <table width="100%" border="0" cellspacing="1" cellpadding="0"   >
         <tr class="line1">
+        	
           <td width="13%" align="right"><span class="redtxt">*</span>身份证号码</td >
-          <td width="20%"><INPUT  id="bipCitizenid" name="bipCitizenid" style="WIDTH: 100%"  value="" /></td >
+          <td width="20%"><INPUT  id="bipCitizenid" name="bip.bipCitizenid" style="WIDTH: 100%"  value="" /></td >
           <td width="13%" align="right" ><span class="redtxt">*</span>性　　别</td >
-          <td width="20%"><select name="bipSex" id="bipSex" size="1"  style="WIDTH: 100%" disabled></select></td >
+          <td width="20%"><select name="bip.bipSex" id="bipSex" size="1"  style="WIDTH: 100%" disabled></select></td >
           <td width="13%" align="right">年　　龄</td >
-          <td width="20%"><INPUT id="bipAge"  name="bipAge"   style="WIDTH: 100%" value="${Age} " disabled></td >
+          <td width="20%"><INPUT id="bipAge"  name="bip.bipAge"   style="WIDTH: 100%" value="${Age} " disabled></td >
         </tr>
         <tr class="line2">
           <td align="right"><span class="redtxt">*</span>姓　　名</td >
-          <td ><INPUT id="bipName" name="bipName" maxlength="32"  style="WIDTH: 100%" value="${Name}"></td >
+          <td ><INPUT id="bipName" name="bip.bipName" maxlength="32"  style="WIDTH: 100%" value="${Name}"></td >
           <td align="right"><span class="redtxt">*</span>民　　族</td >
-          <td ><select id="bipMinzu" name="bipMinzu" size="1"  style="WIDTH: 100%" ></select></td >
+          <td ><select id="bipMinzu" name="bip.bipMinzu" size="1"  style="WIDTH: 100%" ></select></td >
           <td align="right">政治面貌</td >
-          <td ><select id="bipZzmm" name="bipZzmm" size="1"  style="WIDTH: 100%" ></select></td >
+          <td ><select id="bipZzmm" name="bip.bipZzmm" size="1"  style="WIDTH: 100%" ></select></td >
         </tr > 
         <tr class="line1">
           <td align="right">婚姻状况</td >
-          <td ><select id="bipHyzk" name="bipHyzk" size="1"  style="WIDTH: 100%" ></select></td >
+          <td ><select id="bipHyzk" name="bip.bipHyzk" size="1"  style="WIDTH: 100%" ></select></td >
           <td align="right"><span class="redtxt">*</span>户籍性质</td >
-          <td ><select id="bipHjxz" name="bipHjxz" size="1"  style="WIDTH: 100%" ></select></td >            
+          <td ><select id="bipHjxz" name="bip.bipHjxz" size="1"  style="WIDTH: 100%" ></select></td >            
           <td align="right"><span class="redtxt">*</span>人员类别</td >
-          <td ><select id="bipRylb" name="bipRylb" size="1"  style="WIDTH: 100%" ></select></td >
+          <td ><select id="bipRylb" name="bip.bipRylb" size="1"  style="WIDTH: 100%" ></select></td >
         </tr >
         <tr class="line2">
           <td align="right" >健康状况</td >
-          <td ><select id="bipJkzk" name="bipJkzk" size="1"  style="WIDTH: 100%"></select>
+          <td ><select id="bipJkzk" name="bip.bipJkzk" size="1"  style="WIDTH: 100%"></select>
           </td >
 		 <td align="right">
 				     <table border="0" cellpadding="0" cellspacing="0">
@@ -487,23 +503,24 @@
 		 <td class="line2" colspan="3">
 			     <table border="0" cellpadding="0" cellspacing="0" width="100%" > 
              <tr id="id2"  >
-               <td ><select id="bipCjqk" name="bipCjqk" size="1"  style="WIDTH: 100%" ></select></td >				
+               <td ><select id="bipCjqk" name="bip.bipCjqk" size="1"  style="WIDTH: 100%" ></select></td >				
              </tr >
 		      </table></td >
         </tr >
         <tr class="line1">
           <td align="right">视　　力</td >
-          <td >左<INPUT  name="bipEyesightleft" maxlength="3" style="WIDTH: 34%" value="">
-            	右 <INPUT  name="bipEyesightright"   maxlength="3"  style="WIDTH: 34%" value="">
+          <td >左<INPUT  name="bip.bipEyesightleft" maxlength="3" style="WIDTH: 34%" value="">
+            	右 <INPUT  name="bip.bipEyesightright"   maxlength="3"  style="WIDTH: 34%" value="">
             </td >
           <td align="right">身　　高</td >
-          <td ><INPUT  name="bipLong"   maxlength="3" style="WIDTH: 65%" value="">(厘米)</td >
+          <td ><INPUT  name="bip.bipLong"   maxlength="3" style="WIDTH: 65%" >(厘米)</td >
           <td align="right">体　　重</td >
-          <td ><INPUT  name="bipWeight"   maxlength="3"  style="WIDTH: 65%" value="">(公斤)</td >
+          <td ><INPUT  name="bip.bipWeight"   maxlength="3"  style="WIDTH: 65%">(公斤)</td >
         </tr >
   
         <tr class="line2">
         <td align="right"><span class="redtxt">*</span>户口所在地</td>
+        <input type="hidden" name="bip.bipHkszd" id = "hkszd">
         <td ><select id="dwszs" name="dwszs" style="WIDTH: 100%"></select></td>
         <td align="right" >市(区\县)</td>
         <td id="sqx" ><select id="dwszq" name="dwszq" style="WIDTH: 100%" ></select></td>
@@ -513,51 +530,51 @@
         
 			<tr class="line2">
 				<td align="right"><span class="redtxt">*</span>文化程度</td >
-				<td><select id="bipWhcd" name="bipWhcd" style="width:100%" ></select></td>
+				<td><select id="bipWhcd" name="bip.bipWhcd" style="width:100%" ></select></td>
 				<td align="right">所学专业</td >
-				<td ><input  name="bipSubject" maxlength="32"   style="WIDTH: 100%" value=""></td >
+				<td ><input  name="bip.bipSubject" maxlength="32"   style="WIDTH: 100%" value=""></td >
 				<td align="right">毕业时间</td >
-				<td ><input  name="bipBybipConMobile" maxlength="32"   style="WIDTH: 100%" value="" maxlength="8"></td >
+				<td ><input  name="bip.bipBysj" maxlength="32"   style="WIDTH: 100%" value="" maxlength="8"></td >
 			</tr>
 				<tr class="line1">
 					<td align="right">毕业学校</td >
-					<td colspan="5"><input  name="bipGraduateschool" maxlength="32"   style="WIDTH: 100%" value=""></td >
+					<td colspan="5"><input  name="bip.bipGraduateschool" maxlength="32"   style="WIDTH: 100%" value=""></td >
 					
 				</tr>
 				
 				<tr class="line2">
 					<td align="right"><span class="redtxt">*</span>固定电话</td >
-					<td><INPUT  name="bipConTelephone"    style="WIDTH: 100%" value="" maxlength="32"></td >
+					<td><INPUT  name="bip.bipConTelephone"    style="WIDTH: 100%"  maxlength="32"></td >
 					<td width="12%" align="right" ><span class="redtxt">*</span>手　机</td >
-					<td width="21%" ><INPUT  name="bipConMobile"   maxlength="11"  style="WIDTH: 100%" value="">
+					<td width="21%" ><INPUT  name="bip.bipConMobile"   maxlength="11"  style="WIDTH: 100%">
 					</td>
 					<td align="right">E-mail</td >
-					<td width="21%"><INPUT  name="bipConEmail" maxlength="48"  style="WIDTH: 100%" value="">
+					<td width="21%"><INPUT  name="bip.bipConEmail" maxlength="48"  style="WIDTH: 100%" value="">
 					</td >
 				</tr>
 				<tr class="line1">
 					<td align="right">邮政编码</td >
-					<td ><INPUT  name="bipConPostcode" maxlength="6"   style="WIDTH: 100%" value=""></td >
+					<td ><INPUT  name="bip.bipConPostcode" maxlength="6"   style="WIDTH: 100%" value=""></td >
 					<td align="right">联系人</td >
-					<td ><INPUT  name="bipConContact" maxlength="32"    style="WIDTH: 100%" value=""></td >
+					<td ><INPUT  name="bip.bipConContact" maxlength="32"    style="WIDTH: 100%" value=""></td >
 					<td align="right" >联系人电话</td >
-					<td ><INPUT  name="bipConContacttel" maxlength="32"   style="WIDTH: 100%" value=""></td >
+					<td ><INPUT  name="bip.bipConContacttel" maxlength="32"   style="WIDTH: 100%" value=""></td >
 				</tr>
 				<tr class="line2">
 				<td width="13%" align="right">居住地址</td >
-				 <td colspan="5"><INPUT  name="bipResAddress" maxlength="32"   style="WIDTH: 100%" value=""></td >
+				 <td colspan="5"><INPUT  name="bip.bipResAddress" maxlength="32"   style="WIDTH: 100%" value=""></td >
 				</tr >
 				<tr class="line1">
 					<td align="right">第二学历</td >
-					<td colspan="5"><textarea name="bipEducationallevel2"  style="width:100%" ></textarea></td >
+					<td colspan="5"><textarea name="bip.bipEducationallevel2"  style="width:100%" ></textarea></td >
 				</tr>
 				<tr class="line2"> 
 		          <td width="13%" align="right" >工作简历</td >
-				  <td class="line1" colspan="5"><textarea name="bipResume" style="width:100%" ></textarea> </td >
+				  <td class="line1" colspan="5"><textarea name="bip.bipResume" style="width:100%" ></textarea> </td >
 		          </tr >
 				<tr class="line1">
 				<td width="13%" align="right">其他说明</td >
-				 <td colspan="5"><textarea id="bipQtsm" name="bipQtsm" style="width:100%"></textarea></td >
+				 <td colspan="5"><textarea id="bipQtsm" name="bip.bipQtsm" style="width:100%"></textarea></td >
 				</tr >
 			</table>
 		</td >
@@ -580,27 +597,27 @@
 	 
 <TABLE width="98%" border=0  align="center" cellPadding=0 cellSpacing=1  class="tablebody" style="display:block" id="c4">
   <tr class="line2">
-      <td width="12%" align="right"><input name="bipTLowersecurity" type="checkbox"  class="radio" value="1"></td >
+      <td width="12%" align="right"><input name="bip.bipTLowersecurity" type="checkbox"  class="radio" value="1"></td >
       <td colspan="18%">          低保人员</td >
-      <td width="12%" align="right" ><input name="bipTDestitute" type="checkbox" class="radio" value="1" ></td >
+      <td width="12%" align="right" ><input name="bip.bipTDestitute" type="checkbox" class="radio" value="1" ></td >
       <td width="18%" >          特困人员</td >
-      <td width="12%" align="right" ><input type="checkbox" name="bipTNewgraduate"  class="radio" value="1" >  </td >
+      <td width="12%" align="right" ><input type="checkbox" name="bip.bipTNewgraduate"  class="radio" value="1" >  </td >
       <td width="26%" > 应届高校毕业生 </td >
   </tr >
   <tr class="line1">
-      <td width="12%" align="right"><input name="bipTVeteran" type="checkbox"  class="radio" value="1" ></td >
+      <td width="12%" align="right"><input name="bip.bipTVeteran" type="checkbox"  class="radio" value="1" ></td >
       <td colspan="18%">          复员退伍</td >
-      <td width="12%" align="right" ><input type="checkbox" name="bipTOthercities"  class="radio" value="1"></td >
+      <td width="12%" align="right" ><input type="checkbox" name="bip.bipTOthercities"  class="radio" value="1"></td >
       <td width="18%" >          外埠转入</td >
-      <td width="12%" align="right" ><input type="checkbox" name="bipTRhfl"  class="radio" value="1">  </td >
+      <td width="12%" align="right" ><input type="checkbox" name="bip.bipTRhfl"  class="radio" value="1">  </td >
       <td width="26%" > 是否人户分离 </td >
   </tr >
   <tr class="line2">
-      <td width="12%" align="right"><input name="bipTPeasant" type="checkbox"  class="radio" value="1" ></td >
+      <td width="12%" align="right"><input name="bip.bipTPeasant" type="checkbox"  class="radio" value="1" ></td >
       <td colspan="18%">          农转非</td >
-      <td width="12%" align="right" ><input type="checkbox" name="bipTCriminal"  class="radio" value="1" ></td >
+      <td width="12%" align="right" ><input type="checkbox" name="bip.bipTCriminal"  class="radio" value="1" ></td >
       <td width="18%" >          两劳释放</td >
-      <td width="12%" align="right" ><input type="checkbox" class="radio" name="bipTCzjyyhz" value="1">  </td >
+      <td width="12%" align="right" ><input type="checkbox" class="radio" name="bip.bipTCzjyyhz" value="1">  </td >
       <td width="26%" > 是否持再就业优惠证</td >
   </tr >
 </table>
@@ -624,11 +641,11 @@
             <table id="zyjnTable" width="100%" border="0" cellpadding="0" cellspacing="1">
               <tr class="line1"> 
                 <td width="13%" align="right">职业技能</td >
-				<td id="o2" width="19%"><select id="bipSZyjn" name="bipSZyjn" size="1"  style="WIDTH: 100%"></select></td >
+				<td id="o2" width="19%"><select id="bipSZyjn" name="bipSkills[0].bipSZyjn" size="1"  style="WIDTH: 100%"></select></td >
                 <td width="11%" align="right">技术等级</td >
-                <td width="18%"><select id="bipSJsdj" name="bipSJsdj" size="1"  style="WIDTH: 100%" ></select></td >
+                <td width="18%"><select id="bipSJsdj" name="bipSkills[0].bipSJsdj" size="1"  style="WIDTH: 100%" ></select></td >
                 <td width="11%" align="right">从事年限</td >
-                <td width="15%"> <INPUT  id=" bipSYears" name=" bipSYears"  style="WIDTH: 100%" maxlength="2"> </td>
+                <td width="15%"> <INPUT  id=" bipSYears" name=" bipSkills[0].bipSYears"  style="WIDTH: 100%" maxlength="2"> </td>
                 <td width="7%" align="center" > 
                   <input id="zyjntj" name="zyjntj" type="button"  value="添加" class="BUTTON2"></td >
                 <td width="8%" align="center"> 
@@ -642,13 +659,14 @@
               <tr class="line2" align="center" > 
                 <td width="13%" align="right">具有外语 </td >
                 <td width="19%">
-                	<select class="init_jywy" id="init_jywy" size="1"  style="WIDTH: 100%"></select></td >
+                	<select class="init_jywy" id="init_jywy" name="bipForeignlanguags[0].bipFlJywy" size="1"  style="WIDTH: 100%"></select></td >
                 <td width="11%" align="right">熟练程度 </td >
                 <td width="18%">
-                	<select id="init_wyslcd" size="1" style="WIDTH: 100%"></select>
+                	<select id="init_wyslcd" size="1" style="WIDTH: 100%">
+                	</select>
                 </td >
                 <td width="11%" align="right">外语说明 </td >
-                <td width="15%"><INPUT  id="init_wysm" style="WIDTH: 100%"></td >
+                <td width="15%"><INPUT  id="init_wysm" name="bipForeignlanguags[0].bipFlWysm" style="WIDTH: 100%"></td >
                 <td width="7%" align="center"> 
                 	<input id="wytj" name="wytj" type="button"  value="添加" class="BUTTON2"></td >
                 <td width="8%" align="center"> 
@@ -659,9 +677,9 @@
 			  <table  width="100%" border="0" cellpadding="0" align="center"  cellspacing="1">
               <tr class="line1" align="center" >
                 <td width="13%" align="right">计算机等级</td >
-                <td width="19%"><select id="bipPcDj" name="bipPcDj" size="1"  style="WIDTH: 100%" ></select></td >
+                <td width="19%"><select id="bipPcDj" name="bip.bipPcDj" size="1"  style="WIDTH: 100%" ></select></td >
                 <td width="11%" align="right">熟练程度</td >
-                <td width="18%"><select id="bipPcSlcd" name="bipPcSlcd" size="1" style="WIDTH: 100%" ></select></td >
+                <td width="18%"><select id="bipPcSlcd" name="bip.bipPcSlcd" size="1" style="WIDTH: 100%" ></select></td >
 				<td width="10%"></td><td width="15%"></td><td width="7%"></td><td width="8%"></td>
               </tr >
             </table>
@@ -687,15 +705,15 @@
     	<TABLE width="100%" border=0 cellPadding=0 cellSpacing=1 class="tablebody">
         <tr class="line1">
           <td width="13%" align="right">单位性质</td >
-          <td width="22%" ><select id="dwxx" name="dwxx" size="1"  style="WIDTH: 100%" ></select></td >
+          <td width="22%" ><select id="dwxx" name="zjGrqzdjb.dwxx" size="1"  style="WIDTH: 100%" ></select></td >
           <td width="10%" align="right">单位行业</td >
-          <td width="21%" ><select id="dwhy" name="dwhy" size="1"  style="WIDTH: 100%"></select></td >
+          <td width="21%" ><select id="dwhy" name="zjGrqzdjb.dwhy" size="1"  style="WIDTH: 100%"></select></td >
           <td width="11%" align="right">经济类型</td >
-          <td width="23%" ><select id="dwjjlx" name="dwjjlx" size="1"  style="WIDTH: 100%"></select></td >
+          <td width="23%" ><select id="dwjjlx" name="zjGrqzdjb.dwjjlx" size="1"  style="WIDTH: 100%"></select></td >
         </tr>
         <tr class="line2">
           <td align="right">工作地区</td >
-          <td ><select id="gzdq" name="gzdq" size="1"  style="WIDTH: 100%"></select></td>
+          <td ><select id="gzdq" name="zjGrqzdjb.gzdq" size="1"  style="WIDTH: 100%"></select></td>
              <td></td>
              <td></td>
              <td></td>
@@ -705,11 +723,11 @@
 		  <table width="100%" border="0" cellpadding="0" cellspacing="1">
 		    <tr class="line2">
 		      <td width="14%" align="right">是否接收短信</td >
-		      <td width="17%"><input name="sfjsdx" type="checkbox" value="1"  class="radio" ></td >
+		      <td width="17%"><input name="zjGrqzdjb.sfjsdx" type="checkbox" value="1"  class="radio" ></td >
 		      <td width="14%" align="right">是否参加培训</td >
-		      <td width="14%"><input name="sfcjpx" type="checkbox" value="1"  class="radio"></td >
+		      <td width="14%"><input name="zjGrqzdjb.sfcjpx" type="checkbox" value="1"  class="radio"></td >
 		      <td width="18%" align="right">是否接受职业指导</td >
-		      <td width="23%"><input name="sfjszyzd" type="checkbox" value="1"  class="radio"></td >
+		      <td width="23%"><input name="zjGrqzdjb.sfjszyzd" type="checkbox" value="1"  class="radio"></td >
 		    </tr>
 		</table>
     </td >
@@ -735,16 +753,16 @@
 			<table id="qzgzTable" width="100%" border=0 cellPadding=0 cellSpacing=1  class="tablebody" style="display:block"  >
 			  <tr class="line1" align="center">
 			    <td width="40"><span class="redtxt">*</span>工种</td>
-				<td id="o1" width="110"><select class="gz" id="gz" name="gz" size="1"  style="WIDTH: 100%"></select></td >
+				<td id="o1" width="110"><select class="gz" id="gz" name="zjGrqzgzbs[0].gz" size="1"  style="WIDTH: 100%"></select></td >
 			    <td width="50">用工形式</td>
-				<td width="80"><select class="ygxs1" id="ygxs" name="ygxs" size="1"  style="WIDTH: 100%"></select></td >
+				<td width="80"><select class="ygxs1" id="ygxs" name="zjGrqzgzbs[0].ygxs" size="1"  style="WIDTH: 100%"></select></td >
 			    <td width="50" align="right">月薪</td>
 				<td width="140">
 					<div id="yx" style="display:">
 					<table><tr><td>
-					<input id="zdyx" name="zdyx" type="text" style="width:40px" maxlength="6">
+					<input id="zdyx" name="zjGrqzgzbs[0].zdyx" type="text" style="width:40px" maxlength="6">
                   	至
-					<input id="zgyx" name="zgyx" type="text" style="width:40px" maxlength="6" >
+					<input id="zgyx" name="zjGrqzgzbs[0].zgyx" type="text" style="width:40px" maxlength="6" >
 					元</td></tr></table>
 					</div>
 				</td >

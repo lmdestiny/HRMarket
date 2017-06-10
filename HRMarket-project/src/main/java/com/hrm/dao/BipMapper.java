@@ -10,8 +10,6 @@ import com.hrm.vo.Bip;
 public interface BipMapper {
 	
 	void insert(Bip bip);
-	
-	Bip getBipById(String bipCitizenid);
 
 	List<Bip> findBip(Map<String,Object> map);
 
@@ -24,5 +22,7 @@ public interface BipMapper {
 	Bip findBipInfoByBipCitizenid(String bipCitizenid);
 
 	List<Bip> findBipByArray(@Param("bipCitizenid")String bipCitizenid,@Param("bipName") String bipName,@Param("sfdj") String sfdj);
+
+	void updateById(Bip bip);
 
 }

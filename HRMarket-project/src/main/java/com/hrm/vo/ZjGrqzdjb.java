@@ -132,4 +132,11 @@ public class ZjGrqzdjb {
     public void setGdsj(String gdsj) {
         this.gdsj = gdsj == null ? null : gdsj.trim();
     }
+
+	@Override
+	public String toString() {
+		return "ZjGrqzdjb [qzbh=" + qzbh + ", bipId=" + bipId + ", dwxx=" + dwxx + ", dwjjlx=" + dwjjlx + ", dwhy="
+				+ dwhy + ", gzdq=" + gzdq + ", sfdj=" + sfdj + ", sfjsdx=" + sfjsdx + ", sfcjpx=" + sfcjpx
+				+ ", sfjszyzd=" + sfjszyzd + ", djyxq=" + djyxq + ", djsj=" + djsj + ", gdsj=" + gdsj + "]";
+	}
 }

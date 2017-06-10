@@ -13,5 +13,9 @@ public interface ZjGrqzdjbMapper {
 	void update(@Param("bipId") String bipId,@Param("str") String str);
 
 	void upDateGuidang(Map<String, Object> map);
+	
+	ZjGrqzdjb getZj_grqzdjbById(String bipId);
+
+	void update2(ZjGrqzdjb zjGrqzdjb);
   
 }

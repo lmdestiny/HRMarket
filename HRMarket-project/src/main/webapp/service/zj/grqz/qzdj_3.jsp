@@ -8,41 +8,64 @@
 <script src="<%=request.getContextPath() %>/js/commonjs.js"></script>
 <script src="<%=request.getContextPath() %>/js/jquery-1.11.1.js"></script>
 <script>
+<% int i=0; %>
+<%int j=0; %>
+<% int k=0; %>
 	$(function(){
-		//$.get("qzdj_1.do",{code:"dwszs"},function(data){$("#dwszs").html(data);})
+		//$.get("/jobregist/qzdj_1.do",{code:"dwszs"},function(data){$("#dwszs").html(data);})
 		//根据身份证号码判断性别和年龄 		
-		$("#sfzhm").blur(function(){
-			var len=$("#sfzhm").val().length;	
+		$("#bipCitizenid").blur(function(){
+			var len=$("#bipCitizenid").val().length;	
 			if(len==18){
-				$.get("qzdj_1.do",{code:"xb",sfzhm:$(this).val()},function(data){$("#xb").html(data);});
-				$.get("qzdj_1.do",{code:"nl",sfzhm:$(this).val()},function(data){$("#nl").val(data);});				
+				$.get("/jobregist/qzdj_1.do",{code:"bipSex",bipCitizenid:$(this).val()},function(data){$("#bipSex").html(data);});
+				$.get("/jobregist/qzdj_1.do",{code:"bipAge",bipCitizenid:$(this).val()},function(data){$("#bipAge").val(data);});				
 				if($(this).val()!=$("#sfzhm_id").val()){
-					$.get("qzdj_1.do",{code:"panduan2",s:$(this).val()},function(data){
+					$.get("/jobregist/qzdj_1.do",{code:"panduan2",s:$(this).val()},function(data){
 						if(data==1){												
 							if(confirm("用户已存在，是否显示该用户")){
-								var id=($("#sfzhm").val())
-								window.open("qzdj_3.do?sfzhm="+id+"","_self")
+								var id=($("#bipCitizenid").val())
+								window.open("qzdj_3.do?bipCitizenid="+id+"","_self")
 							}else{
-								$("#sfzhm").val($("#sfzhm_id").val())
+								$("#bipCitizenid").val($("#sfzhm_id").val())
 							}
 						}
 					})
 				}
 			}else{
-				$("#xb").html("");
-				$("#nl").val("");
+				$("#bipSex").html("");
+				$("#bipAge").val("");
 			}			
 		})
+		/* if($("input[name='flag']").val()!=null){
+			alert("保存成功");
+			$(this).val("");
+		} */
 		//户口所在地 
-		$("#dwszs").change(function(){
+		/* $("#dwszs").change(function(){
 			$("#dwszq").empty();
 			$("#dwszj").empty();			
-			$.get("qzdj_1.do",{code:"dwszq",selectedId:$("#dwszs").val(),region:"city"},function(data){$("#dwszq").html(data);})
+			$.get("/jobregist/qzdj_1.do",{code:"dwszq",selectedId:$("#dwszs").val(),region:"city"},function(data){$("#dwszq").html(data);})
 			
 		})
 		$("#dwszq").change(function(){
-			$.get("qzdj_1.do",{code:"dwszj",selectedId:$("#dwszq").val(),region:"village"},function(data){$("#dwszj").html(data);})
+			$.get("/jobregist/qzdj_1.do",{code:"dwszj",selectedId:$("#dwszq").val(),region:"village"},function(data){$("#dwszj").html(data);})
+		}) */
+		
+		$.get("/jobregist/qzdj_1.do",{code:"dwszs"},function(data){$("#dwszs").html(data);})
+		$("#dwszs").change(function(){
+			$("#dwszq").empty();
+			$("#dwszj").empty();			
+			$.get("/jobregist/qzdj_1.do",
+				{code:"dwszq",
+				selectedId:$("#dwszs").val(),
+				region:"city"},
+				function(data){$("#dwszq").html(data);
+			})
+			
 		})
+		
+		
+		
 		
 		//判断复选框 空为0 非空为1
 	 	$(".radio").each(function(){
@@ -53,12 +76,13 @@
 	 		}
 		})
 		//具有外语 添加->加载
-		$.get("qzdj_1.do",{code:"init_jywy"},function(data){$("#init_jywy").html(data);})
+		$.get("/jobregist/qzdj_1.do",{code:"init_jywy"},function(data){$("#init_jywy").html(data);})
+		$.get("/jobregist/qzdj_1.do",{code:"init_wyslcd"},function(data){$("#init_wyslcd").html(data);})
 		$("#init_jywy").change(function(){			
-			$.get("qzdj_1.do",{code:"init_wyslcd"},function(data){$("#init_wyslcd").html(data);})
+			$.get("/jobregist/qzdj_1.do",{code:"init_wyslcd"},function(data){$("#init_wyslcd").html(data);})
 			$("#init_wysm").val("");
 		})
-		
+
 		$("#wytj").click(function(){			
 			//alert($(this).parent().parent().next());
 			if($("#init_jywy").val()=="" || $("#init_wyslcd").val()=="" || $("#init_wysm").val()==""){
@@ -72,9 +96,9 @@
 			var init_wyslcd_value=$("#init_wyslcd option:selected").val();
 			
 			var init_wysm_value=$("#init_wysm").val();
-			
-			var init_jywy=$("<td width='13%' align='right'>具有外语 </td ><td width='15%'><input type='hidden' name='bip_fl_jywy' value='"+ijwy_value+"'><input type='text' name='init_jywy' size='1' value='"+ijwy_text+"' readonly='readonly' style='WIDTH: 100%'></td >");			
-			var init_wyslcd=$("<td width='13%' align='right'>熟练程度 </td ><td width='15%'><input type='hidden' name='bip_fl_years' value='"+init_wyslcd_value+"'><input type='text' name='init_wyslcd' value='"+init_wyslcd_text+"' size='1' readonly='readonly' style='WIDTH: 100%'></td >");
+			<%j++;%>
+			var init_jywy=$("<td width='13%' align='right'>具有外语 </td ><td width='15%'><input type='hidden' name='bipForeignlanguags[<%=j%>].bipFlJywy' value='"+ijwy_value+"'><input type='text' name='init_jywy' size='1' value='"+ijwy_text+"' readonly='readonly' style='WIDTH: 100%'></td >");			
+			var init_wyslcd=$("<td width='13%' align='right'>熟练程度 </td ><td width='15%'><input type='hidden' name='bipForeignlanguags[<%=j%>].bipFlWysm' value='"+init_wyslcd_value+"'><input type='text' name='init_wyslcd' value='"+init_wyslcd_text+"' size='1' readonly='readonly' style='WIDTH: 100%'></td >");
 			var init_wysm=$("<td width='13%' align='right'>外语说明 </td ><td width='15%'><INPUT type='text' name='init_wysm' value='"+init_wysm_value+"' readonly='readonly' style='WIDTH: 100%'></td >");
 			var wytj=$("<td align='center'><input type='hidden'></td >");
 			var wysc=$("<td width='8%' align='center'><input name='wysc' type='button'  value='删除' class='BUTTON2'></td >");
@@ -87,19 +111,34 @@
 			tr.append(wytj);
 			tr.append(wysc);			
 			tab.append(tr);
-			div.append(tab);			
+			div.append(tab); 			
 			$("#panel_2").prepend(div);
 			//一行div中的删除 
 			wysc.click(function(){
 				$(this).parent().parent().parent().remove();
+				
 			})
-			$.get("qzdj_1.do",{code:"init_jywy"},function(data){$("#init_jywy").html(data);})						
+			$.get("/jobregist/qzdj_1.do",{code:"init_jywy"},function(data){$("#init_jywy").html(data);})						
 			$("#init_jywy").change();
 			$("#init_wysm").val("");
 			
 		})
+		
 		//外语-删除一行按钮 
 		$("input[name='wysc']").click(function(){
+			$(this).parent().parent().parent().remove();
+		}) 
+		$("input[name='wysc1']").click(function(){
+			var code = $("input[name='bip_fl_id']").val();
+			$.ajax({
+			type:'post',
+			url:'${pageContext.request.contextPath}/jobregist/delectWy.do',
+			data:code,
+			contentType:'application/json;charset=utf-8',
+			success:function(data){
+				alert("删除成功");
+			}
+			});
 			$(this).parent().parent().parent().remove();
 		})
 		//外语-清空按钮 
@@ -116,6 +155,7 @@
 			
 		})
 		//技能 
+		$.get("/jobregist/qzdj_1.do",{code:"bipSZyjn"},function(data){$("#init_zyjn").html(data);});
 		$("#init_zyjn").click(function(){
 			var dx,dy;
 			var dx=(screen.height/2-105)+"";
@@ -127,9 +167,10 @@
 			}
 				return;			
 		})
+		$.get("/jobregist/qzdj_1.do",{code:"bipSJsdj"},function(data){$("#init_jsdj").html(data);});
 		if($("#init_zyjn").val()!=""){
-			$.get("qzdj_1.do",{code:"init_jsdj"},function(data){$("#init_jsdj").html(data);});		
-		}
+			$.get("/jobregist/qzdj_1.do",{code:"bipSZyjn"},function(data){$("#init_zyjn").html(data);});		
+		} 
 		//添加职业技能 
 		$("#zyjntj").click(function(){
 			if($("#init_zyjn").val()=="" ||$("#init_jsdj").val()==""||$("#init_csnx").val()==""){
@@ -150,10 +191,10 @@
 					var jsdj_value=$("#init_jsdj option:selected").val();
 					
 					var csnx_value=$("#init_csnx").val();
-					
-					var init_zyjn=$("<td width='13%' align='right'>职业技能 </td ><td width='15%'><input type='hidden' name='bip_s_zyjn' value='"+zyjn_value+"'><input type='text' name='init_zyjn' size='1' value='"+zyjn_text+"' readonly='readonly' style='WIDTH: 100%'></td >");			
-					var init_jsdj=$("<td width='13%' align='right'>技术等级 </td ><td width='15%'><input type='hidden' name='bip_s_jsdj' value='"+jsdj_value+"'><input type='text' name='init_jsdj' value='"+jsdj_text+"' size='1' readonly='readonly' style='WIDTH: 100%'></td >");
-					var init_csnx=$("<td width='13%' align='right'>从事年限 </td ><td width='15%'><INPUT type='text' name='bip_s_years' value='"+csnx_value+"' readonly='readonly' style='WIDTH: 100%'></td >");
+					<%i++;%>				
+					var init_zyjn=$("<td width='13%' align='right'>职业技能 </td ><td width='15%'><input type='hidden' name='bipSkills[<%=i%>].bipSZyjn' value='"+zyjn_value+"'><input type='text' name='bipSZyjn' size='1' value='"+zyjn_text+"' readonly='readonly' style='WIDTH: 100%'></td >");			
+					var init_jsdj=$("<td width='13%' align='right'>技术等级 </td ><td width='15%'><input type='hidden' name='bipSkills[<%=i%>].bipSJsdj' value='"+jsdj_value+"'><input type='text' name='bipSJsdj' value='"+jsdj_text+"' size='1' readonly='readonly' style='WIDTH: 100%'></td >");
+					var init_csnx=$("<td width='13%' align='right'>从事年限 </td ><td width='15%'><INPUT type='text' name='bipSkills[<%=i%>].bipSYears' value='"+csnx_value+"' readonly='readonly' style='WIDTH: 100%'></td >");
 					var csnx=$("<td width='7%' align='center'><INPUT type='hidden' value='"+csnx_value+" style='WIDTH: 100%'></td >");
 					var jnsc=$("<td width='8%' align='center'><input name='jnsc' type='button'  value='删除' class='BUTTON2'></td >");
 					var tr=$("<tr class='line2' align='center' ></tr >");
@@ -170,9 +211,10 @@
 		
 					
 					//清空选项 
-					$("#init_zyjn").empty();					
+					$("#init_zyjn").empty();
+					$.get("/jobregist/qzdj_1.do",{code:"bipSZyin"},function(data){$("#init_jsdj").html(data);});		
 					if($("#init_zyjn").val()!=""){
-						$.get("qzdj_1.do",{code:"init_jsdj"},function(data){$("#init_jsdj").html(data);});		
+						$.get("/jobregist/qzdj_1.do",{code:"bipSJsdj"},function(data){$("#init_jsdj").html(data);});		
 					}else{
 						$("#init_jsdj").empty();
 					}
@@ -182,6 +224,19 @@
 		})
 		//一行删除
 		$("input[name='jnsc']").click(function(){
+			$(this).parent().parent().parent().remove();
+		})
+		$("input[name='jnsc1']").click(function(){
+			var code = $("input[name='bip_s_id']").val();
+			$.ajax({
+			type:'post',
+			url:'${pageContext.request.contextPath}/jobregist/deleteSkill.do',
+			data:code,
+			contentType:'application/json;charset=utf-8',
+			success:function(data){
+				alert("删除成功");
+			}
+			});
 			$(this).parent().parent().parent().remove();
 		})
 		//清空职业技能列表 
@@ -198,10 +253,10 @@
 			
 		})
 		//择业信息 
-		$.get("qzdj_1.do",{code:"dwxz"},function(data){$("#dwxz").html(data);})
-		$.get("qzdj_1.do",{code:"dwhy"},function(data){$("#dwhy").html(data);})
-		$.get("qzdj_1.do",{code:"dwjjlx"},function(data){$("#dwjjlx").html(data);})
-		//$.get("qzdj_1.do",{code:"gzdq"},function(data){$("#gzdq").html(data);})
+		$.get("/jobregist/qzdj_1.do",{code:"dwxx"},function(data){$("#dwxx").html(data);})
+		$.get("/jobregist/qzdj_1.do",{code:"dwhy"},function(data){$("#dwhy").html(data);})
+		$.get("/jobregist/qzdj_1.do",{code:"dwjjlx"},function(data){$("#dwjjlx").html(data);})
+		//$.get("/jobregist/qzdj_1.do",{code:"gzdq"},function(data){$("#gzdq").html(data);})
 		$("#gzdq").click(function(){
 			var dx,dy;
 			var dx=(screen.height/2-105)+"";
@@ -220,6 +275,7 @@
 		
 		
 		//工种 
+		$.get("/jobregist/qzdj_1.do",{code:"gz"},function(data){$("#qzgz1").html(data);})
 		$(".qzgz1").click(function(){
 			var dx,dy;
 			var dx=(screen.height/2-105)+"";
@@ -232,8 +288,8 @@
 			}
 				return;			
 		})
-		
-		$.get("qzdj_1.do",{code:"ygxs1"},function(data){$("#ygxs1").html(data);})		
+		$.get("/jobregist/qzdj_1.do",{code:"gz"},function(data){$("#qzgz1").html(data);})
+		$.get("/jobregist/qzdj_1.do",{code:"ygxs"},function(data){$("#ygxs1").html(data);})		
 		$("#gztj").click(function(){
 			if($("#qzgz1").val()=="" ||$("#ygxs1").val()==""||$("#zdyx1").val()==""||$("#zdyx2").val()==""){
 				alert("该添加项必须填写完毕后，才能继续添加");
@@ -253,10 +309,10 @@
 					var ygxs1_text=$("#ygxs1 option:selected").text();
 					var ygxs1_value=$("#ygxs1 option:selected").val();
 							
-					
-					var qzgz1=$("<td width='40' align='right'>工种 </td ><td width='110'><select class='qzgz1' name='qzgz1' size='1'style='WIDTH:100%'><option value='"+qzgz1_value+"' selected='selected'>"+qzgz1_text+"</option></select><input type='hidden' name='GZ' value='"+qzgz1_value+"'></td >");			
-					var ygxs1=$("<td width='50' align='right'>用工形式 </td ><td width='80'><select class='ygxs1' name='ygxs1' size='1' style='WIDTH:100%'><option value='"+ygxs1_value+"' selected='selected'>"+ygxs1_text+"</option></select><input type='hidden' name='YGXS' value='"+ygxs1_value+"'></td >");
-					var zdyx=$("<td width='40' align='right'>月薪  </td ><td width='140'><INPUT type='text' name='ZDYX' value='"+zdyx1_value+"' readonly='readonly' style='WIDTH: 40px'>&nbsp;至&nbsp;<INPUT type='text' name='ZGYX' value='"+zgyx2_value+"' readonly='readonly' style='WIDTH: 40px'></td >");
+					<%k++;%>
+					var qzgz1=$("<td width='40' align='right'>工种 </td ><td width='110'><select class='qzgz1' name='name='zjGrqzgzbs[<%=k %>].gz'' size='1'style='WIDTH:100%'><option value='"+qzgz1_value+"' selected='selected'>"+qzgz1_text+"</option></select><input type='hidden' name='GZ' value='"+qzgz1_value+"'></td >");			
+					var ygxs1=$("<td width='50' align='right'>用工形式 </td ><td width='80'><select class='ygxs1' name='zjGrqzgzbs[<%=k %>].ygxs' size='1' style='WIDTH:100%'><option value='"+ygxs1_value+"' selected='selected'>"+ygxs1_text+"</option></select><input type='hidden' name='YGXS' value='"+ygxs1_value+"'></td >");
+					var zdyx=$("<td width='40' align='right'>月薪  </td ><td width='140'><INPUT type='text' name='zjGrqzgzbs[<%=k %>].zdyx' value='"+zdyx1_value+"' readonly='readonly' style='WIDTH: 40px'>&nbsp;至&nbsp;<INPUT type='text' name='zjGrqzgzbs[<%=k %>].zgyx' value='"+zgyx2_value+"' readonly='readonly' style='WIDTH: 40px'></td >");
 					var gztj=$("<td width='40' align='right'><INPUT type='hidden'style='WIDTH: 100%'></td >");
 					var gzsc=$("<td width='40' align='right'><input name='gzsc' type='button'  value='删除' class='BUTTON2'></td >");
 					var tr=$("<tr class='line2' align='center' ></tr >");
@@ -274,14 +330,17 @@
 					
 					
 					//清空选项 
-					$("#qzgz1").empty();					
+					$("#qzgz1").empty();
+					$.get("/jobregist/qzdj_1.do",{code:"gz"},function(data){$("#qzgz1").html(data);});	
 					if($("#qzgz1").val()!=""){
-						$.get("qzdj_1.do",{code:"ygxs1"},function(data){$("#ygxs1").html(data);});		
+						$.get("/jobregist/qzdj_1.do",{code:"ygxs"},function(data){$("#ygxs1").html(data);});		
 					}else{
 						$("#ygxs1").empty();
 					}
 					$("#zdyx1").val("");
 					$("#zgyx2").val("");
+					
+					
 				}
 			}
 			
@@ -303,49 +362,63 @@
 		$("input[name='gzsc']").click(function(){
 			$(this).parent().parent().parent().remove();
 		})
-		/*$(".ygxs1").click(function(){
-			alert($(this).next().val())
-			//$.get("qzdj_1.do",{code:"ygxs1_2",id:$(this).next().val()},function(data){ $(this).html(data) })
+		$("input[name='gzsc1']").click(function(){
+			var code = $("input[name='qzgzbh']").val();
+			alert(code);
+			$.ajax({
+			type:'post',
+			url:'${pageContext.request.contextPath}/jobregist/deleteGz.do',
+			data:code,
+			contentType:'application/json;charset=utf-8',
+			success:function(data){
+				alert("删除成功");
+			}
+			});
+			$(this).parent().parent().parent().remove();
 		})
-		$(".ygxs1").change(function(){	
+		/* $(".ygxs1").click(function(){
+			alert($(this).next().val())
+			//$.get("/jobregist/qzdj_1.do",{code:"ygxs1_2",id:$(this).next().val()},function(data){ $(this).html(data) })
+		}) */
+	     $(".ygxs1").change(function(){	
 			$(this).next().val($(this).children(":selected").val())
-		})*/
+		}) 
 		$("#baocun").click(function(){
 			var sfzhmReg=/^([0-9]{17})([0-9]|X)$/;
-			if($("#sfzhm").val()==""){
+			if($("#bipCitizenid").val()==""){
 				alert("身份证号不得为空");
-				$("#sfzhm").focus();
+				$("#bipCitizenid").focus();
 				return;
 			}else{
-				if(!sfzhmReg.test($("#sfzhm").val())){
+				if(!sfzhmReg.test($("#bipCitizenid").val())){
 					alert("身份证号格式不对");
-					$("#sfzhm").focus();
+					$("#bipCitizenid").focus();
 					return;
 				}
 			}
-			if($("#xb").val()==""){
+			if($("#bipSex").val()==""){
 				alert("性别为必添项，请选择一个！");
-				$("#xb").focus();
+				$("#bipSex").focus();
 				return;
 			}
-			if($("#xm").val()==""){
+			if($("#bipName").val()==""){
 				alert("姓名为必添项");
-				$("#xm").focus();
+				$("#bipName").focus();
 				return;
 			}
-			if($("#mz").val()==""){
+			if($("#bipMinzu").val()==""){
 				alert("民族为必添项，请选择一个！");
-				$("#mz").focus();
+				$("#bipMinzu").focus();
 				return;
 			}
-			if($("#hjxz").val()==""){
+			if($("#bipHjxz").val()==""){
 				alert("户籍性质为必添项，请选择一个！");
-				$("#hjxz").focus();
+				$("#bipHjxz").focus();
 				return;
 			}
-			if($("#rylb").val()==""){
+			if($("#bipRylb").val()==""){
 				alert("人员类别为必添项，请选择一个！");
-				$("#rylb").focus();
+				$("#bipRylb").focus();
 				return;
 			}
 			if($("#dwszs").val()==""&&$("#dwszq").val()==""){
@@ -353,34 +426,33 @@
 				$("#dwszs").focus();
 				return;
 			}
-			if($("#whcd1").val()==""){
+			if($("#bipWhcd").val()==""){
 				alert("文化程度为必添项，请选择一个！");
-				$("#whcd1").focus();
+				$("#bipWhcd").focus();
 				return;
 			}
-			if($("#lxdh").val()==""||$("#sj").val()==""){
+			if($("#bipConTelephone").val()==""||$("#bipConMobile").val()==""){
 				alert("固话手机必添项其一，请填写！");
-				$("#lxdh").focus();
+				$("#bipConTelephone").focus();
 				return;
 			}
-			if($("#panel_1").html()==""){
+			if($("#init_zyjn").val()==""){
 				alert("职业技能为必添项，请选择一个！");
 				$("#init_zyjn").focus();
 				return;
 			}
-			if($("#panel_3").html()==""){
+			if($("#qzgz1").val()==""){
 				alert("择业工种为必添项，请选择一个！");
 				$("#qzgz1").focus();
 				return;
 			}
 	
-			
 			$("form").submit();
 		});
 		$("#cz").click(function(){
 			var id=$("#sfzhm_id").val();
 			if(id!=""){
-				window.open("qzdj_3.do?sfzhm="+id+"","_self")
+				window.open("qzdj_3.do?bipCitizenid="+id+"","_self")
 			}else{
 				alert("回退失败");
 				return;
@@ -391,14 +463,15 @@
 </script>
 </head>
 <body>
-<form name="form1" action="qzdj_4.do" method="post">
+<form name="form1" action="/jobregist/qzdj_4.do" method="post">
 <table width="98%"  border="0" align="center" cellpadding="0" cellspacing="0">
 	<tr>
 		<td height="20" valign="bottom">
 		<img src="<%=request.getContextPath()%>/styles/images/right/now.gif" width="11" height="12">当前位置：职业介绍 &gt; 个人求职 &gt; 求职登记
 		</td >
-		<td><input type='hidden' name='bip_id' value='${bip_id}'/></td>
-		<td><input type='hidden' id='sfzhm_id' name='sfzhm_id' value='${sfzhm_id}'/></td>
+		<td><input type='hidden' name='bip.bipId' value='${bip.bipId}'/></td>
+		<td><input type='hidden' id='sfzhm_id' name='sfzhm_id' value='${bip.bipCitizenid}'/></td>
+		<%-- <td><input type="hidden" name="flag" id="flag" value='${flag}' > --%>
 	</tr>
 	<tr>
 		<td valign="bottom" background="<%=request.getContextPath()%>/styles/images/right/dsline.gif" height="8"><img src="<%=request.getContextPath()%>/styles/images/index/spacer.gif"></td >
@@ -451,31 +524,31 @@
 	    <table width="100%" border="0" cellspacing="1" cellpadding="0"   >
         <tr class="line1">
           <td width="13%" align="right"><span class="redtxt">*</span>身份证号码</td >
-          <td width="20%"><INPUT  id="sfzhm" name="sfzhm" style="WIDTH: 100%"  value="${sfzhm }" /></td >
+          <td width="20%"><INPUT  id="bipCitizenid" name="bip.bipCitizenid" style="WIDTH: 100%"  value="${bip.bipCitizenid }" /></td >
           <td width="13%" align="right" ><span class="redtxt">*</span>性　　别</td >
-          <td width="20%"><select id="xb" name="xb" size="1"  style="WIDTH: 100%" disabled>${Sex }</select></td >
+          <td width="20%"><select id="bipSex" name="bip.bipSex" size="1"  style="WIDTH: 100%" disabled>${bip.bipSex }</select></td >
           <td width="13%" align="right">年　　龄</td >
-          <td width="20%"><INPUT  id="nl" name="nl"   style="WIDTH: 100%" value="${Age}" readonly></td >
+          <td width="20%"><INPUT  id="bipAge" name="bip.bipAge"   style="WIDTH: 100%" value="${Age}" readonly></td >
         </tr>
         <tr class="line2">
           <td align="right"><span class="redtxt">*</span>姓　　名</td >
-          <td ><input  id="xm" name="xm" maxlength="32"  style="WIDTH: 100%" value="${Name}" ></td >
+          <td ><input  id="bipName" name="bip.bipName" maxlength="32"  style="WIDTH: 100%" value="${bip.bipName}" ></td >
           <td align="right"><span class="redtxt">*</span>民　　族</td >
-          <td ><select id="mz" name="mz" size="1"  style="WIDTH: 100%" >${Nation }	</select></td >
+          <td ><select id="bipMinzu" name="bip.bipMinzu" size="1"  style="WIDTH: 100%" >${Nation }</select></td >
           <td align="right">政治面貌</td >
-          <td ><select id="zzmm" name="zzmm" size="1"  style="WIDTH: 100%" >${Politicsaspect }</select></td >
+          <td ><select id="bipZzmm" name="bip.bipZzmm" size="1"  style="WIDTH: 100%" >${Politicsaspect }</select></td >
         </tr > 
         <tr class="line1">
           <td align="right">婚姻状况</td >
-          <td ><select name="hyzk" size="1"  style="WIDTH: 100%" >${Marriage }	</select></td >
+          <td ><select name="bip.bipHyzk" size="1"  style="WIDTH: 100%" >${Marriage }	</select></td >
           <td align="right"><span class="redtxt">*</span>户籍性质</td >
-          <td ><select id="hjxz" name="hjxz" size="1"  style="WIDTH: 100%" >${Rprtype }</select></td >            
+          <td ><select id="bipHjxz" name="bip.bipHjxz" size="1"  style="WIDTH: 100%" >${Rprtype }</select></td >            
           <td align="right"><span class="redtxt">*</span>人员类别</td >
-          <td ><select id="rylb" name="rylb" size="1"  style="WIDTH: 100%" >${Personneltype }	</select></td >
+          <td ><select id="bipRylb" name="bip.bipRylb" size="1"  style="WIDTH: 100%" >${Personneltype }	</select></td >
         </tr >
         <tr class="line2">
           <td align="right" >健康状况</td >
-          <td ><select name="jkzk" size="1"  style="WIDTH: 100%">${Healthstate }</select></td >
+          <td ><select name="bip.bipJkzk" size="1"  style="WIDTH: 100%">${Healthstate }</select></td >
 		 <td align="right">
 				<table border="0" cellpadding="0" cellspacing="0">
 					<tr class="line2" id="id1"  ><td align="right">残疾状况</td ></tr >
@@ -483,18 +556,18 @@
 		 </td>
 			<td class="line2" colspan="3">
 			     <table border="0" cellpadding="0" cellspacing="0" width="100%" > 
-             <tr id="id2"  ><td ><select name="cjzk" size="1"  style="WIDTH: 100%" >${Deformity }</select></td ></tr >
+             <tr id="id2"  ><td ><select name="bip.bipCjzk" size="1"  style="WIDTH: 100%" >${Deformity }</select></td ></tr >
 		      </table></td >
         </tr >
         <tr class="line1">
           <td align="right">视　　力</td >
-          <td > 左<INPUT  name="zysl" maxlength="3" style="WIDTH: 34%" value="${Zysl }">
-            	右 <INPUT  name="yysl"   maxlength="3"  style="WIDTH: 34%" value="${Yysl }">
+          <td > 左<INPUT  name="bip.bipEyesightleft" maxlength="3" style="WIDTH: 34%" value="${bip.bipEyesightleft }">
+            	右 <INPUT  name="bip.bipEyesightright"   maxlength="3"  style="WIDTH: 34%" value="${bip.bipEyesightright }">
           </td >
           <td align="right">身　　高</td >
-          <td ><INPUT  name="sg"   maxlength="3" style="WIDTH: 65%" value="${Sg }">(厘米)</td >
+          <td ><INPUT  name="bip.bipLong"   maxlength="3" style="WIDTH: 65%" value="${bip.bipLong }">(厘米)</td >
           <td align="right">体　　重</td >
-          <td ><INPUT  name="tz"   maxlength="3"  style="WIDTH: 65%" value="${Tz }">(公斤)</td >
+          <td ><INPUT  name="bip.bipWeight"   maxlength="3"  style="WIDTH: 65%" value="${bip.bipWeight }">(公斤)</td >
         </tr >
   
         <tr class="line2">
@@ -508,49 +581,49 @@
         
 			<tr class="line2">
 				<td align="right"><span class="redtxt">*</span>文化程度</td >
-				<td><select id="whcd1" name="whcd1"  style="width:100%" >${Educationallevel }</select></td>
+				<td><select id="bipWhcd" name="bip.bipWhcd"  style="width:100%" >${Educationallevel }</select></td>
 				<td align="right">所学专业</td >
-				<td ><input  name="sxzy" maxlength="32"   style="WIDTH: 100%" value="${Sxzy }"></td >
+				<td ><input  name="bip.bipSubject" maxlength="32"   style="WIDTH: 100%" value="${bip.bipSubject }"></td >
 				<td align="right">毕业时间</td >
-				<td ><input  name="bysj" maxlength="32"   style="WIDTH: 100%" value="${Bysj }"></td >
+				<td ><input  name="bip.bipBysj" maxlength="32"   style="WIDTH: 100%" value="${bip.bipBysj }"></td >
 			</tr>
 				<tr class="line1">
 					<td align="right">毕业学校</td >
-					<td colspan="5"><input  name="byxx" maxlength="32"   style="WIDTH: 100%" value="${Byxx }"></td >					
+					<td colspan="5"><input  name="bip.bipGraduateschool" maxlength="32"   style="WIDTH: 100%" value="${bip.bipGraduateschool }"></td >					
 				</tr>
 				
 				<tr class="line2">
 					<td align="right"><span class="redtxt">*</span>固定电话</td >
-					<td><INPUT  id="lxdh" name="lxdh"    style="WIDTH: 100%" value="${Telephone }" maxlength="32"></td >
+					<td><INPUT  id="bipConTelephone" name="bip.bipConTelephone"    style="WIDTH: 100%" value="${bip.bipConTelephone }" maxlength="32"></td >
 					<td width="12%" align="right" ><span class="redtxt">*</span>手　机</td >
-					<td width="21%" ><INPUT id="sj" name="sj"   maxlength="11"  style="WIDTH: 100%" value="${Mobile }">
+					<td width="21%" ><INPUT id="bipConMobile" name="bip.bipConMobile"   maxlength="11"  style="WIDTH: 100%" value="${bip.bipConMobile }">
 					</td>
 					<td align="right">E-mail</td >
-					<td width="21%"><INPUT  name="email" maxlength="48"  style="WIDTH: 100%" value="${Email }"></td >
+					<td width="21%"><INPUT  name="bip.bipConEmail" maxlength="48"  style="WIDTH: 100%" value="${bip.bipConEmail }"></td >
 				</tr>
 				<tr class="line1">
 					<td align="right">邮政编码</td >
-					<td ><INPUT  name="yzbm" maxlength="6"   style="WIDTH: 100%" value="${Postcode }"></td >
+					<td ><INPUT  name="bip.bipConPostcode" maxlength="6"   style="WIDTH: 100%" value="${bip.bipConPostcode }"></td >
 					<td align="right">联系人</td >
-					<td ><INPUT  name="lxr" maxlength="32"    style="WIDTH: 100%" value="${Contact }"></td >
+					<td ><INPUT  name="bip.bipConContact" maxlength="32"    style="WIDTH: 100%" value="${bip.bipConContact }"></td >
 					<td align="right" >联系人电话</td >
-					<td ><INPUT  name="lxrdh" maxlength="32"   style="WIDTH: 100%" value="${Contacttel }"></td >
+					<td ><INPUT  name="bip.bipConContacttel" maxlength="32"   style="WIDTH: 100%" value="${bip.bipConContacttel }"></td >
 				</tr>
 				<tr class="line2">
 				<td width="13%" align="right">居住地址</td >
-				 <td colspan="5"><INPUT  name="jzdz" maxlength="32"   style="WIDTH: 100%" value="${Address }"></td >
+				 <td colspan="5"><INPUT  name="bip.bipResAddress" maxlength="32"   style="WIDTH: 100%" value="${bip.bipResAddress }"></td >
 				</tr >
 				<tr class="line1">
 					<td align="right">第二学历</td >
-					<td colspan="5"><textarea name="qtxl"  style="width:100%" >${Educationallevel2 }</textarea></td >
+					<td colspan="5"><textarea name="bip.bipEducationallevel2"  style="width:100%" >${bip.bipEducationallevel2 }</textarea></td >
 				</tr>
 				<tr class="line2"> 
 		          <td width="13%" align="right" >工作简历</td >
-				  <td class="line1" colspan="5"><textarea name="gzjl" style="width:100%" >${Resume }</textarea> </td >
+				  <td class="line1" colspan="5"><textarea name="bip.bipResume" style="width:100%" >${bip.bipResume }</textarea> </td >
 		          </tr >
 				<tr class="line1">
 				<td width="13%" align="right">其他说明</td >
-				 <td colspan="5"><textarea name="qtsm" style="width:100%">${Qtsm }</textarea></td >
+				 <td colspan="5"><textarea name="bip.bipQtsm" style="width:100%">${bip.bipQtsm }</textarea></td >
 				</tr >
 			</table>
 		</td >
@@ -573,27 +646,27 @@
 	 
 <TABLE width="98%" border=0  align="center" cellPadding=0 cellSpacing=1  class="tablebody" style="display:block" id="c4">
   <tr class="line2">
-      <td width="12%" align="right"><input name="sfdb" type="checkbox"  class="radio" value="${lowersecurity }"></td >
+      <td width="12%" align="right"><input name="bip.bipTLowersecurity" type="checkbox"  class="radio" value="${bip.bipTLowersecurity }"></td >
       <td colspan="18%">          低保人员</td >
-      <td width="12%" align="right" ><input name="sftk" type="checkbox" class="radio" value="${destitute }" ></td >
+      <td width="12%" align="right" ><input name="bip.bipTDestitute" type="checkbox" class="radio" value="${bip.bipTDestitute }" ></td >
       <td width="18%" >          特困人员</td >
-      <td width="12%" align="right" ><input type="checkbox" name="sfyjgxbys"  class="radio" value="${newgraduate }" >  </td >
+      <td width="12%" align="right" ><input type="checkbox" name="bip.bipTNewgraduate"  class="radio" value="${bip.bipTNewgraduate }" >  </td >
       <td width="26%" > 应届高校毕业生 </td >
   </tr >
   <tr class="line1">
-      <td width="12%" align="right"><input name="sffytw" type="checkbox"  class="radio" value="${veteran }" ></td >
+      <td width="12%" align="right"><input name="bip.bipTVeteran" type="checkbox"  class="radio" value="${bip.bipTVeteran }" ></td >
       <td colspan="18%">          复员退伍</td >
-      <td width="12%" align="right" ><input type="checkbox" name="sfwfzr"  class="radio" value="${othercities }"></td >
+      <td width="12%" align="right" ><input type="checkbox" name="bip.bipTOthercities"  class="radio" value="${bip.bipTOthercities }"></td >
       <td width="18%" >          外埠转入</td >
-      <td width="12%" align="right" ><input type="checkbox" name="sfrhfl"  class="radio" value="${rhfl }">  </td >
+      <td width="12%" align="right" ><input type="checkbox" name="bip.bipTRhfl"  class="radio" value="${bip.bipTRhfl }">  </td >
       <td width="26%" > 是否人户分离 </td >
   </tr >
   <tr class="line2">
-      <td width="12%" align="right"><input name="sfnzf" type="checkbox"  class="radio" value="${peasant }" ></td >
+      <td width="12%" align="right"><input name="bip.bipTPeasant" type="checkbox"  class="radio" value="${bip.bipTPeasant }" ></td >
       <td colspan="18%">          农转非</td >
-      <td width="12%" align="right" ><input type="checkbox" name="sfllsf"  class="radio" value="${criminal }" ></td >
+      <td width="12%" align="right" ><input type="checkbox" name="bip.bipTCriminal"  class="radio" value="${bip.bipTCriminal }" ></td >
       <td width="18%" >          两劳释放</td >
-      <td width="12%" align="right" ><input type="checkbox" class="radio" name="sfczjyyhz" value="${czjyyhz }">  </td >
+      <td width="12%" align="right" ><input type="checkbox" class="radio" name="bip.bipTCzjyyhz" value="${bip.bipTCzjyyhz }">  </td >
       <td width="26%" > 是否持再就业优惠证</td >
   </tr >
 </table>
@@ -617,11 +690,11 @@
             <table id="zyjnTable" width="100%" border="0" cellpadding="0" cellspacing="1">
               <tr class="line1"> 
                 <td width="13%" align="right">职业技能</td >
-				<td id="o2" width="19%"><select id="init_zyjn" size="1"  style="WIDTH: 100%"></select></td >
+				<td id="o2" width="19%"><select id="init_zyjn" size="1" name="bipSkills[0].bipSZyjn" style="WIDTH: 100%"></select></td >
                 <td width="11%" align="right">技术等级</td >
-                <td width="18%"><select id="init_jsdj" size="1"  style="WIDTH: 100%" ></select></td >
+                <td width="18%"><select id="init_jsdj" size="1" name="bipSkills[0].bipSJsdj" style="WIDTH: 100%" ></select></td >
                 <td width="11%" align="right">从事年限</td >
-                <td width="15%"> <INPUT id="init_csnx" style="WIDTH: 100%" maxlength="2"> </td>
+                <td width="15%"> <INPUT id="init_csnx" name=" bipSkills[0].bipSYears" style="WIDTH: 100%" maxlength="2"> </td>
                 <td width="7%" align="center" > 
                   <input id="zyjntj" type="button"  value="添加" class="BUTTON2"></td >
                 <td width="8%" align="center"> 
@@ -632,11 +705,11 @@
             <table id="jywyTable" width="100%"  align="center" border="0" cellpadding="0" cellspacing="1"  style="word-break:break-all;width:fixed">
               <tr class="line2" align="center" > 
                 <td width="13%" align="right">具有外语 </td >
-                <td width="19%"><select id="init_jywy" size="1"  style="WIDTH: 100%"></select></td >
+                <td width="19%"><select id="init_jywy" size="1"  name="bipForeignlanguags[0].bipFlJywy"  style="WIDTH: 100%"></select></td >
                 <td width="10%" align="right">熟练程度 </td >
                 <td width="18%"><select id="init_wyslcd" size="1" style="WIDTH: 100%"></select></td >
                 <td width="10%" align="right">外语说明 </td >
-                <td width="15%"><INPUT id="init_wysm" style="WIDTH: 100%"></td >
+                <td width="15%"><INPUT id="init_wysm" name="bipForeignlanguags[0].bipFlWysm" style="WIDTH: 100%"></td >
                 <td width="7%" align="center"> 
                 <input id="wytj" name="wytj" type="button"  value="添加" class="BUTTON2"></td >
                 <td width="8%" align="center"> 
@@ -647,11 +720,10 @@
 			  <table  width="100%" border="0" cellpadding="0" align="center"  cellspacing="1">
               <tr class="line1" align="center" >
                 <td width="13%" align="right">计算机等级</td >
-                <td width="19%"><select name="jsjdj" size="1"  style="WIDTH: 100%" >
-                ${Computergrade }
+                <td width="19%"><select name="bip.bipPcDj" size="1"  style="WIDTH: 100%" > ${Computergrade }
                 </select></td >
                 <td width="10%" align="right">熟练程度</td >
-                <td width="18%"><select name="jsjslcd" size="1" style="WIDTH: 100%" >
+                <td width="18%"><select name="bip.bipPcSlcd" size="1" style="WIDTH: 100%" >
                 ${ComputerProficiency }
                 </select></td >
 				<td width="10%"></td><td width="15%"></td><td width="7%"></td><td width="8%"></td>
@@ -679,17 +751,17 @@
     	<TABLE width="100%" border=0 cellPadding=0 cellSpacing=1 class="tablebody">
         <tr class="line1">
           <td width="13%" align="right">单位性质</td >
-          <td width="22%" ><select name="dwxz" size="1"  style="WIDTH: 100%" >${Orgtype }</select></td >
+          <td width="22%" ><select name="zjGrqzdjb.dwxx" size="1"  style="WIDTH: 100%" >${Orgtype }</select></td >
           <td width="10%" align="right">单位行业</td >
-          <td width="21%" ><select name="dwhy" size="1"  style="WIDTH: 100%">${Industry }</select></td >
+          <td width="21%" ><select name="zjGrqzdjb.dwhy" size="1"  style="WIDTH: 100%">${Industry }</select></td >
           <td width="11%" align="right">经济类型</td >
-          <td width="23%" ><select name="dwjjlx" size="1"  style="WIDTH: 100%">${Regtype }</select></td >
+          <td width="23%" ><select name="zjGrqzdjb.dwjjlx" size="1"  style="WIDTH: 100%">${Regtype }</select></td >
         </tr>
         <tr class="line2">
           <td align="right">工作地区</td >
           <td >
-		     <select id="gzdq" name="gzdq" size="1"  style="WIDTH: 100%">${Regioncode }</select></td>
-             <td><input type='hidden' name='qzbh' value='${Qzbh }'></td>
+		     <select id="gzdq" name="zjGrqzdjb.gzdq" size="1"  style="WIDTH: 100%">${Regioncode }</select></td>
+             <td><input type='hidden' name='zjGrqzdjb.qzbh' value='${Zj_grqzdjb.qzbh }'></td>
              <td></td>
              <td></td>
              <td></td>
@@ -698,11 +770,11 @@
 		  <table width="100%" border="0" cellpadding="0" cellspacing="1">
 		    <tr class="line2">
 		      <td width="14%" align="right">是否接收短信</td >
-		      <td width="17%"><input name="sfjsdx" type="checkbox" value="${SFJSDX }"  class="radio" ></td >
+		      <td width="17%"><input name="zjGrqzdjb.sfjsdx" type="checkbox" value="${zjGrqzdjb.sfjsdx }"  class="radio" ></td >
 		      <td width="14%" align="right">是否参加培训</td >
-		      <td width="14%"><input name="sfcjpx" type="checkbox" value="${SFCJPX }"  class="radio"></td >
+		      <td width="14%"><input name="zjGrqzdjb.sfcjpx" type="checkbox" value="${zjGrqzdjb.sfcjpx }"  class="radio"></td >
 		      <td width="18%" align="right">是否接受职业指导</td >
-		      <td width="23%"><input name="sfjszyzd" type="checkbox" value="${SFJSZYZD }"  class="radio"></td >
+		      <td width="23%"><input name="zjGrqzdjb.sfjszyzd" type="checkbox" value="${zjGrqzdjb.sfjszyzd }"  class="radio"></td >
 		    </tr>
 		</table>
     </td >
@@ -729,16 +801,16 @@
 			  border=0 cellPadding=0 cellSpacing=1  class="tablebody" style="display:block"  >
 			  <tr class="line1" align="center">
 			    <td width="40"><span class="redtxt">*</span>工种</td>
-				<td id="o1" width="110"><select class="qzgz1" id="qzgz1" size="1"  style="WIDTH: 100%"></select></td >
+				<td id="o1" width="110"><select class="qzgz1" id="qzgz1" size="1" name="zjGrqzgzbs[0].gz" style="WIDTH: 100%"></select></td >
 			    <td width="50">用工形式</td>
-				<td width="80"><select class="ygxs1" id="ygxs1" size="1"  style="WIDTH: 100%"></select></td >
+				<td width="80"><select class="ygxs1" id="ygxs1" size="1" name="zjGrqzgzbs[0].ygxs" style="WIDTH: 100%"></select></td >
 			    <td width="50" align="right">月薪</td>
 				<td width="140">
 					<div id="yx" style="display:">
 					<table><tr><td>
-					<input class="zdyx1" id="zdyx1" type="text" style="width:40px" > 
+					<input class="zdyx1" id="zdyx1" name="zjGrqzgzbs[0].zdyx" type="text" style="width:40px" > 
 					至
-					<input class="zgyx2" id="zgyx2" type="text" style="width:40px" >
+					<input class="zgyx2" id="zgyx2" name="zjGrqzgzbs[0].zgyx" type="text" style="width:40px" >
 					元</td></tr></table>
 					</div>
 				</td >

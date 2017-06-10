@@ -90,4 +90,10 @@ public class ZjGrqzgzb {
     public void setGdsj(String gdsj) {
         this.gdsj = gdsj == null ? null : gdsj.trim();
     }
+
+	@Override
+	public String toString() {
+		return "ZjGrqzgzb [qzgzbh=" + qzgzbh + ", qzbh=" + qzbh + ", xh=" + xh + ", gz=" + gz + ", ygxs=" + ygxs
+				+ ", zdyx=" + zdyx + ", zgyx=" + zgyx + ", djsj=" + djsj + ", gdsj=" + gdsj + "]";
+	}
 }

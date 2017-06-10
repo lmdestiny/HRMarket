@@ -1,5 +1,24 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.hrm.dao.BipSkillMapper" >
- 
+<resultMap type="com.hrm.vo.BipSkill" id="result">
+	<id column="bip_s_id" property="bipSId" /> 
+	<result column="bip_id" property="bipId"/>
+	<result column="bip_s_years" property="bipSYears"/>
+	<result column="bip_s_zyjn" property="bipSZyjn"/>
+	<result column="bip_s_jsdj" property="bipSJsdj"/>
+</resultMap>
+
+<!-- 插入技能-->
+<insert id="insert" parameterType="com.hrm.vo.BipSkill">
+	insert into bip_skill(bip_s_id,bip_id,bip_s_years,bip_s_zyjn,bip_s_jsdj) values(#{bipSId},#{bipId},#{bipSYears},#{bipSZyjn},#{bipSJsdj})
+</insert>
+
+<select id="getbip_skillById" parameterType="String" resultMap="result"> 
+	select * from bip_skill where bip_id=#{bipId}
+</select>
+
+<delete id="deleteSkillById" parameterType="String">
+	delete from bip_skill where bip_s_id=#{code}
+</delete>
 </mapper>

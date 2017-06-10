@@ -1,5 +1,22 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.hrm.dao.ForeignMapper" >
+<resultMap type="com.hrm.vo.BipForeignlanguage" id="result">
+	<id column="bip_fl_id" property="bipFlId"/>
+	<result column="bip_id" property="bipId"/>
+	<result column="bip_fl_years" property="bipFlYears"/>
+	<result column="bip_fl_jywy" property="bipFlJywy"/>
+	<result column="bip_fl_wysm" property="bipFlWysm"/>
+</resultMap>
+ <!-- 插入外语 -->
+ <insert id="insert" parameterType="com.hrm.vo.BipForeignlanguage">
+ 	insert into bip_foreignlanguage(bip_fl_id,bip_id,bip_fl_years,bip_fl_jywy,bip_fl_wysm) values(#{bipFlId},#{bipId},#{bipFlYears},#{bipFlJywy},#{bipFlWysm})
+ </insert>
+ <select id="getBip_flById" parameterType="String" resultMap="result">
+ 	select * from bip_foreignlanguage where bip_id=#{bipId}
+ </select>
  
+ <delete id="delectForeignByFlId" parameterType="String">
+ 	delete from bip_foreignlanguage where bip_fl_id=#{code}
+ </delete>
 </mapper>
