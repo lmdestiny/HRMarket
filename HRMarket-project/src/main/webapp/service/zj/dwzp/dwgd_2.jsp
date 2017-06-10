@@ -91,16 +91,16 @@
               <TD align="center" class="line4" >联系电话 </TD>
               <TD align="center" class="line4" >登记日期 </TD>
             </TR>
-           <c:forEach items="${list}" var="list">
+           <c:forEach items="${DwInfo}" var="list" varStatus="status">
               <TR>
-              <TD align="center" class="line4">1</TD>
+              <TD align="center" class="line4">${status.count}</TD>
     
               <TD align="center" class="line4" >         
               <INPUT TYPE="checkbox" class="radio" name="pkdata" onclick="" value="${list.zpbh}"></TD>
                         
-              <TD align="center" class="line4" >${list.bio_name}</TD>
-              <TD align="center" class="line4" >${list.bio_bua_address}</TD>
-              <TD align="center" class="line4" >${list.lxrsj}</TD>
+              <TD align="center" class="line4" >${list.dwmc}</TD>
+              <TD align="center" class="line4" >${list.dwdz}</TD>
+              <TD align="center" class="line4" >${list.lxdh}</TD>
               <TD align="center" class="line4" >${list.djsj}</TD>
             </TR>
             </c:forEach>

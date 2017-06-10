@@ -50,20 +50,20 @@
   		zj_dwzpdjb.lxrsj lxdh,zj_dwzpdjb.djsj djsj,zj_dwzpdjb.zpbh zpbh
   		from bio,zj_dwzpdjb 
   		where bio.bio_id=zj_dwzpdjb.dwbh 
-  			<if test="dwfrm!=null">
+  			<if test="dwfrm!=''">
   				and bio.bio_no=#{dwfrm}
   			</if>
-  			<if test="dwmc!=null">
+  			<if test="dwmc!=''">
   				and bio.bio_name=#{dwmc}
   			</if>
-  			<if test="djsjq!=null">
-  				and ZjDwzpdjb.djsj &lt;=#{djsjq}
+  			<if test="djsjq!=''">
+  				and zj_dwzpdjb.djsj &gt;=#{djsjq}
   			</if>
-  			<if test="djsjz!=null">
-  				and ZjDwzpdjb.djsj &gt;=#{djsjz}
+  			<if test="djsjz!=''">
+  				and zj_dwzpdjb.djsj &lt;=#{djsjz}
   			</if>
-  			<if test="sfdj!=null">
-  				and ZjDwzpdjb.sfdj=#{sfdj}
+  			<if test="sfdj!=''">
+  				and zj_dwzpdjb.sfdj=#{sfdj}
   			</if>
   </select>
 </mapper>

@@ -45,8 +45,8 @@
          }
         form1.bc.disabled=true;
         form1.qx.disabled=true;
-       // form1.action="<%=request.getContextPath()%>/service/zj/dwzp/dwgd_2.jsp";
-        form1.action="dwgd.do?method=dwgd1";
+       form1.action="<%=request.getContextPath()%>/service/zj/dwzp/dwgd/gdcx.do";
+        //form1.action="dwgd.do?method=dwgd1";
         
       	
         form1.submit();
@@ -114,7 +114,10 @@
                 <tr> 
                   <td width="90"  align="right">登记时间起</td>
 				  <td width="23"  align="right"></td>
-                  <td width="160"><textarea name="djrqq" style='width:100%' class='mask'  htcurl="url(<%=request.getContextPath() %>/common/htc/format.htc)"  rows="1" cols="10" mask='date' maxlength='10' ></textarea></td>
+                  <td width="160">
+                  <input type="date" name="djrqq"/>
+                  <!--  <textarea name="djrqq" style='width:100%' class='mask'  htcurl="url(<%=request.getContextPath() %>/common/htc/format.htc)"  rows="1" cols="10" mask='date' maxlength='10' ></textarea>-->
+                  </td>
 		  <td width="24"  align="right"></td>
         </tr>
       </table></TD>
@@ -124,7 +127,10 @@
         <tr> 
           <td width="90"  align="right">登记时间止</td>
 		  <td width="23"  align="right"></td>
-          <td width="160"><textarea name="djrqz" style='width:100%' class='mask'  htcurl="url(<%=request.getContextPath() %>/common/htc/format.htc)"  rows="1" cols="10" mask='date' maxlength='10' ></textarea></td>
+          <td width="160">
+          	<input type="date" name="djrqz"/>
+          	<!-- <textarea name="djrqz" style='width:100%' class='mask'  htcurl="url(<%=request.getContextPath() %>/common/htc/format.htc)"  rows="1" cols="10" mask='date' maxlength='10' ></textarea> -->
+          	</td>
 				  <td width="24"  align="right"></td>
                 </tr>
               </table></TD>
