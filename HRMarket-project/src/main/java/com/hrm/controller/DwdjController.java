@@ -104,7 +104,7 @@ public class DwdjController {
 			return RprtypeOperation.getOption();
 		}else if("zpgz".equals(code)){
 			return SpecialtyOperation.getOption();
-		}else if("gz0".equals(code)){
+		}else if("zhong".equals(code)){
 			return SpecialtyOperation.getSelectedGz(str, "gz1");
 		}else if("gz1".equals(code)){
 			return SpecialtyOperation.getSelectedGz(str, "gz2");
@@ -193,21 +193,22 @@ public class DwdjController {
 			String gzdd,String gwms,String fldy,HttpServletResponse response) throws IOException {
 		String zrs="";
 		if(nars!=null&&nvrs!=null){
-			Integer n=Integer.valueOf(nars)+Integer.valueOf(nvrs);
+			Integer n=Integer.valueOf(nars)+Integer.valueOf(nvrs)+Integer.valueOf(xbbx);
 			zrs=n.toString();
 		}
 		PrintWriter printWriter=response.getWriter();
 		if(dwbh==null){
 			printWriter.print("<script type=\"text/javascript\">alert(\"未获取到单位信息，请检查！\");window.location.href='/service/zj/dwzp/dwdj_2.jsp'</script>");
-		}
-		ZjDwzpdjb dwzpdjb=new ZjDwzpdjb(dwbh, dwlxr, lxrsfzhm, lxrsj, "0", StaticDataConfigration.getDengjiyouxiaoqi(), new Date(new java.util.Date().getTime())+"", "");
-		ZjDwzpgzb dwzpgzb=new ZjDwzpgzb(zpgz, zpgzbm, gwlb, zrs, nars, nvrs, xbbx, hjxz, fbkssj, 
-				fbjssj, zxnl, zdnl, whcd, ygxs, zdyx, zgyx, hyzk, jkzk, rylb, sfyjgxbys, zpdq, jyyz, yzslcd, jsjdj, 
-				jsjslcd, gwms, gzdd, "0", "0", StaticDataConfigration.getDengjiyouxiaoqi()+"", new Date(new java.util.Date().getTime())+"", "");	
-		if(DwzpgzbService.save(dwzpgzb, dwzpdjb)){
-			printWriter.print("<script type=\"text/javascript\">alert(\"录入成功！\");window.location.href='/service/zj/dwzp/dwdj_3.jsp'</script>");
 		}else{
-			printWriter.print("<script type=\"text/javascript\">alert(\"录入失败！工种已存在！\");window.location.href='/service/zj/dwzp/dwdj_3.jsp'</script>");
+			ZjDwzpdjb dwzpdjb=new ZjDwzpdjb(dwbh, dwlxr, lxrsfzhm, lxrsj, "0", StaticDataConfigration.getDengjiyouxiaoqi(), new Date(new java.util.Date().getTime())+"", "");
+			ZjDwzpgzb dwzpgzb=new ZjDwzpgzb(zpgz, zpgzbm, gwlb, zrs, nars, nvrs, xbbx, hjxz, fbkssj, 
+					fbjssj, zxnl, zdnl, whcd, ygxs, zdyx, zgyx, hyzk, jkzk, rylb, sfyjgxbys, zpdq, jyyz, yzslcd, jsjdj, 
+					jsjslcd, gwms, gzdd, "0", "0", StaticDataConfigration.getDengjiyouxiaoqi()+"", new Date(new java.util.Date().getTime())+"", "");	
+			if(DwzpgzbService.save(dwzpgzb, dwzpdjb)){
+				printWriter.print("<script type=\"text/javascript\">alert(\"录入成功！\");window.location.href='/service/zj/dwzp/dwdj_3.jsp'</script>");
+			}else{
+				printWriter.print("<script type=\"text/javascript\">alert(\"录入失败！工种已存在！\");window.location.href='/service/zj/dwzp/dwdj_3.jsp'</script>");
+			}
 		}
 	}
 	

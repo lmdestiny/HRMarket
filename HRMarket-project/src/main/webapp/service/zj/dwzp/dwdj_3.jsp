@@ -193,8 +193,16 @@
 		var rtValue;
 		var dx=(screen.height/2-85)+"";
    		var dy=(screen.width/2-200)+"";
-   		
-		rtValue=window.showModalDialog("<%=request.getContextPath()%>/common/choosegz_ModalDialog_qyc.jsp",null,"dialogTop="+dx+";dialogLeft="+dy+";dialogHeight=170px;dialogWidth=400px;help=no;fullscreen=1;status=no;center=yes");
+   		var dl=(screen.width/4+100)+"";
+   		var rtwindow;
+   		if(navigator.userAgent.indexOf("Chrome") >0 ){
+   			rtwindow=window.open("<%=request.getContextPath()%>/common/choosegz_ModalDialog_qyc.jsp","工种选择","location=no,status=no,toolbar=no,height="+dx+",width="+dy+",left="+dl);
+   			if(rtwindow.closed){
+   				alert(window.rs);
+   			}
+   		}else{
+   			rtValue=window.showModalDialog("<%=request.getContextPath()%>/common/choosegz_ModalDialog_qyc.jsp",null,"dialogTop="+dx+";dialogLeft="+dy+";dialogHeight=170px;dialogWidth=400px;help=no;fullscreen=1;status=no;center=yes");
+   		}
 		if(rtValue!=undefined&&rtValue!=""){
 			document.all.zpgztd.removeChild(form1.zpgz);
 			document.all.zpgztd.innerHTML="<select name=\"zpgz\" style=\"WIDTH: 100%\" onclick=\"setZymc()\">"+rtValue+"</select>";
@@ -336,14 +344,23 @@
 						</tr>
 						<tr class="line2">
 							<td align="right" width="140">开始时间</td>
-							<td><textarea name="fbkssj" style="WIDTH: 100%" class='mask'
+							<td>
+							
+							<input type="date" name="fbkssj" />
+							<!--  <textarea name="fbkssj" style="WIDTH: 100%" class='mask'
 									htcurl="url(<%=request.getContextPath()%>/common/htc/format.htc)"
-									rows="1" cols="10" mask='date' maxlength="8"></textarea></td>
+									rows="1" cols="10" mask='date' maxlength="8"></textarea>-->
+							
+							</td>
 
 							<td align="right">截至时间</td>
-							<td><textarea name="fbjssj" style="WIDTH: 100%" class='mask'
+							<td>
+									<input type="date" name="fbjssj"/>
+									<!-- <textarea name="fbjssj" style="WIDTH: 100%" class='mask'
 									htcurl="url(<%=request.getContextPath()%>/common/htc/format.htc)"
-									rows="1" cols="10" mask='date' maxlength="8"></textarea></td>
+									rows="1" cols="10" mask='date' maxlength="8"></textarea> -->
+									
+							</td>
 							<td align="right">年龄</td>
 							<td>
 								<table width="100%" border="0" cellpadding="0" cellspacing="0">

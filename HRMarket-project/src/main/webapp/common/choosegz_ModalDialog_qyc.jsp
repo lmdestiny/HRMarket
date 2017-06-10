@@ -135,7 +135,15 @@
 			selectedValue = "\""+form1.gz3.options[form1.gz3.selectedIndex].value+"\"";
 			selectedText = form1.gz3.options[form1.gz3.selectedIndex].text;
 		}
-		window.returnValue="<option></option><option selected value="+selectedValue+">"+selectedText+"</option>";
+		if(navigator.userAgent.indexOf("Chrome") >0 ){
+			 if(window.opener){
+				 var rs="<option></option><option selected value="+selectedValue+">"+selectedText+"</option>";
+				 window.opener.$("#zpgztd").html("<select name=\"zpgz\" style=\"WIDTH: 100%\" onclick=\"setZymc()\">"+rs+"</select>");	
+			 }	
+		}else{
+			window.returnValue="<option></option><option selected value="+selectedValue+">"+selectedText+"</option>";
+		}
+		
 		window.close();
 	}
 	function escQuit(){
