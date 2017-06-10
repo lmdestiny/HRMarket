@@ -25,7 +25,7 @@ public class BioServiceImpl implements BioService {
 		String id=generateid.getGenerateId();
 		bio.setBio_id(id);
 		bioDao.insert(bio);
-		return id;
+		return id; 
 	}
 
 	@Override

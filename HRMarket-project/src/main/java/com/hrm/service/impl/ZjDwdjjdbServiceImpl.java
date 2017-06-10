@@ -1,5 +1,6 @@
 package com.hrm.service.impl;
 
+import java.sql.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -25,12 +26,21 @@ public class ZjDwdjjdbServiceImpl implements ZjDwdjjdbService {
 	
 	@Override
 	@Transactional
-	public void insert(ZjDwdjjdb dwdjjdb) {
+	public void insert(String zpbh,String djreason) {
+		ZjDwdjjdb dwdjjdb=new ZjDwdjjdb();
 		boolean flag=zjDwzpdjbService.updateDjjd(dwdjjdb.getZpbh());
 		dwdjjdb.setDwdjjdbh(generateid.getGenerateId());
+		dwdjjdb.setZpbh(zpbh);
+		dwdjjdb.setGdsj("");
+		
 		if (flag) {
+			dwdjjdb.setDjyy(djreason);
+			dwdjjdb.setDjsj(new Date(new java.util.Date().getTime())+"");
 			ZjDwdjjdbdao.insertDJ(dwdjjdb);
 		}else {
+			dwdjjdb.setJdsj(new Date(new java.util.Date().getTime())+"");
+			dwdjjdb.setJdyy(djreason);
+			
 			ZjDwdjjdbdao.insertJD(dwdjjdb);
 		}
 	}
