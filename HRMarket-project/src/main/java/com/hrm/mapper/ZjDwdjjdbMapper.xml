@@ -2,4 +2,68 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.hrm.dao.ZjDwdjjdbMapper" >
   
+  <insert id="insert" parameterType="com.hrm.vo.ZjDwdjjdb">
+  		insert into zj_dwdjjdb values(#{dwdjjdbh},#{zpbh},#{djyy},#{djsj},
+  		#{jdyy},#{jdsj},#{gdsj})
+  </insert>
+  <insert id="insertDJ" parameterType="com.hrm.vo.ZjDwdjjdb">
+  		insert into zj_dwdjjdb(dwdjjdbh,zpbh,djyy,djsj,gdsj) 
+  		values(#{dwdjjdbh},#{zpbh},#{djyy},#{djsj},#{gdsj})
+  </insert>
+  <insert id="insertJD" parameterType="com.hrm.vo.ZjDwdjjdb">
+  		insert into zj_dwdjjdb(dwdjjdbh,zpbh,jdyy,jdsj,gdsj) 
+  		values(#{dwdjjdbh},#{zpbh},#{jdyy},#{jdsj},#{gdsj})
+  </insert>
+  <update id="update" parameterType="com.hrm.vo.ZjDwdjjdb">
+  		update zj_dwdjjdb set  zpbh=#{zpbh},djyy=#{djyy},djsj=#{djsj},
+  		jdyy=#{jdyy},jdsj=#{jdsj},gdsj=#{gdsj}  where dwdjjdbh={dwdjjdbh}
+  </update>
+  <delete id="delete" parameterType="String">
+  		delete from zj_dwdjjdb where dwdjjdbh={dwdjjdbh}
+  </delete>
+  <select id="getAll" resultType="com.hrm.vo.ZjDwdjjdb" parameterType="String">
+  		select * from zj_dwdjjdb order by dwdjjdbh
+  </select>
+  <select id="getbyFRM"  parameterType="String" resultType="com.hrm.vo.BioDj">
+  		select zj_dwzpdjb.sfdj zt,bio.bio_name dwmc,bio.bio_bua_address dwdz,
+  		zj_dwzpdjb.lxrsj lxdh,zj_dwzpdjb.djsj djsj,zj_dwzpdjb.zpbh zpbh
+  		from bio,zj_dwzpdjb 
+  		where bio.bio_id=zj_dwzpdjb.dwbh 
+  		and bio.bio_no=#{dwfrm}
+  </select> 
+  <select id="getbyDWMC" parameterType="String" resultType="com.hrm.vo.BioDj">
+  		select zj_dwzpdjb.sfdj zt,bio.bio_name dwmc,bio.bio_bua_address dwdz,
+  		zj_dwzpdjb.lxrsj lxdh,zj_dwzpdjb.djsj djsj,zj_dwzpdjb.zpbh zpbh
+  		from bio,zj_dwzpdjb 
+  		where bio.bio_id=zj_dwzpdjb.dwbh 
+  		and bio.bio_name=#{dwmc}
+  </select>
+   <select id="getbyZPBH" parameterType="String" resultType="com.hrm.vo.BioDj">
+  		select zj_dwzpdjb.sfdj zt,bio.bio_name dwmc,bio.bio_bua_address dwdz,
+  		zj_dwzpdjb.lxrsj lxdh,zj_dwzpdjb.djsj djsj,zj_dwzpdjb.zpbh zpbh
+  		from bio,zj_dwzpdjb 
+  		where bio.bio_id=zj_dwzpdjb.dwbh 
+  		and zj_dwzpdjb.zpbh=#{zpbh}
+  </select>
+  <select id="getGDinfo" parameterType="com.hrm.vo.ZjDwgd" resultType="com.hrm.vo.BioDj">
+  		select zj_dwzpdjb.gdsj zt,bio.bio_name dwmc,bio.bio_bua_address dwdz,
+  		zj_dwzpdjb.lxrsj lxdh,zj_dwzpdjb.djsj djsj,zj_dwzpdjb.zpbh zpbh
+  		from bio,zj_dwzpdjb 
+  		where bio.bio_id=zj_dwzpdjb.dwbh 
+  			<if test="dwfrm!=''">
+  				and bio.bio_no=#{dwfrm}
+  			</if>
+  			<if test="dwmc!=''">
+  				and bio.bio_name=#{dwmc}
+  			</if>
+  			<if test="djsjq!=''">
+  				and zj_dwzpdjb.djsj &gt;=#{djsjq}
+  			</if>
+  			<if test="djsjz!=''">
+  				and zj_dwzpdjb.djsj &lt;=#{djsjz}
+  			</if>
+  			<if test="sfdj!=''">
+  				and zj_dwzpdjb.sfdj=#{sfdj}
+  			</if>
+  </select>
 </mapper>

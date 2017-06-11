@@ -4,8 +4,8 @@
 		<dba>oracle</dba>
 		<dba-driver>com.mysql.jdbc.Driver</dba-driver>
 		<dba-url>jdbc:mysql://localhost:3306/ldlsc</dba-url>
-		<dba-username>root</dba-username>
-		<dba-password>li220</dba-password>
+		<dba-username>yx</dba-username>
+		<dba-password>8523918</dba-password>
 		<dba-initnum>3</dba-initnum>
 		<dba-maxnum>5</dba-maxnum>
 		<dba-maxidle>2</dba-maxidle>

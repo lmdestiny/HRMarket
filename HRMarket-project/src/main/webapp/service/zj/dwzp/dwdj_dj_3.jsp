@@ -1,5 +1,6 @@
 <%@ page contentType="text/html; charset=UTF-8" %>
 <%@ include file="/common/import.jsp" %>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
 
@@ -55,17 +56,19 @@ function gzdj(){
       <TD width="17%" align="center" class="line4">联系电话</TD>
       <TD width="12%" align="center" class="line4">登记日期</TD>
     </TR>
-<logic:present name="uff" scope="request">
-      <input type="hidden" name="dwzt" value="<bean:write name='uff' property='dwzt'/>">
+	
+	<c:forEach items="${DwInfo }" var="item">
+		<input type="hidden" name="dwzt" value="<bean:write name='uff' property='dwzt'/>">
     <TR class="line2"> 
-      <TD width="10%" align="center" class="line4"><input type="checkbox" name="dwdlbh" value="<bean:write name='uff' property='dwdlbh'/>" onclick="either(this,form1.cb)"><bean:write name="uff" property="dwzt"/></TD>
-      <TD width="24%" align="center" class="line4"><bean:write name="uff" property="bio_name"/>${DwInfo.bio_name}</TD>
-      <TD width="24%" align="center" class="line4"><bean:write name="uff" property="bio_bua_address"/>${DwInfo.bio_bua_address}</TD>
-      <TD width="17%" align="center" class="line4"><bean:write name="uff" property="bio_con_fax"/>${DwInfo.lxrsj}</TD>
-      <TD width="12%" align="center" class="line4"><bean:write name="uff" property="djsj"/>${DwInfo.djsj}</TD>
+      <!--<TD width="10%" align="center" class="line4">  <input type="checkbox" name="dwdlbh" value="<bean:write name='uff' property='dwdlbh'/>" onclick="either(this,form1.cb)"><bean:write name="uff" property="dwzt"/></TD>-->
+     <TD width="24%" align="center" class="line4"><input type="checkbox" name="zpbhs" value="${item.zpbh }" onclick="either(this,form1.cb)"></TD>
+      <TD width="24%" align="center" class="line4"><bean:write name="dwmc" property="bio_name"/>${item.dwmc}</TD>
+      <TD width="24%" align="center" class="line4"><bean:write name="dwdz" property="bio_bua_address"/>${item.dwdz}</TD>
+      <TD width="17%" align="center" class="line4"><bean:write name="lxdh" property="bio_con_fax"/>${item.lxdh}</TD>
+      <TD width="12%" align="center" class="line4"><bean:write name="djsj" property="djsj"/>${item.djsj}</TD>
     </TR>
-
-</logic:present>
+	</c:forEach>
+	
 	<tr align="center" > 
 		<td align="center" colspan="6" class="line2"> 
 	      <input name="dwbc" type="button" class="BUTTONs6"  value="单位冻结/解冻" onclick="dwdj()">&nbsp;&nbsp;

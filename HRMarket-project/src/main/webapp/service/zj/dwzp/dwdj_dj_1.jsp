@@ -21,7 +21,7 @@
 	var p=document.getElementById("bio_no").value;
 
 	var xhr=new XMLHttpRequest();
-		xhr.open("get","<%=request.getContextPath()%>/service/zj/dwzp/dwdj_dj.do?bio_no="+p,true);		
+		xhr.open("get","<%=request.getContextPath()%>/service/zj/dwzp/dwdj_djajax.do?bio_no="+p,true);		
 	xhr.onreadystatechange=function(){
 		if(xhr.readyState==4){
 			var nn=xhr.responseText.split(",");
@@ -92,7 +92,9 @@ border=1 cellPadding=0 cellSpacing=0 bordercolor="#FFFFFF" class=tablebody>
   <TR align="center"  class="line2"> 
     <TD>
       <INPUT name="button1" type="button"class="BUTTONs3" value="确 定" onClick="doSubmit()">
-      &nbsp;&nbsp;<INPUT class="BUTTONs3" type="reset" value="取 消" name="button2"> 
+      &nbsp;&nbsp;
+      <INPUT class="BUTTONs3" type="reset" value="取 消" name="button2"
+      onclick="window.location.href='<%=request.getContextPath()%>/service/zj/dwzp/home';"> 
     </TD>
   </TR>
 </table>

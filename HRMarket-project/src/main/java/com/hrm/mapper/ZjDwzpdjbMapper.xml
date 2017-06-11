@@ -1,5 +1,28 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.hrm.dao.ZjDwzpdjbMapper" >
- 
+ 	<insert id="insert" parameterType="com.hrm.vo.ZjDwzpdjb">
+ 		insert into zj_dwzpdjb values(#{zpbh},#{dwbh},#{dwlxr},#{lxrsfzhm},
+ 		#{lxrsj},#{sfdj},#{djyxq},#{djsj},#{gdsj})
+ 	</insert>
+ 	<update id="update" parameterType="com.hrm.vo.ZjDwzpdjb">
+ 		update zj_dwzpdjb set dwbh=#{dwbh},dwlxr=#{dwlxr},lxrsfzhm=#{lxrsfzhm},
+ 		lxrsj=#{lxrsj},sfdj=#{sfdj},djyxq=#{djyxq},djsj=#{djsj},gdsj=#{gdsj} where zpbh=#{zpbh}
+ 	</update>
+ 	<update id="updateDjjd" parameterType="String">
+ 		update zj_dwzpdjb set sfdj=#{0} where zpbh=#{1}
+ 	</update>
+ 	<delete id="delete" parameterType="String">
+ 		delete from zj_dwzpdjb where zpbh=#{zpbh}
+ 	</delete>
+ 	<select id="getAll" resultType="com.hrm.vo.ZjDwzpdjb">
+ 		select * from zj_dwzpdjb
+ 	</select>
+ 	<select id="getOne"  parameterType="String" resultType="com.hrm.vo.ZjDwzpdjb">
+ 		select * from zj_dwzpdjb where zpbh=#{zpbh}
+ 	</select>
+ 	<select id="getOnebyDWBH" parameterType="String" resultType="com.hrm.vo.ZjDwzpdjb">
+ 		select * from zj_dwzpdjb where dwbh=#{dwbh}
+ 	</select>
+ 	
 </mapper>
